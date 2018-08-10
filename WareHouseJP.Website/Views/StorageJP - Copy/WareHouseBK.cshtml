@@ -1,0 +1,72 @@
+﻿@model IEnumerable<TrackingDetail>
+
+@foreach (var detail in Model)
+{
+    <div style="display:inline-block;width:25%;" class="box-ok">
+        <div class="title-box">
+            <div class="table-header">
+                @detail.TrackingSubCode
+                <div style="position: absolute;top: 6px;right:-15px;">
+                    <div class="nav-search" id="nav-search">                       
+                        <a href="javascript:;" style="display:inline-block;">
+                            <span class="btn btn-sm btn-success no-border config-item">
+                                <i class="fa fa-plus-circle"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+        <div class="height-spit">
+            @foreach (var item in detail.StorageItemJPs)
+            {
+                <div class="box-wasehouse">
+                    <div class="name-jp">@item.NameJP</div>
+                    <div class="jancode">@item.JanCode</div>
+                    <div class="price">@item.Quantity x @item.PriceTax = @item.Amount</div>
+                    <div style="clear:both;"></div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+
+
+
+<style>
+    .box-ok .table-header{
+        position:relative;
+    }
+    .height-spit {
+        overflow: scroll;
+        max-height: 808px;
+    }
+
+    .box-wasehouse {
+        background-color: #f5eeee;
+        padding: 5px;
+        border-bottom: 1px solid #ffffff;
+        width:100%;
+        cursor:move;
+    }
+    .name-jp{
+        line-height:25px;
+        font-size:12px;
+    }
+    .title-box {
+        height: 40px;
+    }
+    .jancode{
+        float:left;color:#d15b47;font-weight:bold;
+    }
+    .price{float:right;color:#0094ff;}
+</style>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.nicescroll.js"></script>
+<script>
+    $(function () {
+        $(".height-spit").niceScroll({ touchbehavior: true, cursorcolor: "#808080", cursoropacitymax: 0.7, cursorwidth: 7, cursorborder: "1px solid #808080", cursorborderradius: "8px", background: "#ccc", autohidemode: "scroll" }).cursor.css({ "background-image": "url(img/mac6scroll.png)" }); // MAC like scrollbar
+    })
+</script>

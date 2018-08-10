@@ -1,0 +1,343 @@
+﻿@model IEnumerable<StorageItemJP>
+
+@{
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+    var StorageJP = ViewBag.StorageJP as StorageJP;
+    UserPage user = new UserPage();
+    PageUtils p = new PageUtils();
+}
+<div class="se-pre-con"></div>
+
+<ol class="breadcrumb editbreadcrum">
+    <li><a href="/" target="_parent"><i class="glyphicon glyphicon-home"></i> Trang chủ</a></li>
+    <li><a href="/StorageJP/" target="_parent">Lưu kho JP</a></li>
+    <li class="active">Quản lý nội dung lưu kho của tracking <span style="font-weight:bold;color:yellow">" @StorageJP.TrackingCode "</span></li>
+</ol>
+<div class="">
+
+    <div class="tabbable">
+
+        <ul class="nav nav-tabs" id="myTab1s">
+            <li class="active">
+                <a data-toggle="tab" href="#home" aria-expanded="true">
+                    <i class="green ace-icon fa fa-home bigger-120"></i>
+                    Tìm và lưu kho
+                </a>
+            </li>
+            @{ int i = 0; Guid idParent = new Guid();}
+            @foreach (var item in StorageJP.TrackingDetails.OrderBy(n => n.TrackingSubCode))
+            {
+                <li class="" style="position:relative;" id="li@(item.Id)">
+                    <a data-toggle="tab" href="#detail@(item.Id)" aria-expanded="false">
+                        <i class="grey ace-icon fa fa-gavel"></i> @item.TrackingSubCode
+                    </a>
+                    <a data-parent="@idParent" class="removeTrackingMain" style="position: absolute;right: -11px;top: -11px;padding:2px;border: none;z-index:9;background: none;box-shadow:none;cursor:pointer;" href="#" data-id="@item.Id">
+                        <i class="red ace-icon fa fa-trash"></i>
+                    </a>
+                </li>
+                i++;
+            }
+
+        </ul>
+
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade active in">
+                <div class="form">
+                    <form action="/StorageItemJP/SearchInternet" method="post" id="search-form">
+                        <table>
+                            <tr>
+                                <td>Từ khóa:</td>
+                                <td><input class="form-control" value="@ViewBag.SearchCode" name="SearchCode" id="SearchCode" /></td>
+                                @*<td class="ckh-search-check">*@
+                                <td>
+                                    @{ string[] searchCate = ViewBag.searchCate as string[];}
+                                    @foreach (var item in (System.Web.Mvc.SelectList)ViewBag.Website)
+                                    {
+                                        <input type="checkbox" name="Website" id="@item.Value" value="@item.Value" /> <label for="@item.Value">@item.Text</label>
+                                    }
+                                    <script>
+                                        @foreach (var item in searchCate)
+                                        {
+                                            <text>$('input#@(item)').attr('checked', 'checked');</text>
+                                        }
+                                    </script>
+                                </td>
+                                <td>
+                                    <input name="StoregeJPId" value="@StorageJP.Id" type="hidden" />
+                                    <button type="submit" id="btnSearchJP" class="btn btn-sm btn-success">
+                                        <span class="glyphicon glyphicon-search"></span> Tìm
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="display-result">
+                            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="center"></th>
+                                        <th>Loại Hàng BLF</th>
+                                        <th>Mã SP</th>
+                                        <th>Jan code</th>
+                                        <th style="width:300px;">Tên hàng JP</th>
+                                        <th>Giá</th>
+                                        <th>Hình</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="tbody">
+                                    @foreach (SearchProductInfo item in ViewBag.listResultSearch)
+                                    {
+                                        <tr class="product-search @item.Id" data-id="@item.Id">
+                                            <td class="center">
+                                                <label class="pos-rel">
+                                                    <input type="radio" name="saveprod" data-id="@item.Id" value="@item.ProductCode" />
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </td>
+                                            <td>@item.CategoryName</td>
+
+                                            <td>@item.ProductCode</td>
+                                            <td><input type="text" value="@item.JanCode" class="form-control" style="width:100px;text-align:center;" /></td>
+                                            <td>
+                                                <textarea class="form-control">@Html.Raw(item.NameJP)</textarea>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="@item.PriceTax" class="form-control" style="width:50px;text-align:center;" />
+                                            </td>
+                                            <td>
+                                                <a href="@item.LinkWeb" target="_blank">
+                                                    <img src="@item.Image" style="width:70px;height:70px;" />
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="attribute-jp">
+                            <div class="form-inline">
+                                <form method="post" action="/StorageItemJP/AddNewItem">
+                                    <input name="StoregeJPId" value="@StorageJP.Id" type="hidden" />
+                                    <input type="hidden" value="" name="IdItem" />
+
+                                    <div>
+                                        <b>Số lượng&nbsp;</b>
+                                        <input class="form-control" style="width:100%;" name="Quantity" value="1" />
+                                    </div>
+                                    <div>
+                                        <b>Loại Hàng BLF&nbsp;</b>
+                                        @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control", @style = "width:210px;" })
+                                    </div>
+                                    <div>
+                                        <b>Xuất xứ&nbsp;</b>
+                                        @Html.DropDownList("MadeIn", null, htmlAttributes: new { @class = "form-control", @style = "width:187px;" })
+                                    </div>
+                                    <div>
+                                        <b>Tình trạng&nbsp;</b>
+                                        @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control", @style = "width:140px;" })
+                                    </div>
+                                    <div>
+                                        <b>Mã chia kiện &nbsp;</b>
+                                        @Html.DropDownList("TrackingCode", null, htmlAttributes: new { @class = "form-control", @style = "width:155px;", @readonly = "readonly" })
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <span class="glyphicon glyphicon-floppy-disk"></span> Lưu kho
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            @{ int j = 0; Guid idParentJ = new Guid();}
+            @foreach (var item1 in StorageJP.TrackingDetails.OrderBy(n => n.CreatedAt))
+            {
+                <div id="detail@(item1.Id)" class="tab-pane fade">
+                    @*<div style="margin:0 auto;" class="div-info-subtracking">
+                            <table id="table@(item1.Id)">
+                                <tr class="item-tracking-detail" data-id="@item1.Id">
+                                    <td>Số kg</td>
+                                    <td>
+                                        <input type="text" value="@item1.Weigh" class="form-control" name="sokg" />
+                                    </td>
+                                    <td>Ghi chú</td>
+                                    <td>
+                                        <textarea class="form-control" name="notes">@item1.Notes</textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>*@
+                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="min-width:50px">Mã SP</th>
+                                <th style="min-width:65px">Jan code</th>
+                                <th style="min-width:100px">Tên hàng JP</th>
+                                <th style="min-width:100px;">Loại</th>
+                                <th style="min-width:100px;">Loại Web</th>
+                                <th>Hình</th>
+                                <th>Giá</th>
+                                <th style="min-width:85px">Số lượng</th>
+                                <th style="min-width:85px">Thành tiền</th>
+                                <th style="min-width:150px;">Chất liệu</th>
+                                <th style="min-width:86px;">Xuất xứ</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="tbody">
+                            @foreach (var item in Model.Where(n => n.TrackingDetailId == item1.Id))
+                            {
+                                <tr class="product-item" data-id="@item.Id" id="@item.Id">
+
+
+                                    <td>
+                                        <input type="text" class="form-control" value="@item.ProductCode" readonly="readonly" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="@item.JanCode" readonly="readonly" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="@Html.Raw(item.NameJP)" />
+                                    </td>
+                                    <td style="line-height:25px;">
+
+                                        @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control CategoryId-" + item.Id, @style = "width:150px;" })
+                                        <script>
+                                            $(function () {
+                                                $(".CategoryId-@item.Id option[value='@item.CategoryId']").attr("selected", "selected");
+                                            })
+                                        </script>
+                                    </td>
+                                    <td style="line-height:25px;">
+
+                                        <span style="color:#d15b47;display:block;font-weight:bold;">
+                                            @item.CategoryName
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="@item.LinkWeb" target="_blank">
+                                            <img src="@item.Image" style="width:70px;height:70px;" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <input type="text" onchange="changePrice(this);" class="form-control" value="@item.PriceTax" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" value="@item.Quantity" />
+                                    </td>
+                                    <td class="amount">@(item.Quantity * item.PriceTax)</td>
+
+                                    <td>
+                                        <textarea class="form-control">@item.Material</textarea>
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("MadeIn", null, htmlAttributes: new { @class = "form-control MadeIn-" + item.Id })
+                                        <script>
+                                            $(function () {
+                                                $(".MadeIn-@item.Id option[value='@item.MadeIn']").attr("selected", "selected");
+                                            })
+                                        </script>
+                                    </td>
+                                    <td>
+                                        <input type="hidden" value="@item.Id" name="StoregeJPId" />
+                                        @if (j == 0)
+                                        {
+                                            idParentJ = item.TrackingDetailId.Value;
+                                            <a href="#" data-id="@item.Id" style="width:91px;" class="delete-item btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i> Xóa</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" data-parent="@idParentJ" data-id="@item.Id" class="delete-item-parent btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i> Xóa</a>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="8"></td>
+                                <td style="text-align:right;">
+                                    <span class="sum_quantity">@item1.StorageItemJPs.Sum(n => n.Quantity)</span>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span class="sum_amount">@item1.StorageItemJPs.Sum(n => n.Amount)</span>
+                                </td>
+                                <td colspan="5"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                j++;
+            }
+
+        </div>
+    </div>
+
+</div>
+<link href="~/better-life/assets/css/ace.min.tab.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/better-life/assets/jquery-number-master/jquery.number.min.js"></script>
+<script src="~/Scripts/searchInternet.js"></script>
+<link href="~/Content/Search.css" rel="stylesheet" />
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="gridSystemModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Thông tin tách kiện</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="" style="padding:15px;">
+                        <div class="form-group">
+                            <label for="TrackingCode">Chọn mã kiện</label>
+                            @Html.DropDownList("TrackingCode", null, htmlAttributes: new { @class = "form-control", @style = "width:100%;" })
+                        </div>
+                        <div class="form-group">
+                            <label for="dialogQuantity">Số lượng</label>
+                            <input type="text" class="form-control" id="dialogQuantity">
+                            <input type="hidden" value="" id="modalId" />
+                            <input type="hidden" value="" id="modaltrackingDetailId" />
+                            <input type="hidden" value="" id="modalItemId" />
+                            <input type="hidden" value="@StorageJP.Id" id="modalStoregeJPId" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btnSaveTracking btn btn-primary">Lưu kiện</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<link href="~/Content/css/select2.css" rel="stylesheet" />
+<link href="~/Content/select2-bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/select2.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+<script>
+    $(function () {
+        $("select").select2({
+            theme: "bootstrap"
+        });
+
+    });
+    $(window).load(function () {
+        $(".se-pre-con").show(); $(".se-pre-con").fadeOut("slow");
+    });
+</script>

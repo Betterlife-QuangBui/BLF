@@ -1,0 +1,203 @@
+﻿@model PagedList.IPagedList<StorageJP>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/StorageJP">Lưu kho JP</a>
+        </li>
+        <li class="active">Danh sách lưu kho</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="col-xs-3">
+        <div class="">
+            <div class="table-header">
+                @*@ViewBag.Title*@
+                &nbsp;
+                <div style="float:right;margin-top:5px; font-weight:normal;">
+                    <div class="nav-search" id="nav-search">
+                        <form class="form-search" method="post" action="/StorageJP">
+                            <span class="input-icon">
+                                <input type="text" name="key" value="@ViewBag.key" placeholder="tìm kiếm ..." class="nav-search-input" autocomplete="off" />
+                                <i class="ace-icon fa fa-search nav-search-icon"></i>
+                            </span>
+                            <a href="/StorageJP/Add" class="iframe_storagejp_add">
+                                <span class="btn btn-sm btn-default no-border config-item">
+                                    <i class="fa fa-plus-circle success"></i>
+                                    <span class="bigger-110">Thêm</span>
+                                </span>
+                            </a>
+                            <span class="btn btn-sm btn-danger no-border config-item delete-all-item">
+                                <i class="fa fa-trash-o danger"></i>
+                                <span class="bigger-110">Xóa tất cả</span>
+                            </span>
+                        </form>
+
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+        <!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                @foreach (var item in Model)
+                {
+                    <div class="box-item">
+                        <div class="tracking">@item.TrackingCode</div>
+                        <div class="kg-size">@item.Weigh - @item.SizeTable.Name</div>
+
+                        <div class="status">
+                            @if (item.StatusId == null)
+                            { <span class="label label-danger">Chưa xử lý</span>}
+                            else
+                            {
+                                <span class="label label-warning">@PageUtils.PackageStatus(item.StatusId.Value)</span>
+                            }
+                        </div>
+                        <div class="info-tracking">
+                            Số kiện: @item.TrackingDetails.Count - Số kg: @item.TrackingDetails.Sum(n => n.Weigh)
+                            <span class="info-date">@(item.ReceivedDate != null ? item.ReceivedDate.Value.ToString("yyyy-MM-dd") : "") @item.ReceivedHour</span>
+                        </div>
+                        <div class="action-item-jp">
+                            <a href="/StorageItemJP/Index/@item.Id" class="iframe_storageitemjp_add">
+                                <span class="btn btn-xs btn-success edit-item">
+                                    <i class="ace-icon fa fa-cubes bigger-120 "></i>
+                                </span>
+                            </a>
+                            <a href="/StorageJP/Edit/@item.Id" class="iframe_storagejp_add">
+                                <span class="btn btn-xs btn-info edit-item">
+                                    <i class="ace-icon fa fa-pencil bigger-120 "></i>
+                                </span>
+                            </a>
+                            <a href="javascript:;" class="delete-item" data-url="/StorageJP/Delete/@item.Id" data-id="tr_@item.Id">
+                                <span class="btn btn-xs btn-danger delete-item" data-url="/StorageJP/Delete/@item.Id" data-id="tr_@item.Id">
+                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                </span>
+                            </a>
+                            <a class="spritTracking" data-href="/StorageJP/WareHouse/@item.Id" href="/StorageJP/WareHouse/@item.Id">
+                                <span class="btn btn-xs btn-default">
+                                    Tách kiện
+                                </span>
+                            </a>
+                            @if (item.TrackingDetails.Count > 0 && item.StorageItemJPs.Count > 0)
+                            {
+                                <a class="export1" data-href="/Export/StorageJP/@item.Id" href="/Export/StorageJP/@item.Id">
+                                    <span class="btn btn-xs btn-warning">
+                                        Xuất thông tin
+                                    </span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                }
+                <div class="pagging">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, key = ViewBag.key }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.page-content -->
+    </div>
+    <div class="col-xs-9">
+        <div class="col-xs-12 wasehouse-info">
+            
+        </div>
+    </div>
+</div>
+<style>
+    .box-item {
+        background-color: #eee9e9;
+        border-bottom: 1px solid #ffffff;
+        padding: 5px;
+        position: relative;
+    }
+    .box-wasehouse:hover{
+        background-color:#ffd800 !important;
+    }
+    .box-item:hover {
+        background-color:#808080;
+    }
+    .kg-size {
+        position: absolute;
+        right: 40%;
+        top: 14%;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .tracking {
+        color: #d15b47;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .info-tracking {
+        font-size: 12px;
+    }
+
+    .info-date {
+        float: right;
+    }
+
+    .status {
+        position: absolute;
+        right: 5px;
+        top: -2px;
+    }
+
+    .pagging {
+        text-align: right;
+        width: 100%;
+        margin-top: -15px;
+    }
+
+    .action-item-jp {
+        text-align: right;
+        width: 100%;
+    }
+    .nav-search .nav-search-input{
+        width:280px;
+    }
+    .box-wasehouse {
+        background-color: #f5eeee;
+        padding: 5px;
+        border-bottom: 1px solid #ffffff;
+        width:100%;
+        cursor:move;
+    }
+</style>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(function () {
+        $(".spritTracking").click(function () {
+            //var img = '<img src="/images/loader-64x/Preloader_3.gif" />';
+           // $(".wasehouse-info").html(img);
+            $(".wasehouse-info").load($(this).attr("data-href"));
+            return false;
+        });
+    })
+    $(document).on("event", "selector", function () {
+
+    });
+</script>
+<style>
+    .drop-active {
+        background: #ffff99 !important;
+    }
+
+    .drop-hover {
+        background: #d15b47 !important;
+    }
+</style>

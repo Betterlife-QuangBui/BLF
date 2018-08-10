@@ -1,0 +1,98 @@
+﻿@model Shipment
+
+@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+}
+
+<div class="body">
+    <div class="head" style="background-color:#adadad;">
+        <div class="head-center title">
+            Thông tin lô hàng
+            <div class="notify">Điền đầy đủ thông tin các mục (*)</div>
+        </div>
+        <span class="close-shipment">x</span>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm("Edit", "Shipment", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tr>
+                    <td class="tt-title-form"><b>Trạng thái</b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Tên lô hàng <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.ShipmentName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ShipmentName, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Ngày bay dự kiến <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td class="edit-datepicker">
+                        @Html.EditorFor(model => model.FlightDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FlightDate, "", new { @class = "text-danger" })
+                        <span class="display-edit-day"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Ghi chú</b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.TextAreaFor(model => model.Notes, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <input type="hidden" value="@Model.Id" name="Id" />
+                        <input type="hidden" value="@Model.Code" name="Code" />
+                        <input type="hidden" value="@Model.CreatedAt" name="CreatedAt" />
+                        <input type="hidden" value="@Model.CreatedBy" name="CreatedBy" />
+                        @if (Request["actionlink"] != null)
+                        {
+                            <input type="hidden" value="@Request["actionlink"]" name="actionlink" />
+                        }
+                        else
+                        {
+                            <input type="hidden" value="" name="actionlink" />
+                        }
+                        <button type="submit" class="btncreate btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                        <button type="reset" class="btn btn-sm btn-danger tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        @Html.ValidationSummary(false)
+                    </td>
+                </tr>
+            </table>
+
+        }
+    </div>
+</div>
+@section scripts{
+    <script>
+        $("td.edit-datepicker input").val($("td.edit-datepicker input").val().split(' ')[0]);
+        $(".display-edit-day").html(day($("td.edit-datepicker input").val()))
+        $(document).on("change", "td.edit-datepicker input", function () {
+            var date = today();
+            if ($(this).val() != "") {
+                date = $(this).val();
+            }
+            $("td.edit-datepicker input").val(date);
+            $(".display-edit-day").html(day(date))
+        })
+    </script>
+}

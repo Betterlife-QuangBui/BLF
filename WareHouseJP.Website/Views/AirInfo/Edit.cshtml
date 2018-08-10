@@ -1,0 +1,122 @@
+﻿@model AirInfo
+
+@{
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+<ol class="breadcrumb editbreadcrum">
+    <li><a href="/" target="_parent"><i class="glyphicon glyphicon-home"></i> Trang chủ</a></li>
+    <li><a href="/AirInfo/" target="_parent">Chuyến bay</a></li>
+    <li class="active">Thêm chuyến bay</li>
+</ol>
+<div class="">
+    @using (Html.BeginForm("Edit", "AirInfo", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <table class="table_insert col-md-12" align="center" style="width:100%;">
+            <tr>
+                <td class="tt-title-form"><b>Mã chuyến bay <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control",@readonly= "readonly", @data_val = "false" } })
+                    @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Tên chuyến bay <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Nơi đi <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.AirFrom, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AirFrom, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Nơi đến <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.AirTo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AirTo, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Ngày bay <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    <div class='input-group date' id='datetimepicker1'>
+                        @Html.EditorFor(model => model.FlightDateFrom, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.FlightDateFrom, "", new { @class = "text-danger" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Giờ bay <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    <div class='input-group date' id='datetimepicker_hour_1'>
+                        @Html.EditorFor(model => model.FlightHourFrom, new { htmlAttributes = new { @class = "form-control hour" } })
+                        @Html.ValidationMessageFor(model => model.FlightHourFrom, "", new { @class = "text-danger" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Ngày đến <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    <div class='input-group date' id='datetimepicker2'>
+                        @Html.EditorFor(model => model.FlightDateTo, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.FlightDateTo, "", new { @class = "text-danger" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Giờ đến <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    <div class='input-group date' id='datetimepicker_hour_2'>
+                        @Html.EditorFor(model => model.FlightHourTo, new { htmlAttributes = new { @class = "form-control hour" } })
+                        @Html.ValidationMessageFor(model => model.FlightHourTo, "", new { @class = "text-danger" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <input type="hidden" value="@Model.CreatedAt" name="CreatedAt" />
+                    <input type="hidden" value="@Model.CreatedBy" name="CreatedBy" />
+                    <button type="submit" class="btncreate btn btn-large btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                    <button type="reset" class="btn btn-large btn-info tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Xóa</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    @Html.ValidationSummary(false)
+                </td>
+            </tr>
+        </table>
+
+    }
+</div>

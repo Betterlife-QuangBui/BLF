@@ -1,0 +1,747 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Danh s&#225;ch kiện h&#224;ng - WareHouseJP Better Life</title>
+    <link href="../better-life/favicon.ico" rel="shortcut icon">
+    <meta name="description" content="Danh s&#225;ch kiện h&#224;ng - WareHouseJP Better Life" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="../better-life/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../better-life/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+
+    <!-- page specific plugin styles -->
+    <!-- text fonts -->
+    <link rel="stylesheet" href="../better-life/assets/fonts/fonts.googleapis.com.css" />
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="../better-life/assets/css/jquery-ui.min.css" />
+    <link href="../better-life/assets/colorbox/example1/colorbox.css" rel="stylesheet" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="../better-life/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="../better-life/assets/css/betterlife.css" />
+    <link href="../Content/Site.css" rel="stylesheet" />
+    <link href="../Content/PagedList.css" rel="stylesheet" />
+    <!--notifyjs-master-->
+    <link href="../notifyjs-master/dist/styles/metro/notify-metro.css" rel="stylesheet" />
+
+
+
+    <!--Update css từ đây-->
+    <!--Selectpicker-->
+    <link href="bootstrap-select.css" rel="stylesheet" />
+    <!--Pagination-->
+    <link href="simplePagination.css" rel="stylesheet" />
+    <!--Kết thúc-->
+
+
+    <link href="../Content/custom.css" rel="stylesheet" />
+    <!--/notifyjs-master-->
+    <!--[if lte IE 9]>
+            <link rel="stylesheet" href="~/better-life/assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
+        <![endif]-->
+    <!--[if lte IE 9]>
+          <link rel="stylesheet" href="~/better-life/assets/css/ace-ie.min.css" />
+        <![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    <script src="../better-life/assets/js/ace-extra.min.js"></script>
+
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+    <!--[if lte IE 8]>
+        <script src="~/better-life/assets/js/html5shiv.min.js"></script>
+        <script src="~/better-life/assets/js/respond.min.js"></script>
+        <![endif]-->
+</head>
+
+<body class="no-skin">
+
+    <div id="navbar" class="navbar navbar-default" style="position:relative;">
+        <div class="navbar-container" id="navbar-container">
+
+            <div class="navbar-header pull-left" style="margin-top:6px;">
+
+                <span class="logo-betterlife-page">OVT</span>
+            </div>
+
+            <div class="navbar-buttons navbar-header pull-right" role="navigation">
+                <div class="agency" style="position: absolute;z-index: 999;right: 215px;color: white;top: 11px;font-weight: bold;">
+                    C&#244;ng Ty OVT
+                </div>
+                <ul class="nav ace-nav">
+                    <li class="light-blue">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+
+                            <img class="nav-user-photo" src="/images/staff/omd6bb4q6r.png" alt="Better Life" />
+                            <span class="user-info">
+                                <small>Xin chào,</small>
+                                Better Life
+                            </span>
+
+                            <i class="ace-icon fa fa-caret-down"></i>
+                        </a>
+
+                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                            <li>
+                                <a href="/Staff/UpdateInfo/betterlife" class="iframe_updateinfo_edit">
+                                    <i class="ace-icon fa fa-cog"></i> Đổi mật khẩu
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/Staff/UpdateInfo/betterlife" class="iframe_updateinfo_edit">
+                                    <i class="ace-icon fa fa-user"></i> Cập nhật thông tin
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="javascript:void(0)" data-toggle="modal" data-target="#logout">
+                                    <i class="ace-icon fa fa-power-off"></i> Đăng xuất
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-container -->
+    </div>
+
+    <!--dialog-logout-->
+    <!-- Modal -->
+    <div id="logout" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fa fa-power-off" aria-hidden="true"></i> &nbsp;Logout</h2>
+                </div>
+                <div class="modal-body">
+                    <h4>Do you want to logout ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-danger"><i class="fa fa-power-off"></i> &nbsp;Logout</a>
+                    <button type="button" class="btn" data-dismiss="modal"><i class="fa fa-times"></i> &nbsp;Cancel</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <form action="/Staff/LogOff" id="logoutForm" method="post">
+        <input type="hidden" value="http://blf-jp.net/AgencyPackage" name="returnUrl" />
+        <input name="__RequestVerificationToken" type="hidden" value="_vXiS_kHXveSLXMYH5YEqDmztm-lXU2bfz993npcg4NqDIV_XtB9UZcTl-PN0HyOIQDzWKuKcsOp2NQWz251D9l-xnBUPjuQe4jilwoW5jk1" />
+    </form>
+
+    <div class="main-container" id="main-container">
+
+        <div id="sidebar" class="sidebar h-sidebar navbar-collapse collapse">
+            <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+                <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                    <span class="btn btn-success"></span>
+
+                    <span class="btn btn-info"></span>
+
+                    <span class="btn btn-warning"></span>
+
+                    <span class="btn btn-danger"></span>
+                </div>
+            </div><!-- /.sidebar-shortcuts -->
+            <ul class="nav nav-list">
+                <li class=" hover">
+                    <a href="/">
+                        <i class="menu-icon fa fa-tachometer"></i>
+                        <span class="menu-text"> Dashboard </span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+
+                <li class=" hover">
+                    <a href="/AgencyPackage">
+                        <i class="menu-icon fa fa-truck"></i>
+                        <span class="menu-text">
+                            Trên đường
+                        </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                </li>
+
+                <li class=" hover">
+                    <a href="/StorageJP">
+                        <i class="menu-icon fa fa-home"></i>
+                        <span class="menu-text"> Lưu kho </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                </li>
+
+                <li class="active hover">
+                    <a href="/ExportGoods">
+                        <i class="menu-icon fa fa-bitbucket"></i>
+                        <span class="menu-text"> Xuất kho </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                </li>
+                <li class=" hover">
+                    <a href="/FlightBooking">
+                        <i class="menu-icon fa fa-book"></i>
+                        <span class="menu-text"> Chuyến Bay </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                </li>
+                <li class=" hover">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-cog"></i>
+                        <span class="menu-text">
+                            Cấu hình
+                        </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+                        <li class=" hover">
+                            <a href="/TrackingStatus">
+                                <i class="menu-icon fa fa-caret-right"></i> Trạng thái kiện hàng
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li class=" hover">
+                            <a href="/DeliveryCom">
+                                <i class="menu-icon fa fa-caret-right"></i> Danh sách giao nhận
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li class=" hover">
+                            <a href="/WareHouseInfo">
+                                <i class="menu-icon fa fa-caret-right"></i> Danh sách kho
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+
+                        <li class=" hover">
+                            <a href="/Staff">
+                                <i class="menu-icon fa fa-caret-right"></i> Tài khoản nhân viên
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li class=" hover">
+                            <a href="/Countries">
+                                <i class="menu-icon fa fa-caret-right"></i> Xuất xứ hàng hóa
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li class=" hover">
+                            <a href="/StatusWareHouse">
+                                <i class="menu-icon fa fa-caret-right"></i> Tình trạng sản phẩm
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li class=" hover">
+                            <a href="/AirInfo">
+                                <i class="menu-icon fa fa-caret-right"></i> Danh sách chuyến bay
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li class=" hover">
+                            <a href="#" class="dropdown-toggle">
+                                <span class="menu-text"> Đại lý </span>
+
+                                <b class="arrow fa fa-angle-down"></b>
+                            </a>
+
+                            <b class="arrow"></b>
+
+                            <ul class="submenu">
+                                <li class=" hover">
+                                    <a href="/Agency">
+                                        <i class="menu-icon fa fa-caret-right"></i> Danh sách đại lý
+                                    </a>
+
+                                    <b class="arrow"></b>
+                                </li>
+                                <li class=" hover">
+                                    <a href="/DeliveryAddresses">
+                                        <i class="menu-icon fa fa-caret-right"></i> Danh sách địa chỉ nhận hàng
+                                    </a>
+
+                                    <b class="arrow"></b>
+                                </li>
+                                <li class=" hover">
+                                    <a href="/MAWB">
+                                        <i class="menu-icon fa fa-caret-right"></i> Danh sách MAWB
+                                    </a>
+
+                                    <b class="arrow"></b>
+                                </li>
+
+                                <li class=" hover">
+                                    <a href="/HAWB">
+                                        <i class="menu-icon fa fa-caret-right"></i> Danh sách HAWB
+                                    </a>
+                                    <b class="arrow"></b>
+                                </li>
+                                <li class=" hover">
+                                    <a href="/AgencyAccount">
+                                        <i class="menu-icon fa fa-caret-right"></i> Tài khoản đăng nhập
+                                    </a>
+                                    <b class="arrow"></b>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" hover">
+                    <a href="/ReturnItem">
+                        <i class="menu-icon fa fa-refresh"></i>
+                        <span class="menu-text"> Trả hàng </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                </li>
+            </ul>
+            <!-- /.nav-list -->
+
+
+        </div>
+
+        <div class="main-content">
+            <div class="main-content-inner">
+
+
+                <div class="breadcrumbs" id="breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="ace-icon fa fa-home home-icon"></i>
+                            <a href="/">Trang chủ</a>
+                        </li>
+
+                        <li>
+                            <a href="/AgencyPackage">Kiện hàng</a>
+                        </li>
+                        <li class="active">Danh sách kiện hàng</li>
+                    </ul>
+                    <!-- /.breadcrumb -->
+                    <div class="action-main">
+                        <a href="/AgencyPackage/Add" class="iframe_agencypackage_add">
+                            <span class="btn btn-xs btn-warning no-border">
+                                <i class="fa fa-plus-circle success"></i>
+                                <span class="bigger-110">Thêm</span>
+                            </span>
+                        </a>
+                        <div class="action-crud">
+
+                            <div class="control" data-id="db34b7aa-557e-4637-954b-38457741dc50">
+                                <a href="../AgencyPackage/Edit/db34b7aa-557e-4637-954b-38457741dc50" class="iframe_agencypackage_add">
+                                    <span class="btn btn-xs btn-info edit-item">
+                                        <i class="ace-icon fa fa-pencil bigger-120 "></i>
+                                    </span>
+                                </a>
+                                <a href="#" class="delete-item-main" data-url="/AgencyPackage/Delete/db34b7aa-557e-4637-954b-38457741dc50" data-id="tr_db34b7aa-557e-4637-954b-38457741dc50">
+                                    <span class="btn btn-xs btn-danger" data-url="/AgencyPackage/Delete/db34b7aa-557e-4637-954b-38457741dc50" data-id="tr_db34b7aa-557e-4637-954b-38457741dc50">
+                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            <script src="../better-life/assets/js/jquery.2.1.1.min.js"></script>
+                            <script src="../better-life/assets/colorbox/jquery.colorbox.js"></script>
+                            <style>
+                                #cboxClose {
+                                    position: absolute;
+                                    width: 25px;
+                                    height: 25px;
+                                    text-indent: -9999px;
+                                    z-index: 99999;
+                                    top: 12px !important;
+                                    right: 12px !important;
+                                }
+                            </style>
+                            <script>
+                                $(function () {
+                                    $(".iframe_agencypackage_add").colorbox({ iframe: true, innerWidth: 600, innerHeight: 670, overlayClose: false });
+                                })
+
+                                function paging(number) {
+                                    $(".item-of-page").html("");
+                                    $(".item-of-page").load('../Ajax/AgencyPackage?page=' + number + '&key=');
+                                    $(".action-crud").html("");
+                                    $(".action-crud").load('../Ajax/AgencyPackageControl?page=' + number + '&key=');
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <!-- /.nav-search -->
+                </div>
+
+
+
+
+
+
+                <!--Update layout từ đây-->
+
+                <div class="page-content">
+                    <div class="row">
+
+                        <div class="package warehouse col-xs-4">
+                            <div class="package_header warehouse_header">
+                                <div class="filter">
+                                    <div class="package_search">
+                                        <input type="text" class="form-control package_search_key" placeholder="Tìm kiếm ..." />
+                                    </div>
+                                    <select class="selectpicker package-select" data-live-search="true">
+                                        <option value="">Tất cả</option>
+                                        <option value="1">Đang trên đường</option>
+                                        <option value="2">Đã nhận</option>
+                                        <option value="3">Đang kiểm</option>
+                                        <option value="4">Đã kiểm</option>
+                                    </select>
+                                </div>
+                                <div class="status_notes">
+                                    <div class="status_note bg-red">Đang trên đường</div>
+                                    <div class="status_note bg-blue">Đã nhận</div>
+                                    <div class="status_note bg-green">Đang kiểm</div>
+                                    <div class="status_note bg-orange">Đã kiểm</div>
+                                </div>
+                                <a href="#" class="package_add add-item-btn">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+
+                            <div class="package_content">
+                                <div class="package_item-wrap">
+                                    <div class="package_item border-done" data-status="2">
+                                        <div class="package_item-name warehouse_item-name package_item-detail" title="8063529901">
+                                            8063575901
+                                        </div>
+                                        <div class="package_item-amount warehouse_item-amount package_item-detail">
+                                            Số kiện: 10
+                                        </div>
+                                        <div class="package_item-time warehouse_item-time package_item-detail">
+                                            13:15 PM
+                                        </div>
+                                        <div class="package_item-weight warehouse_item-weight package_item-detail">
+                                            90 Kg
+                                        </div>
+                                        <div class="package_item-options right-options">
+                                            <div class="warehouse_item-option right-option">
+                                                <a href="#" class="package_item-addcart" title="Add cart">
+                                                    <i class="fa fa-dropbox"></i>
+                                                </a>
+                                                <a href="#" class="package_item-export" title="Export">
+                                                    <i class="fa fa-arrow-down"></i>
+                                                </a>
+                                            </div>
+                                            <div class="warehouse_item-option right-option">
+                                                <a href="#" class="package_item-edit" title="Edit">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a href="#" class="package_item-delete" title="Delete">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="package_item border-checked" data-status="4">
+                                        <div class="package_item-name warehouse_item-name package_item-detail" title="80635345361">
+                                            80635345361
+                                        </div>
+                                        <div class="package_item-amount warehouse_item-amount package_item-detail">
+                                            Số kiện: 10
+                                        </div>
+                                        <div class="package_item-time warehouse_item-time package_item-detail">
+                                            13:15 PM
+                                        </div>
+                                        <div class="package_item-weight warehouse_item-weight package_item-detail">
+                                            90 Kg
+                                        </div>
+                                        <div class="package_item-options right-options">
+                                            <div class="warehouse_item-option right-option">
+                                                <a href="#" class="package_item-addcart" title="Add cart">
+                                                    <i class="fa fa-dropbox"></i>
+                                                </a>
+                                                <a href="#" class="package_item-export" title="Export">
+                                                    <i class="fa fa-arrow-down"></i>
+                                                </a>
+                                            </div>
+                                            <div class="warehouse_item-option right-option">
+                                                <a href="#" class="package_item-edit" title="Edit">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a href="#" class="package_item-delete" title="Delete">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="package_item border-unchecked" data-status="3">
+                                        <div class="package_item-name warehouse_item-name package_item-detail" title="80432445361">
+                                            80432445361
+                                        </div>
+                                        <div class="package_item-amount warehouse_item-amount package_item-detail">
+                                            Số kiện: 10
+                                        </div>
+                                        <div class="package_item-time warehouse_item-time package_item-detail">
+                                            13:15 PM
+                                        </div>
+                                        <div class="package_item-weight warehouse_item-weight package_item-detail">
+                                            90 Kg
+                                        </div>
+                                        <div class="package_item-options right-options">
+                                            <div class="warehouse_item-option right-option">
+                                                <a href="#" class="package_item-addcart" title="Add cart">
+                                                    <i class="fa fa-dropbox"></i>
+                                                </a>
+                                                <a href="#" class="package_item-export" title="Export">
+                                                    <i class="fa fa-arrow-down"></i>
+                                                </a>
+                                            </div>
+                                            <div class="warehouse_item-option right-option">
+                                                <a href="#" class="package_item-edit" title="Edit">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a href="#" class="package_item-delete" title="Delete">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="package_item border-undone" data-status="1">
+                                        <div class="package_item-name warehouse_item-name package_item-detail" title="12342445361">
+                                            12342445361
+                                        </div>
+                                        <div class="package_item-amount warehouse_item-amount package_item-detail">
+                                            Số kiện: 10
+                                        </div>
+                                        <div class="package_item-time warehouse_item-time package_item-detail">
+                                            13:15 PM
+                                        </div>
+                                        <div class="package_item-weight warehouse_item-weight package_item-detail">
+                                            90 Kg
+                                        </div>
+                                        <div class="package_item-options right-options">
+                                            <div class="warehouse_item-option right-option">
+                                                <a href="#" class="package_item-addcart" title="Add cart">
+                                                    <i class="fa fa-dropbox"></i>
+                                                </a>
+                                                <a href="#" class="package_item-export" title="Export">
+                                                    <i class="fa fa-arrow-down"></i>
+                                                </a>
+                                            </div>
+                                            <div class="warehouse_item-option right-option">
+                                                <a href="#" class="package_item-edit" title="Edit">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a href="#" class="package_item-delete" title="Delete">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="package-detail col-xs-8">
+                            <div class="package-detail_header">
+
+                            </div>
+
+                            <div class="package-detail_content">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th width="30%">Loại hàng</th>
+                                        <th width="20%">Số lượng</th>
+                                        <th width="40%">Ghi chú</th>
+                                        <th width="10%"></th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <select class="selectpicker" data-live-search="true">
+                                                <option>QUẦN ÁO</option>
+                                                <option>ĐỒ LÓT</option>
+                                                <option>GIÀY</option>
+                                                <option>TÚI SÁCH</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control package-detail_quantity" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control package-detail_note" />
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <button type="button" class="btn btn-default package-detail_add">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <select class="selectpicker" data-live-search="true">
+                                                <option>QUẦN ÁO</option>
+                                                <option>ĐỒ LÓT</option>
+                                                <option>GIÀY</option>
+                                                <option>TÚI SÁCH</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control package-detail_quantity" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control package-detail_note" />
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <button type="button" class="btn btn-default package-detail_delete">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Kết thúc-->
+
+
+
+
+
+
+
+            </div>
+            <!-- /.main-content -->
+        </div>
+        <div class="footer">
+            <div class="footer-inner">
+                <div class="footer-content">
+                    <span class="bigger-120">
+                        Copyright &copy; 2016. Customs Clearance
+                    </span>
+
+                    &nbsp; &nbsp;
+                    <span class="action-buttons">
+                        Version 1.0.0
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- /.main-container -->
+        <!-- basic scripts -->
+    </div>
+
+    
+
+    <!--dialog-confirm-->
+    <div id="dialog-confirm" class="hide">
+        <div class="alert alert-info bigger-110">
+            Các mục này sẽ bị xóa vĩnh viễn và không thể phục hồi.
+        </div>
+
+        <div class="space-6"></div>
+
+        <p class="bigger-110 bolder center grey">
+            <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+            Bạn có chắc muốn xóa không?
+        </p>
+    </div>
+    <!--/dialog-confirm-->
+    <!--[if !IE]> -->
+    <script src="../better-life/assets/js/jquery.2.1.1.min.js"></script>
+
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script src="~/better-life/assets/js/jquery.1.11.1.min.js"></script>
+    <![endif]-->
+    <!--[if !IE]> -->
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='~/better-life/assets/js/jquery.min.js'>" + "<" + "/script>");
+    </script>
+
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script type="text/javascript">
+     window.jQuery || document.write("<script src='~/better-life/assets/js/jquery1x.min.js'>"+"<"+"/script>");
+    </script>
+    <![endif]-->
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='~/better-life/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+    <script src="../better-life/assets/js/bootstrap.min.js"></script>
+
+    <!-- page specific plugin scripts -->
+    <script src="../better-life/assets/js/jquery-ui.min.js"></script>
+    <script src="../better-life/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <!-- ace scripts -->
+    <script src="../better-life/assets/js/ace-elements.min.js"></script>
+    <script src="../better-life/assets/js/ace.min.js"></script>
+
+
+
+    <script src="../better-life/assets/colorbox/jquery.colorbox.js"></script>
+
+    <script src="../better-life/assets/js/shortcut.js"></script>
+    <!--notifyjs-master-->
+    <script src="../notifyjs-master/dist/notify.js"></script>
+    <script src="../notifyjs-master/dist/styles/metro/notify-metro.js"></script>
+    <!--/notifyjs-master-->
+    <script src="../better-life/assets/js/betterlife.js"></script>
+
+    <script src="../bundles/jqueryval?v=hEGG8cMxk9p0ncdRUOJ-CnKN7NezhnPnWIvn6REucZo1"></script>
+
+
+    <link href="../Content/AgencyPackage.css" rel="stylesheet" />
+    <link href="../better-life/assets/colorbox/example1/colorbox.css" rel="stylesheet" />
+    <script src="../better-life/assets/colorbox/jquery.colorbox.js"></script>
+    <script src="../Scripts/AgencyPackage.js"></script>
+
+
+
+
+
+
+    <!--Update script từ đây-->
+    <!--Selectpicker-->
+    <script src="bootstrap-select.js"></script>
+    <!--Scroll-->
+    <script src="jquery.slimscroll.js"></script>
+    <script src="jquery.nicescroll.js"></script>
+    <!--Pagination-->
+    <script src="jquery.simplePagination.js"></script>
+    <!--Custom javascript-->
+    <script src="custom.js"></script>
+
+    <!--Kết thúc-->
+
+
+
+
+
+</body>
+
+</html>

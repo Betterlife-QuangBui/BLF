@@ -1,0 +1,157 @@
+﻿@model AgencyPackage
+
+@{
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+<ol class="breadcrumb editbreadcrum">
+    <li><a href="/" target="_parent"><i class="glyphicon glyphicon-home"></i> Trang chủ</a></li>
+    <li><a href="/AgencyPackage/" target="_parent">Kiện hàng</a></li>
+    <li class="active">Cập nhật kiện hàng</li>
+</ol>
+<div class="">
+    @using (Html.BeginForm("Edit", "AgencyPackage", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <table class="table_insert col-md-12" align="center" style="width:100%;">
+            <tr>
+                <td class="tt-title-form"><b>Đối tác</b></td>
+                <td>:</td>
+                <td>
+                    @Html.DropDownList("AgencyId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AgencyId, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Giao nhận</b></td>
+                <td>:</td>
+                <td>
+                    @Html.DropDownList("DeliveryId", null, htmlAttributes: new { @class = "form-control ddlDelivery" })
+                    @Html.ValidationMessageFor(model => model.DeliveryId, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Tên giao nhận</b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.DeliveryName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.DeliveryName, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Mã Tracking <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.TrackingCode, new { htmlAttributes = new { @class = "form-control",@readonly= "readonly", @data_val = "false" } })
+                    @Html.ValidationMessageFor(model => model.TrackingCode, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tt-title-form"><b>Số kg <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.Weigh, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Weigh, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Ghi chú</b></td>
+                <td>:</td>
+                <td>
+                    @Html.TextAreaFor(model => model.Notes, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Ngày gửi <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    
+                    <div class='input-group date' id='datetimepicker1'>
+                        @Html.EditorFor(model => model.SentDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.SentDate, "", new { @class = "text-danger" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Giờ gửi <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    <div class='input-group date' id='datetimepicker_hour_1'>
+                        @Html.EditorFor(model => model.SendHour, new { htmlAttributes = new { @class = "form-control hour" } })
+                        @Html.ValidationMessageFor(model => model.SendHour, "", new { @class = "text-danger" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Ngày nhận <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    <div class='input-group date' id='datetimepicker2'>
+                        @Html.EditorFor(model => model.ReceivedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.ReceivedDate, "", new { @class = "text-danger" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Giờ nhận <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    <div class='input-group date' id='datetimepicker_hour_2'>
+                        @Html.EditorFor(model => model.ReceivedHour, new { htmlAttributes = new { @class = "form-control hour" } })
+                        @Html.ValidationMessageFor(model => model.ReceivedHour, "", new { @class = "text-danger" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            @*<tr>
+                <td class="tt-title-form"><b>Trạng thái</b></td>
+                <td>:</td>
+                <td>
+                    @Html.DropDownList("TrackingStatusId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TrackingStatusId, "", new { @class = "text-danger" })
+                </td>
+            </tr>*@
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <input type="hidden" name="TrackingStatusId" value="@Model.TrackingStatusId" />
+                    <input type="hidden" value="@Model.Id" name="Id" />
+                    <input type="hidden" value="@Model.CreatedAt" name="CreatedAt" />
+                    <input type="hidden" value="@Model.CreatedBy" name="CreatedBy" />
+                    <button type="submit" class="btncreate btn btn-large btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                    <button type="reset" class="btn btn-large btn-info tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Xóa</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    @Html.ValidationSummary(false)
+                </td>
+            </tr>
+        </table>
+
+    }
+</div>
+
+<script>
+    $(function () {
+        $(".ddlDelivery").change(function () {
+            $("#DeliveryName").val($(this).find('option:selected').text());
+        });
+    });
+</script>

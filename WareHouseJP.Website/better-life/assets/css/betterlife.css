@@ -1,0 +1,74 @@
+.fixed {
+    position:fixed;
+    top:0;
+}
+.img-logo {
+    width: 78px;
+}
+
+.action {
+    width: 85px;
+}
+.action-item{
+    width:125px;
+}
+.th-phone {
+    width: 130px;
+}
+.se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(/images/loading.gif) center no-repeat rgba(255,255,255,.7);
+}
+.error-yellow {
+    color: #f7bf5a;
+}
+.pagging {
+    text-align: right;
+    width: 100%;
+    margin-top: -10px;
+}
+
+.config-item {
+    padding: 0px 6px;
+    border-radius: 6px;
+    margin-top: -3px;
+}
+.th-code{
+    width:85px;
+}
+.th-name{
+    width:165px;
+}
+.up-bg{
+    background:lemonchiffon;
+}
+.breadcrumbs{
+    position:relative;
+}
+.box-item{
+    cursor:pointer;
+}
+.action-main{
+    position: absolute;
+    right: 10px;
+    top: -2px;
+}
+.active-item{
+    background-color: #87b87f !important;
+    color: #fff;
+}
+.action-item-jp{
+    /*display:none;*/
+}
+.action-crud{
+    display:inline-block;
+}
+.select2-container--bootstrap {
+    display: inline-block !important;
+    text-align:left;
+}

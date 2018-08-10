@@ -1,0 +1,220 @@
+<div class="addon-wrapper _addon-wrapper">
+
+    <div class="addon-alert _alert-shop-credible ">
+        <strong>QUÝ KHÁCH VUI LÒNG KHÔNG SỬ DỤNG GOOGLE TRANSLATE KHI CLICK VÀO NÚT ĐẶT HÀNG</strong>
+        <p class="_addon-message box-warning-ao hidden">
+            <span></span>
+            <span class="close-warning-ao _close-warning-ao"></span>
+        </p>
+    </div>
+
+    <div class="addon-content">
+        <div class="addon-block">
+            <ul class="addon-list-inline">
+
+                <li class="">
+                    <a id="_add-to-favorite" href="javascript:void(0)" class="save-product-ao"> Lưu sản phẩm </a>
+                </li>
+
+                <li>
+                    <label>
+                        <input type="checkbox" name="is_translate" class="_is_translate"> <span></span>
+                        Dịch tự động
+                    </label>
+                </li>
+
+                <li>
+                    <ul>
+                        <li class="pos-relative">
+                            <div class="opt-select-ao">
+                                <span class="arr-ao"></span>
+                                <select class="form-control _select_category">
+                                    <option>Chọn danh mục</option>
+                                </select>
+                            </div>
+
+                            <div class="category-other _category-other hidden">
+                                <div class="addon_arrow_box">
+                                    <label class="addon-category-label">Danh mục khác: </label>
+                                    <input type="text" class="form-control _input_category addon-input-category" placeholder="Nhập danh mục">
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <input class="form-control _brand_item" value="" placeholder="Nhập thương hiệu">
+                        </li>
+                    </ul>
+                </li>
+                <li>
+
+                    <a href="javascript:void(0)" class="btn btn-danger _addToCart btn-ohayoo">
+                        <i class="pull-left addon-icon-ohayoo"></i> Đặt hàng
+                    </a>
+
+                    <a href="javascript:void(0)" class="btn btn-primary _addToCart btn-orderhang hidden">
+                        Đặt hàng  <i class="addon-icon-orderhang"></i>
+                    </a>
+
+                    <a href="javascript:void(0)" target="_blank" id="myCart" class="addon-link _link-detail-cart">
+                        <i class="addon-icon-shopping-cart"></i>
+
+                        Vào giỏ hàng
+                    </a>
+
+                    <!-- The Modal -->
+                        <!-- HTML -->
+                        <!-- <div id="myModal" class="modal"> -->
+
+                          <!-- Modal content -->
+                          <!-- <div class="modal-content">
+                            <div class="modal-header">
+                              <span class="close">×</span>
+                              <h2>Modal Header</h2>
+                            </div>
+                            <div class="modal-body">
+                              <p>Some text in the Modal Body</p>
+                              <p>Some other text...</p>
+                            </div>
+                            <div class="modal-footer">
+                              <h3>Modal Footer</h3>
+                            </div>
+                          </div>
+
+                        </div> -->
+
+                        <!-- JS -->
+                        <!-- <script>
+                        // Get the modal
+                        var modal = document.getElementById('myModal');
+
+                        // Get the button that opens the modal
+                        var btn = document.getElementById("myCart");
+
+                        // Get the <span> element that closes the modal
+                        var span = document.getElementsByClassName("close")[0];
+
+                        // When the user clicks the button, open the modal
+                        btn.onclick = function() {
+                            alert();
+                            modal.style.display = "block";
+                        }
+
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function() {
+                            modal.style.display = "none";
+                        }
+
+                        // When the user clicks anywhere outside of the modal, close it
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                        </script> -->
+
+                    <!-- END The Modal -->
+                    &nbsp;&nbsp;&nbsp;
+
+                    <a href="javascript:" class="_close_tool open-more hidden">
+                        Mở rộng
+                    </a>
+
+                </li>
+
+                <li class="hidden">
+                    <h3 class="addon-title">CÔNG CỤ ĐẶT HÀNG</h3>
+                    <p class="addon-version _addon-version">---</p>
+                </li>
+
+                <li class="hidden">
+                    <h6 class="addon-exchange-label">TỶ GIÁ</h6>
+                    <p class="addon-exchange-text _addon-exchange-text">---</p>
+                </li>
+            </ul>
+
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- The Modal -->
+<!-- HTML -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">×</span>
+            <h2>THÔNG TIN SẢN PHẨM VỪA ĐẶT</h2>
+        </div>
+        <div class="modal-body">
+            <div id="wrapper">
+                <p class="ex_rate">Tỷ giá: <b>219.24</b></p>
+                <table id="cart_info" class="cart_info">
+                    <tr>
+                        <th>STT</th>
+                        <th>Jan code</th>
+                        <th>Tên sản phẩm</th>
+                        <th> Web Link</th>
+                        <th>Loại Hàng</th>
+                        <th>Size, Màu</th>
+                        <th>Mô tả</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá (Gồm thuế)</th>
+                        <!--<th>Phí ship nội địa Jp</th>-->
+                        <th>Thành tiền (Yen)</th>
+                        <th>Thành tiền (VNĐ)</th>
+                        <!--<th>Trọng lượng</th>-->
+                        <th>Xóa</th>
+                    </tr>
+                    <tbody class="tbody">
+
+                    </tbody>
+                    
+                    <tr id="cart_sum" class="cart_sum">
+                        <td colspan="8">Tổng cộng:</td>
+                        <td>  65,044 </td>
+                        <td>  630 </td>
+                        <td>  181,113 </td>
+                        <td>  39,844,860 </td>
+                        <td colspan="2"></td>
+
+                    </tr>
+                </table>
+
+                <table id="cart_charges" class="cart_charges">
+                    <tr>
+                        <th>Phí vận chuyển:</th>
+                        <td colspan="2">
+                            <select class="partner">
+                                <option>Chọn đối tác</option>
+                                <option>Ohayoo</option>
+                                <option>Hello</option>
+                                <option>Anyong</option>
+                            </select>
+                        </td>
+                        <td>219.24</td>
+                    </tr>
+                    <tr class="hidden">
+                        <th>Thành tiền:</th>
+                        <td>  65,044 </td>
+                        <td>  181,113 </td>
+                        <td>  39,844,860 </td>
+                    </tr>
+                </table>
+                <div class="cart_button">
+                    <button id="clearall" class="clearall"><i class="fa fa-trash"></i> Clear all</button>
+                    <button id="checkout" class="checkout"><i class="fa fa-shopping-cart"></i> Check out</button>
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+
+<!-- END The Modal -->

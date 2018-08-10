@@ -1,0 +1,32 @@
+﻿@model Buyee.Rakuten.Website.Models.MenuPage
+@{
+    ViewBag.Title = "Index";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">Danh mục</div>
+    <div class="panel-body padding-no">
+        <ul id="rakuten_ul_cate">
+            @foreach (var item in Model.listCate)
+            {
+                <li class="rakuten_li_cate_parent">
+                    <a href="/product/category/@item.id/@item.name?page=1&sort=standard">@item.name</a>
+                    @*<div class="rakuten_vn">@item.nameEN</div>*@
+                    @if (Model.listSub.Where(n => n.CateId == item.id).Count() > 0)
+                    {
+                        <ul class="sub-menu">
+                            @foreach (var sub in Model.listSub.Where(n => n.CateId == item.id))
+                            {
+                                <li class="rakuten_li_cate_sub">
+                                    <a href="/product/category/@sub.id/@sub.name?page=1&sort=standard">@sub.name</a>
+                                    @*<div class="rakuten_vn">@sub.nameEN</div>*@
+                                </li>
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+

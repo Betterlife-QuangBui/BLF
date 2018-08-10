@@ -1,0 +1,159 @@
+﻿@model PagedList.IPagedList<WareHouseItem>
+@using PagedList.Mvc;
+@using PagedList;
+
+@{ var PageUtils = new PageUtils(); }
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/Database">Database</a>
+        </li>
+        <li class="active">Danh sách sản phẩm</li>
+    </ul>
+    <!-- /.breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search" method="post" action="/Database">
+            <span class="input-icon">
+                <input type="text" name="key" value="@ViewBag.key" placeholder="Tìm kiếm ..." class="nav-search-input" autocomplete="off" />
+                <i class="ace-icon fa fa-search nav-search-icon"></i>
+            </span>
+            @*<a href="/Database/Add" class="iframe_warehouseinfo_add">
+                    <span class="btn btn-sm btn-success no-border config-item">
+                        <i class="fa fa-plus-circle success"></i>
+                        <span class="bigger-110">Thêm</span>
+                    </span>
+                </a>*@
+            <a href="/Database/Import" class="iframe_warehouseinfo_add">
+                <span class="btn btn-sm btn-primary no-border config-item">
+                    <i class="fa fa-arrow-down success"></i>
+                    <span class="bigger-110">Import Excel</span>
+                </span>
+            </a>
+            @*<span class="btn btn-sm btn-danger no-border config-item delete-all-item">
+                <i class="fa fa-trash-o danger"></i>
+                <span class="bigger-110">Xóa tất cả</span>
+            </span>*@
+        </form>
+
+    </div>
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="">
+        <div class="table-header">
+            @ViewBag.Title
+        </div>
+    </div>
+    <!-- /.page-header -->
+    <!-- PAGE CONTENT BEGINS -->
+    <div class="row">
+        <div class="col-xs-12">
+            <table id="database-table" class="table table-striped table-bordered table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th width="5%" class="center">
+                            @*<label class="pos-rel">
+                                    <input type="checkbox" class="ace" />
+                                    <span class="lbl"></span>
+                                </label>*@
+                            NO.
+                        </th>
+                        <th width="10%">JANCODE</th>
+                        <th width="10%">WEBLINK</th>
+                        <th width="10%">H.S CODE</th>
+                        <th width="10%">PRODUCT NAME JP</th>
+                        <th width="15%">DESCRIPTION OF GOODS JP</th>
+                        <th width="15%">MATERIAL</th>
+                        <th width="10%">PRICE</th>
+                        <th width="10%">ORIGNAL</th>
+                        <th width="5%" class="action"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{int i = 0;}
+                    @foreach (var item in Model)
+                    {
+                        <tr class="tr_@item.Id">
+                            <td width="5%" class="center">
+                                @*<label class="pos-rel">
+                                        <input type="checkbox" value="@item.Id" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>*@
+                                @(i = i + 1)
+                            </td>
+                            <td width="10%">@item.JanCode</td>
+                            <td width="10%"><a href="@item.LinkWeb" title="@item.LinkWeb" target="_blank">@item.LinkWeb</a></td>
+                            <td width="10%">@item.HSCode</td>
+                            <td width="10%">@item.NameJP</td>
+                            <td width="15%">@item.DescriptionOfGoods</td>
+                            <th width="15%">@item.Material</th>
+                            <td width="10%" class="center">@item.PriceTax</td>
+                            <th width="10%">
+                                @if (item.MadeIn != "" || item.MadeIn != null)
+                                {
+                                    try
+                                    {
+                                        @PageUtils.MadeIn(Int32.Parse(item.MadeIn));
+                                    }
+                                    catch { }
+                                }
+                                else
+                                { }
+                            </th>
+                            <td width="5%">
+                                <div class="hidden-sm hidden-xs btn-group">
+                                    @*<a href="/Database/Edit/@item.Id" class="iframe_warehouseinfo_add">
+                                            <span class="btn btn-xs btn-info edit-item">
+                                                <i class="ace-icon fa fa-pencil bigger-120 "></i>
+                                            </span>
+                                        </a>*@
+                                    <a href="#" class="delete-item" data-url="/Database/Delete/@item.Id" data-id="tr_@item.Id">
+                                        <span class="btn btn-xs btn-danger delete-item" data-url="/Database/Delete/@item.Id" data-id="tr_@item.Id">
+                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            <div class="pagging">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, key = ViewBag.key }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>
+        </div>
+        <!-- /.span -->
+    </div>
+    <!-- /.row -->
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+
+<script src="~/better-life/assets/js/jquery.dataTables.min.js"></script>
+<script src="~/better-life/assets/js/jquery.dataTables.bootstrap.min.js"></script>
+
+<script>
+    //jQuery(function ($) {
+    //    //initiate dataTables plugin
+    //    $('#database-table')
+    //        //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
+    //        .DataTable({
+    //            bAutoWidth: false,
+    //            responsive: true,
+    //            "sScrollX": "100%",
+    //            "sScrollXInner": "100%",
+    //            "iDisplayLength": 100,
+    //            paging: true,
+    //        });
+    //});
+</script>

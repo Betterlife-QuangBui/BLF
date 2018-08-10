@@ -1,0 +1,15 @@
+﻿@foreach (ShippingHistory item in ViewBag.ShippingClearance)
+{
+    <tr>
+        <td>@item.Shipping.ShippingCode</td>
+        <td>@item.CreatedAt.Value.ToString("yyyy-MM-dd")</td>
+        <td>@item.CreatedAt.Value.ToString("HH:mm")</td>
+        <td>@(item.Shipping.ShippingBookings.Count>0? item.Shipping.ShippingBookings.OrderByDescending(n=>n.CreatedAt).First().TrackingCount+"": "")</td>
+        <td>@(item.Shipping.ShippingBookings.Count > 0 ? item.Shipping.ShippingBookings.OrderByDescending(n => n.CreatedAt).First().Weigh + "" : "")</td>
+        <td>@item.Shipping.DateAir.Value.ToString("yyyy-MM-dd")</td>
+        <td>@item.Shipping.FromAir.Name</td>
+        <td>@item.Shipping.ToAir.Name</td>
+        <td>@item.CreatedBy</td>
+        <td>@item.PreAD_Note</td>
+    </tr>
+}

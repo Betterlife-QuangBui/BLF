@@ -1,0 +1,129 @@
+﻿@model PagedList.IPagedList<StorageJP>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@{ int i = 1; int page1 = ViewBag.Page;}
+@foreach (var item in Model)
+{
+    <tr class="item">
+        <td class="center">
+            @if (item.StatusId != 8)
+            {
+                <label class="pos-rel">
+                    <input id="@item.Id" data-id="@item.Id" type="checkbox" class="ace" />
+                    <span class="lbl"></span>
+                </label>
+            }
+        </td>
+        <td class="@(item.StatusId.Value == 6 ? "border-undone" : "")@(item.StatusId.Value == 7 ? "border-unchecked" : "")@(item.StatusId.Value == 8 ? "border-done" : "")"><a href="/StorageJP/Detail/@item.Id">@item.TrackingCode</a></td>
+        <td style="position:relative;">
+            <div class="center">
+                <div class="task-menu-button-control">
+                    <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                    <div class="task-menu-button-crud">
+                        @*<a href="/StorageJP/EditItem/@item.Id">Edit</a>*@
+                        @if (PageUtils.AlowEditStoreJP(item)=="")
+                        {
+                            <a href="/StorageJP/Edit/@item.Id" data-id="@item.Id" class="package_item-edit">
+                                Sửa
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" class="not-shipment_item-edit" data-message="@PageUtils.AlowEditStoreJP(item)">
+                                Sửa
+                            </a>
+                        }
+                        @if (item.StatusId != 8)
+                        {
+                            <a href="#" class="package_item-delete" data-url="/StorageJP/Delete/@item.Id" data-id="tr_@item.Id">
+                                Xóa
+                            </a>
+                        }
+                        <a href="/StorageJP/Detail/@item.Id">
+                            Chi tiết
+                        </a>
+                        <a href="/General/Index/@item.Id">
+                            General
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="shipment_edit_body"></div>
+        </td>
+        <td>@(item.DeliveryCom!=null?item.DeliveryCom.Name:"")</td>
+        <td>@PageUtils.Address(item)</td>
+        <td>
+            <span class="@(item.StatusId.Value == 6 ? "text-undone" : "")@(item.StatusId.Value == 7 ? "text-unchecked" : "")@(item.StatusId.Value == 8 ? "text-done" : "")">
+                @PageUtils.PackageStatus(item.StatusId.Value, 2) @*(@PageUtils.StatusJP(item.Id).Text)*@
+            </span>
+        </td>
+        <td>@item.Notes</td>
+        <td>@item.Weigh</td>
+        <td>@PageUtils.DisplaySize(item.Weigh, item.SizeInput, item.SizeTableId, item.Size)</td>
+        <td class="center">
+            @*<img src="/Uploads/StoreHourse/@item.Image" style="width:70px;" />*@
+            @if (item.Image == null || item.Image == "") { <span>Không</span> }
+            else{<span>Có</span>  }
+        </td>
+        <td>@(item.ReceivedDate != null ? item.ReceivedDate.Value.ToString("yyyy-MM-dd") : "")</td>
+        <td>@item.ReceivedHour</td>
+        
+        
+        
+        <td>@item.TrackingDetails.Count</td>
+        <td>
+            @Html.Raw(PageUtils.StatusJP(item).Text)
+        </td>
+        <td>
+            @Html.Raw(PageUtils.StatusReturnJP(item).Text)
+        </td>
+        <td><span class="error">@PageUtils.CheckItemStoreJPCount(item)</span></td>
+    </tr>
+}
+<tr class="action-table">
+    <td class="center">
+        <label class="pos-rel">
+            <input data-parent="true" type="checkbox" class="ace checkall" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td colspan="15" class="right">
+        <select class="form-control select-action-table" disabled="disabled">
+            <option value="-1">Chọn thao tác</option>
+            <option value="1">Xóa</option>
+        </select>
+        <button disabled="disabled" class="btn btn-sm btn-success btn-action-table"><i class="fa fa-refresh" aria-hidden="true"></i> Thực hiện</button>
+    </td>
+</tr>
+<tr class="pagging-table">
+    <td colspan="16" class="right">
+        <div class="pagging storejp-pagging-index">
+            @Html.PagedListPager(Model, page => Url.Action("StoreJPNew", "Ajax", new { page = page, key = ViewBag.key, sort = ViewBag.sort }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </td>
+</tr>
+<script>
+    $(function () {
+        $(".hiden-column input[type=checkbox]").each(function (i, e) {
+            var index = parseInt($(e).attr("data-index")) + 1;
+            if (e.checked) {
+                $('#storejp-table tr > *:nth-child(' + index + ')').show();
+            }
+            else {
+                $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+            }
+        });
+        $(".hiden-column input[type=checkbox]").click(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index")) + 1;
+                if (e.checked) {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+        });
+    });
+</script>

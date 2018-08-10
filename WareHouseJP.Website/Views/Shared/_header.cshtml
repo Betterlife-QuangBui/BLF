@@ -1,0 +1,86 @@
+﻿@{ UserPage user = new UserPage(); DisplayImage display = new DisplayImage();}
+<div id="navbar" class="navbar navbar-default" style="position:relative;">
+    <div class="navbar-container" id="navbar-container">
+
+        <div class="navbar-header pull-left" style="margin-top:6px;">
+            @*<img src="~/better-life/assets/images/logo.PNG" class="img-logo">*@
+            <span class="logo-betterlife-page">@user.Agency.Id</span>
+        </div>
+
+        <div class="navbar-buttons navbar-header pull-right" role="navigation">
+            <div class="agency" style="position: absolute;z-index: 999;right: 215px;color: white;top: 11px;font-weight: bold;">
+                @user.Agency.Name
+            </div>
+            <ul class="nav ace-nav">
+                <li class="light-blue">
+                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+
+                        <img class="nav-user-photo" src="@display.Avatar(user.Staff.Avatar)" alt="@user.Staff.Name" />
+                        <span class="user-info">
+                            <small>Xin chào,</small>
+                            @user.Staff.Name
+                        </span>
+
+                        <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
+                    @{ 
+                        var href = "AgencyAccount";
+                        if (user.Staff.RoleId < 3) { href = "Staff"; }
+                    }
+                    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                        <li>
+                            <a href="/@href/UpdateInfo/@user.Staff.UserName.ToBase64()" class="iframe_updateinfo_edit">
+                                <i class="ace-icon fa fa-cog"></i> Đổi mật khẩu
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/@href/UpdateInfo/@user.Staff.UserName.ToBase64()" class="iframe_updateinfo_edit">
+                                <i class="ace-icon fa fa-user"></i> Cập nhật thông tin
+                            </a>
+                        </li>
+
+                        <li class="divider"></li>
+
+                        <li>
+                            <a href="javascript:void(0)" class="logout" data-toggle="modal" data-target="#logout">
+                                <i class="ace-icon fa fa-power-off"></i> Đăng xuất
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.navbar-container -->
+</div>
+
+<!--dialog-logout-->
+<!-- Modal -->
+<div id="logout" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa fa-power-off" aria-hidden="true"></i> &nbsp;Đăng xuất</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Bạn đang đăng xuất khỏi hệ thống ?</h4>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-sm btn-danger"><i class="fa fa-power-off"></i> &nbsp;Đăng xuất</a>
+                <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="fa fa-times"></i> &nbsp;Hủy</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@using (Html.BeginForm("LogOff", "Staff", FormMethod.Post, new { id = "logoutForm" }))
+{
+    <input type="hidden" value="@Request.Url.AbsoluteUri" name="returnUrl" />
+    try
+    {
+        @Html.AntiForgeryToken()
+    }
+    catch { }
+
+}

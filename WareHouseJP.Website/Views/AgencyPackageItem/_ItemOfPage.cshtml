@@ -1,0 +1,105 @@
+﻿@model PagedList.IPagedList<AgencyPackageItem>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@foreach (var item in Model)
+{
+    <tr class="item" id="tr_@item.Id">
+        <td class="center" style="position:relative;">
+            <label class="pos-rel">
+                <input id="@item.Id" data-id="@item.Id" type="checkbox" class="ace" />
+                <span class="lbl"></span>
+            </label>
+            <div class="se-pre-con-crud" data-id="@item.Id">
+                <button type="button" data-href="/AgencyPackageItem/Edit/@item.Id" class="btn btn-success btn-sm conform-save update-one" data-id="@item.Id">Lưu</button>
+                <button type="button" class="btn btn-danger btn-sm conform-close cancel-grid" data-id="@item.Id">Hủy</button>
+            </div>
+        </td>
+        <td><input class="form-control" value="@item.ItemName" /></td>
+        <td style="position:relative;">
+            <div class="center">
+                <div class="task-menu-button-control">
+                    <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                    <div class="task-menu-button-crud">
+                        @*<a href="/StorageJP/EditItem/@item.Id">Edit</a>*@
+
+                        <a href="/AgencyPackageItem/Edit/@item.Id" data-href="/AgencyPackageItem/Edit/@item.Id" data-id="@item.Id" class="package_item-edit update-one">
+                            Lưu
+                        </a>
+                        <a href="/AgencyPackageItem/Delete/@item.Id" class="package_item-edit remove-one">
+                            Xóa
+                        </a>
+                        <a href="#" class="cancel-grid" data-id="tr_@item.Id">
+                            Hủy
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="package_edit_body"></div>
+        </td>
+        <td class="category-item">
+            <select class="form-control select2">
+                @foreach (var op in ViewBag.CategoryId as IEnumerable<SelectListItem>)
+                {
+                    <option @(op.Value == item.CategoryId + "" ? "selected='selected'" : "") value="@op.Value">@op.Text</option>
+                }
+            </select>
+        </td>
+        <td><input class="form-control" value="@item.ItemUrl" /></td>
+        <td><input class="form-control" value="@item.ItemCode" /></td>
+        <td><input class="form-control" value="@item.ProductCode" /></td>
+        <td><input type="number" class="form-control" value="@item.ItemQuantity" /></td>
+        <td><input type="number" class="form-control" value="@item.Price" /></td>
+        <td><input class="form-control" value="@item.ItemNotes" /></td>
+    </tr>
+}
+<tr class="action-table">
+    <td class="center">
+        <label class="pos-rel">
+            <input data-parent="true" type="checkbox" class="ace checkall" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td colspan="9" class="right">
+        <select class="form-control select-action-table" disabled="disabled">
+            <option value="-1">Chọn thao tác</option>
+            <option value="1">Xóa</option>
+        </select>
+        <button disabled="disabled" class="btn btn-sm btn-success btn-action-table"><i class="fa fa-refresh" aria-hidden="true"></i> Thực hiện</button>
+    </td>
+</tr>
+<tr class="pagging-table">
+    <td colspan="10" class="right">
+        <div class="pagging storejp-pagging-index">
+            @Html.PagedListPager(Model, page => Url.Action("AgencyPackageItem", "Ajax", new { id = ViewBag.id, page = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+            <input type="hidden" id="pageCurrent" data-id="@ViewBag.id" value="@ViewBag.page" />
+        </div>
+    </td>
+</tr>
+<script>
+    $(function () {
+        $("select.select2").select2({
+            theme: "bootstrap"
+        });
+        $(".hiden-column input[type=checkbox]").each(function (i, e) {
+            var index = parseInt($(e).attr("data-index")) + 1;
+            if (e.checked) {
+                $('#storejp-table tr > *:nth-child(' + index + ')').show();
+            }
+            else {
+                $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+            }
+        });
+        $(".hiden-column input[type=checkbox]").click(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index")) + 1;
+                if (e.checked) {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+        });
+    });
+</script>

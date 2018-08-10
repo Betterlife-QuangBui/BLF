@@ -1,0 +1,166 @@
+﻿@model Shipping
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Thông tin chuyến bay " + Model.ShippingCode;
+    var ListShipping = ViewBag.ListShipping as PagedList.IPagedList<ShippingHAWBDetail>;
+    var ListVN = ViewBag.ListVN as PagedList.IPagedList<ExportGood>;
+}
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/Shipping">Chuyến bay</a>
+        </li>
+        <li class="active">Chuyến bay @Model.ShippingCode</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-5 storejp-name change-color-red">Chuyến bay @Model.ShippingCode</div>
+        <div class="col-md-7 storejp-margin">
+            <div class="detail-action">
+                <a class="active-detail" href="/Shipping/ShippingPackage/@Model.Id"><i class="fa fa-cubes fa-2x" aria-hidden="true"></i> <span> &nbsp;&nbsp;Kiện hàng</span></a>
+                <a href="/Shipping/Booking/@Model.Id"><i class="fa fa-plane fa-2x" aria-hidden="true"></i> <span>Booking</span></a>
+                <a href="/Shipping/Clearance/@Model.Id"><i class="fa fa-anchor fa-2x" aria-hidden="true"></i> <span> &nbsp;&nbsp;Thông quan</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="storejp-margin">
+            <div class="col-md-10">
+                <div class="col-xs-5">
+                    <div class="update-status">
+                        <div class="col-xs-2">@*<b style="position:absolute;top:7px;">TRẠNG THÁI</b>*@</div>
+                        <div class="col-xs-6">@*@Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })*@</div>
+                        <div class="col-xs-4" style="text-align:right;padding-right:0;">
+                            @*<input type="hidden" value="@Model.Id" id="ModelId" />
+                            <button type="button" class="btn-update-status btn btn-success btn-sm"><i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu</button>*@
+                            <div class="display-column display-column-choose">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-primary">GIAO DIỆN</button>
+                                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#">
+                                                <label for="col-split">
+                                                    <input id="col-split" checked type="radio" name="displaytype" />
+                                                    <span class="lbl"> HAWB</span>
+                                                </label>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <label for="col-List">
+                                                    <input id="col-List" type="radio" name="displaytype" />
+                                                    <span class="lbl"> List</span>
+                                                </label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kien-jp-head change-color-package col-xs-12">Danh sách chuyến hàng - Số kg: <span class="shipping-package-weigh">@ViewBag.Weigh</span></div>
+                    <div>
+                        <table id="storevn-table" class="table-shipping-package">
+                            <thead>
+                                <tr class="sort-row">
+                                    <th style="width:50px;"></th>
+                                    <th class="sort-column" data-sort="shipping-asc">
+                                        SHIPPING MARK &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                        <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                    </th>
+                                    <th style="width:50px;"></th>
+                                    <th data-sort="hawb-asc">
+                                        HAWB &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                        <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                    </th>
+                                </tr>
+                                <tr class="filter-shipping">
+                                    <th></th>
+                                    <th><input class="form-control"/></th>
+                                    <th></th>
+                                    <th>@Html.DropDownList("HAWB", (IEnumerable<SelectListItem>) ViewBag.HAWB, "Tất cả", htmlAttributes: new { @class = "form-control" })</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="tbody">
+                                @Html.Partial("_DetailOfShipping", ListShipping)
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-1">
+                    <div style="display:block;width:100%;height:176px;"></div>
+                    <div class="action-export-detail">
+                        @if (Model.StatusId != 14)
+                        {
+                            <button type="button" disabled class="btn btn-success action-left-to-right"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            <button type="button" disabled class="btn btn-warning action-right-to-left"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                        }
+                        else
+                        {
+                            <button type="button" disabled style="display:none;" class="btn action-left-to-right"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            <button type="button" disabled style="display:none;" class="btn btn-warning action-right-to-left"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                        }
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div style="display:block;width:100%;height:62px;"></div>
+                    <div class="kien-jp-head change-color-package col-xs-12">Danh sách kiện vn</div>
+                    <table id="storejp-table">
+                        <thead>
+                            <tr class="sort-row">
+                                <th style="width:50px;"></th>
+                                <th class="sort-column" data-sort="shipping-asc">
+                                    SHIPPING MARK &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th data-sort="weigh-asc">
+                                    SỐ KG &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                            </tr>
+                            <tr class="filter-jp">
+                                <th></th>
+                                <th><input class="form-control" /></th>
+                                <th><input class="form-control" /></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            @Html.Partial("_DetailOfVN", ListVN)
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" value="createdat-desc" id="sort-vn" />
+<input type="hidden" value="createdat-desc" id="sort-shipping" />
+<input type="hidden" value="" id="tracking-vn-add" />
+<input type="hidden" value="" id="tracking-shipping" />
+<input type="hidden" value="@Model.StatusId" id="statusModel" />
+<input type="hidden" value="@Model.Id" id="ShippingId" />
+<link href="~/Content/shipping-detail.css" rel="stylesheet" />
+@*<link href="~/Content/storejp-detail.css" rel="stylesheet" />*@
+<link href="~/Content/export-detail.css" rel="stylesheet" />
+<link href="~/Content/shipping_package.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Scripts/shipping_package.js"></script>
+}

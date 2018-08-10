@@ -1,0 +1,150 @@
+﻿@model Shipping
+
+@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+}
+<div class="body">
+    <div class="head">
+        <div class="head-center title">
+            Thông tin chuyến hàng
+            <div class="notify">Điền đầy đủ thông tin các mục (*)</div>
+        </div>
+        <span class="close-package">x</span>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm("Add", "Shipping", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td class="tt-title-form"><b>Trạng thái</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Mã chuyến hàng <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.ShippingCode, new { htmlAttributes = new { @class = "form-control input-validation-error" } })
+                            @Html.ValidationMessageFor(model => model.ShippingCode, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Shipper <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("WareHouseInfoId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.WareHouseInfoId, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Mawb Congsignee <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("MaWBId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MaWBId, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Ngày bay dự kiến <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td class="datepicker">
+                            @Html.EditorFor(model => model.DateAir, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DateAir, "", new { @class = "text-danger" })
+                            <span class="display-day"></span>
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Nơi đi (from) <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("FromAirId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.FromAirId, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Nơi đến (to) <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("ToAirId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ToAirId, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Ghi chú</b></td>
+                        <td>:</td>
+                        <td>
+                            <textarea rows="6" name="Notes" id="Notes" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                    
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Kết quả Pre-Ad</b></td>
+                        <td>:</td>
+                        <td>
+                            <textarea rows="6" name="PreAD_Note" readonly id="PreAD_Note" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="position:relative;">
+                            <input type="hidden" id="HourAir" value="@Model.HourAir" name="HourAir" />
+                            <input type="hidden" id="PreADFile" value="@Model.PreADFile" name="PreADFile" />
+                            <input type="hidden" id="PreADBase64" value="@Model.PreADBase64" name="PreADBase64" />
+
+                            <button type="submit" class="btncreate btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                            <button type="reset" class="btn btn-sm btn-danger tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+                            <div class="option-detail-crud">
+                                <a href="#" data-index="1">Chi tiết</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        }
+    </div>
+</div>
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        white-space: pre-line !important;
+        word-wrap: break-word !important;
+    }
+
+    .select2-selection__rendered {
+        white-space: pre-wrap !important;
+        overflow: hidden !important;
+        height: 22px;
+    }
+    .tt-title-form {
+        font-size: 12px;
+        vertical-align: top;
+        width: 170px !important;
+        max-width: 200px !important;
+    }
+
+</style>
+@section scripts{
+    <script>
+        $("td.datepicker input").val(today());
+        $("#StatusId option[value=14]").attr("disabled", "disabled");
+        $(".display-day").html(day($("td.datepicker input").val()))
+        $(document).on("change", "td.datepicker input", function () {
+            var date = today();
+            if ($(this).val() != "") {
+                date = $(this).val();
+            }
+            $("td.datepicker input").val(date);
+            $(".display-day").html(day(date))
+        })
+    </script>
+}

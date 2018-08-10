@@ -1,0 +1,102 @@
+﻿#storejp-table thead tr:nth-child(2n) th
+{
+    background-color:#808080;
+}
+#storejp-table thead tr:nth-child(2n) th input,#storejp-table thead tr:nth-child(2n) th select
+{
+    font-weight:normal;
+}
+#storevn-table thead tr:nth-child(2n) th {
+    background-color: #808080;
+    font-weight:normal;
+}
+#storevn-table thead tr:nth-child(2n) th input,#storevn-table thead tr:nth-child(2n) th select {
+    font-weight:normal;
+}
+
+.kien-jp-head{
+    text-transform: uppercase;
+    background-color: #86c791;
+    text-align: center;
+    padding: 7px;
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+#storejp-table {
+    padding: 5px;
+    width: 101%;
+    float: left;
+    border-collapse: collapse;
+}
+#storejp-table thead th {
+    background-color: #86c791;
+    padding: 5px;
+    border-right: 5px solid #fff;
+    /* margin: 5px; */
+    height: 45px;
+    font-size:13px;
+    text-align: center;
+}
+.action-export-detail{
+    position:relative;
+}
+.action-export-detail button{
+    display:block;
+    margin-bottom:5px;
+    width:100%;
+}
+.update-status{
+    margin-bottom: 7px;
+    display: block;
+    width: 100%;
+    float: left;
+    color:#ff0000;
+}
+#storevn-table {
+    padding: 5px;
+    width: 100.5%;
+    float: left;
+    border-collapse: collapse;
+}
+.not-active {
+   pointer-events: none;
+   cursor: default;
+}
+.storejp-nav{
+    padding: 5px;
+    width: 101%;
+    float: left;
+    border-collapse: collapse;
+}
+.change-color{background-color: #f7bf5a;}
+#storevn-table thead th {
+    background-color: #f7bf5a;
+    padding: 5px;
+    border-right: 5px solid #fff;
+    /* margin: 5px; */
+    height: 45px;
+    font-size: 13px;
+    text-align: center;
+}
+#storevn-table tr:nth-child(2n+1) td {
+    background-color: #f5eeee;
+    font-size: 12px;
+}
+#storevn-table td {
+    padding: 5px;
+    height: 45px;
+    border-right: 5px solid #fff;
+    font-size:12px;
+}
+/*sort*/
+.sort-desc{display:none;}
+.sort{
+    cursor:pointer;
+}
+.sort:hover{
+    color:#ff0000;
+}
+.sort-column{
+    background-color:#f7bf5a;
+}

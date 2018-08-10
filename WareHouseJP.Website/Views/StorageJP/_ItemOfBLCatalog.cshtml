@@ -1,0 +1,119 @@
+﻿@model PagedList.IPagedList<StorageItemJP>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@{
+    var modelPagging = ViewBag.Pagging as PagedList.IPagedList<int>;
+    var cateogry = ViewBag.CategoryId;
+    var MadeIn = ViewBag.MadeIn;}
+@foreach (var item in Model)
+{
+    <tr class="product-item" data-remove="tr_@item.Id" data-id="@item.Id" id="@item.Id">
+        <td class="center" style="position:relative;">
+            <label class="pos-rel">
+                <input data-cate="@item.CategoryId" data-jancode="@item.JanCode" data-price="@item.PriceTax" data-material="@item.Material" data-madein="@item.MadeIn" data-component="@item.Component" data-quantity="@item.Quantity" data-namejp="@item.NameJP" id="@item.Id" data-parent="false" data-check="" type="checkbox" class="ace" />
+                <span class="lbl"></span>
+            </label>
+        </td>
+        <td class="center">
+            
+        </td>
+        <td>
+            <div class="textarea-edit">@Html.Raw(item.NameJP)</div>
+        </td>
+        <td class="center" style="position:relative;">
+            <div class="task-menu-button-control">
+                <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                <div class="task-menu-button-crud">
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="textarea-edit">@Html.Raw(item.NameEN)</div>
+        </td>
+        <td style="line-height:25px;" class="@(PageUtils.CheckCategory(item))">
+            @Html.DropDownList("CategoryId", (IEnumerable<SelectListItem>)cateogry, "", htmlAttributes: new { @disabled= "disabled", @class = "form-control CategoryId-" + item.Id, @data_value = item.CategoryId })
+            <script>
+                $(".CategoryId-@(item.Id)").val(@(item.CategoryId));
+            </script>
+        </td>
+        <td style="line-height:25px;">
+            <span style="color:#d15b47;display:block;font-weight:bold;">
+                @item.CategoryName
+            </span>
+        </td>
+        <td class="center">
+            <a href="@item.LinkWeb" target="_blank">
+                <img src="@item.ImageBase64" data-value="@item.ImageBase64" class="ImageBase64Image" style="width:70px;height:70px;" />
+            </a>
+        </td>
+        <td class="center">
+            @Html.Raw(item.JanCode)
+        </td>
+        <td class="center">
+            @Html.Raw(item.ProductCode)
+        </td>
+        <td class="detail-right">
+            @item.PriceTax
+        </td>
+        <td>
+            @Html.DropDownList("MadeIn", (IEnumerable<SelectListItem>)MadeIn, "", htmlAttributes: new { @disabled = "disabled", @class = "form-control MadeIn-" + item.Id, @data_value = item.MadeIn })
+            <script>
+                $(".MadeIn-@(item.Id)").val(@(item.MadeIn));
+            </script>
+        </td>
+        <td>
+            <div class="textarea-edit">
+                @Html.Raw(item.Material)
+            </div>
+        </td>
+
+        <td>
+            <div class="textarea-edit">
+                @Html.Raw(item.Component)
+            </div>
+        </td>
+        <td class="center">
+            <img src="@item.ComponentImage" data-value="@item.ComponentImage" class="ComponentImage" style="width:70px;height:70px;" />
+        </td>
+        <td>
+            <div class="textarea-edit">
+                @Html.Raw(item.LinkWeb)
+            </div>
+        </td>
+    </tr>
+}
+<tr class="pagging-table">
+    <td colspan="18" class="right">
+        <div class="pagging storejp-pagging-index">
+            @Html.PagedListPager(modelPagging, page => Url.Action("DatabaseBLFCatalog", "Ajax", new { id= ViewBag.StoreJPId, pageno = page, pageSize = Model.PageSize, totalCount = modelPagging.TotalItemCount }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </td>
+</tr>
+
+<script>
+        //dialog delete
+        $(function () {
+            $(".hiden-column-content").hide(); $(".hiden-column-title").show();
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index")) + 1;
+                if (e.checked) {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+            $(".hiden-column input[type=checkbox]").click(function () {
+                $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                    var index = parseInt($(e).attr("data-index")) + 1;
+                    if (e.checked) {
+                        $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                    }
+                    else {
+                        $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                    }
+                });
+            });
+        });
+</script>

@@ -1,0 +1,46 @@
+﻿@model OhayooWeb.Models.ProductInfo
+
+<div class="ohayoo-title-detail"><h3 style="font-size:15px;margin-top:0px;margin-bottom:0;"><i class="glyphicon glyphicon-th-large"></i> @Model.name</h3></div>
+<div style="background-color: #ffffff;padding: 10px 6px;margin-top: 0px;">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="col-md-3">
+                @foreach (var item in Model.images)
+            {
+                    <img src="@item" class="col-md-12 img-responsive img-rounded thumbnail sub-image" style="margin:4px;" />
+                }
+
+            </div>
+            <div class="col-md-9">
+                <img src="@Model.image" class="col-md-12 img-responsive img-rounded thumbnail" id="main-image" />
+            </div>
+        </div>
+        <div class="col-md-5" style="line-height:25px;">
+            <div class="row">@Model.cateName</div>
+            <div class="row price-yen col-md-12">@Model.price.ToString("#,##0 Y")</div>
+            <div class="row price-vnd col-md-12">@Model.priceVN.ToString("#,##0 VND")</div>
+            <div class="row col-md-12">
+                @Html.Raw(Model.auction)
+            </div>
+            <div class="row col-md-12">
+                @Html.Raw(Model.auctionInfo)
+            </div>
+            <div class="row">
+                <a href="javascript:;" class="btn btn-lg btn-success col-md-11 CheckAvailable">Check Available</a>
+            </div>
+            <p></p>
+            <div class="row">
+                <a href="#" class="btn btn-lg btn-warning col-md-11"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
+            </div>
+        </div>
+    </div>
+    <p></p>
+    <div><h3 style="font-size: 17px;margin-left: 18px;"><i class="glyphicon glyphicon-th-large"></i> 簡潔な</h3></div>
+    <div style="padding-left:18px;line-height:25px;">
+        @Html.Raw(Model.summary)
+    </div>
+    <div><h3 style="font-size: 17px;margin-left: 18px;"><i class="glyphicon glyphicon-th-large"></i> 製品の詳細</h3></div>
+    <div style="padding-left:18px;line-height:25px;">
+        @Html.Raw(Model.description)
+    </div>
+</div>

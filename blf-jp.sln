@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WareHouseJP", "WareHouseJP", "{91128141-9941-4F27-82C4-7AED0DF306F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WareHouseJP.Website", "WareHouseJP.Website\WareHouseJP.Website.csproj", "{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database.Excel", "Database.Excel", "{6B8894BC-AFB4-41AF-9430-56B5519953D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{5798AD83-4668-48EB-AB8E-D3552257570D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesp.App", "Tesp.App\Tesp.App.csproj", "{C70940F8-5401-4790-B7A4-35CFF2C8E981}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Helpers", "Web.Helpers\Web.Helpers.csproj", "{8AED182F-5A30-48D8-B1BB-50AC5FC46E54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ohayoo.Lib", "Ohayoo.Lib\Ohayoo.Lib.csproj", "{5629A433-4816-4626-8C82-EEEF5AFC013B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ohayoo.DB", "Ohayoo.DB\Ohayoo.DB.csproj", "{86A80302-E587-452A-932F-C75AD8AA10E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C70940F8-5401-4790-B7A4-35CFF2C8E981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C70940F8-5401-4790-B7A4-35CFF2C8E981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C70940F8-5401-4790-B7A4-35CFF2C8E981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C70940F8-5401-4790-B7A4-35CFF2C8E981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AED182F-5A30-48D8-B1BB-50AC5FC46E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AED182F-5A30-48D8-B1BB-50AC5FC46E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AED182F-5A30-48D8-B1BB-50AC5FC46E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AED182F-5A30-48D8-B1BB-50AC5FC46E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5629A433-4816-4626-8C82-EEEF5AFC013B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5629A433-4816-4626-8C82-EEEF5AFC013B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5629A433-4816-4626-8C82-EEEF5AFC013B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5629A433-4816-4626-8C82-EEEF5AFC013B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A80302-E587-452A-932F-C75AD8AA10E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A80302-E587-452A-932F-C75AD8AA10E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A80302-E587-452A-932F-C75AD8AA10E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A80302-E587-452A-932F-C75AD8AA10E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24} = {91128141-9941-4F27-82C4-7AED0DF306F4}
+		{C70940F8-5401-4790-B7A4-35CFF2C8E981} = {5798AD83-4668-48EB-AB8E-D3552257570D}
+	EndGlobalSection
+EndGlobal

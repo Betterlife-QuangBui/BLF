@@ -1,0 +1,130 @@
+﻿.box-item {
+    background-color: #eee9e9;
+    border-bottom: 1px solid #ffffff;
+    padding: 5px;
+    position: relative;
+    margin-bottom: 5px;
+    height: 60px;
+}
+
+.box-wasehouse:hover {
+    background-color: #ffd800 !important;
+}
+
+.box-item:hover {
+    background-color: #87b87f;
+    color: #fff;
+}
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
+.control {
+    display: none;
+}
+
+.kg-size {
+    position: absolute;
+    right: 40%;
+    top: 30%;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.tracking {
+    color: #d15b47;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.info-tracking {
+    font-size: 12px;
+    position: absolute;
+    bottom: 2px;
+    width: 98%;
+}
+
+.info-date {
+    float: right;
+}
+
+.status {
+    position: absolute;
+    right: 5px;
+    top: -2px;
+}
+
+.pagging {
+    text-align: right;
+    width: 100%;
+    margin-top: -15px;
+}
+
+.action-item-jp {
+    text-align: right;
+    width: 100%;
+}
+
+
+
+.box-wasehouse {
+    background-color: #f5eeee;
+    padding: 5px;
+    border-bottom: 1px solid #ffffff;
+    width: 100%;
+    cursor: move;
+}
+
+.border {
+    border: 1px solid #ff0000 !important;
+}
+
+.deny-product td {
+    background-color: #f787e8;
+}
+
+.main-tracking td {
+    background-color: #87b87f;
+    color: white;
+}
+
+.main-tracking-footer td {
+    background-color: #d15b47;
+    color: white;
+}
+
+.conform-save {
+    width: 32px;
+    margin-top: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.conform-close {
+    width: 32px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.se-pre-con {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: rgba(139,0,22,.5);
+    display: none;
+    text-align: center;
+}
+
+.wasehouse-info {
+    position: relative;
+}
+
+.conform-ischeck {
+    position: absolute;
+    top: 6px;
+    left: 22px;
+    color:white;
+}

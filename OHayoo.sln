@@ -1,0 +1,307 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHayoo.BackEnd", "OHayoo\OHayoo.BackEnd.csproj", "{5BC70F80-6FA0-4517-A1D4-357563BBB09B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Addon", "Addon", "{402A7963-6197-4AA4-9083-42957B285A18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FontEnd", "FontEnd", "{8ADF92F0-B169-4697-865C-750B4779C3DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackEnd", "BackEnd", "{1242A87D-BF9E-48AE-965D-CD4BC3F07FC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{31E12B5F-D3F8-4BB6-8F31-13B803AB5C4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ohayoo.Addon", "Ohayoo.Addon\Ohayoo.Addon.csproj", "{9D141603-1A9D-4EEC-82D8-C473EA436839}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ohayoo.Lib", "Ohayoo.Lib\Ohayoo.Lib.csproj", "{5629A433-4816-4626-8C82-EEEF5AFC013B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{BB3DCD6A-4EAF-47A4-8895-29862922AB11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ohayoo.DB", "Ohayoo.DB\Ohayoo.DB.csproj", "{86A80302-E587-452A-932F-C75AD8AA10E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{E01BB02E-0A7A-4B5D-B1F3-3E4649A57465}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CurrencyConverter", "http://localhost:19637", "{43298E86-8D0F-4203-A8DE-00A8A4023071}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_19637"
+		Debug.AspNetCompiler.PhysicalPath = "C:\Users\DELL\Downloads\Updated17112013_latestcode\Updated 17-11-2013_latest code\CurrencyConverter\CurrencyConverter\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_19637\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_19637"
+		Release.AspNetCompiler.PhysicalPath = "C:\Users\DELL\Downloads\Updated17112013_latestcode\Updated 17-11-2013_latest code\CurrencyConverter\CurrencyConverter\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_19637\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "C:\Users\DELL\Downloads\Updated17112013_latestcode\Updated 17-11-2013_latest code\CurrencyConverter\CurrencyConverter\"
+	EndProjectSection
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_19637"
+		Debug.AspNetCompiler.PhysicalPath = "C:\Users\DELL\Downloads\Updated17112013_latestcode\Updated 17-11-2013_latest code\CurrencyConverter\CurrencyConverter\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_19637\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_19637"
+		Release.AspNetCompiler.PhysicalPath = "C:\Users\DELL\Downloads\Updated17112013_latestcode\Updated 17-11-2013_latest code\CurrencyConverter\CurrencyConverter\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_19637\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "C:\Users\DELL\Downloads\Updated17112013_latestcode\Updated 17-11-2013_latest code\CurrencyConverter\CurrencyConverter\"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AddonOhayoo", "AddonOhayoo", "{988B1246-C1FF-4EE7-960D-B7036B2819B0}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "OhayooAddonQuang", "http://localhost:8894", "{F0EEFB25-F3D8-4B09-8D19-F7B80B62E61C}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_8894"
+		Debug.AspNetCompiler.PhysicalPath = "OhayooAddonQuang\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8894\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_8894"
+		Release.AspNetCompiler.PhysicalPath = "OhayooAddonQuang\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8894\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "OhayooAddonQuang\"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{45FEA9DE-CEA3-4C25-9993-1AFCF2F079C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OhayooAPI", "OhayooAPI", "{17085D90-C68B-4418-99EC-9CF629561E77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AddonNew", "AddonNew", "{A68E546F-66A8-45E7-ACDE-0239ECE500B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "20062016", "20062016", "{877603DD-29A6-4EF2-B1AF-A103C1A3EDEE}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Ohayoo_20062016", "Ohayoo_20062016", "{68AE27F3-D1DB-4AF6-BCCF-765429CED8DA}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50898"
+		Debug.AspNetCompiler.PhysicalPath = "Ohayoo_20062016\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50898\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50898"
+		Release.AspNetCompiler.PhysicalPath = "Ohayoo_20062016\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50898\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50898"
+		SlnRelativePath = "Ohayoo_20062016\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Core", "Api.Core\Api.Core.csproj", "{EA996049-130D-4BCE-A127-AC92170A78E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewAPI", "NewAPI\NewAPI.csproj", "{4CDE9673-6C33-4974-89E3-FAE49C5B440F}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "20160620_02", "Addon\20160620_02", "{989BF306-497F-4025-B660-5B232DDA4A29}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_56038"
+		Debug.AspNetCompiler.PhysicalPath = "Addon\20160620_02\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56038\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_56038"
+		Release.AspNetCompiler.PhysicalPath = "Addon\20160620_02\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56038\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "56038"
+		SlnRelativePath = "Addon\20160620_02\"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "20160620_03", "Addon\20160620_03", "{846FFE68-2FD8-4CDE-AA41-B79A89212283}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_60851"
+		Debug.AspNetCompiler.PhysicalPath = "Addon\20160620_03\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60851\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_60851"
+		Release.AspNetCompiler.PhysicalPath = "Addon\20160620_03\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60851\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "60851"
+		SlnRelativePath = "Addon\20160620_03\"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "20160621", "20160621", "{E9CB84EC-FB1A-486B-877E-BC6E7A7F1905}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "20160621_01", "Addon\20160621_01", "{1BC0F86D-9B29-4BFA-ADA4-A39F1C06EC60}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_62564"
+		Debug.AspNetCompiler.PhysicalPath = "Addon\20160621_01\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62564\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_62564"
+		Release.AspNetCompiler.PhysicalPath = "Addon\20160621_01\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62564\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "62564"
+		SlnRelativePath = "Addon\20160621_01\"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buyee", "Buyee", "{CF8A69BE-2FBD-4AF9-97C5-7E6B63F6B026}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rakuten", "Rakuten", "{8AF75B2C-FE14-4C6D-9D89-38F65FA144F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buyee.Rakuten.Website", "Buyee.Rakuten.Website\Buyee.Rakuten.Website.csproj", "{4C72F9DC-3CCF-4660-A232-FA868DA423A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OhayooWebsite", "OhayooWebsite", "{6DE0FB6E-8249-4A4B-911C-7792B97182F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OhayooWeb", "OhayooWeb\OhayooWeb.csproj", "{9E6FFA2A-23C8-4AC0-8D0E-D1FB882C197A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Helpers", "Web.Helpers\Web.Helpers.csproj", "{8AED182F-5A30-48D8-B1BB-50AC5FC46E54}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{33E0EB76-2A00-4101-89C3-0FC23E6DAA4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniqlo", "Uniqlo\Uniqlo.csproj", "{62AEC048-A5FF-4A2B-B60F-428DA2E10557}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WareHouseJP", "WareHouseJP", "{91128141-9941-4F27-82C4-7AED0DF306F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WareHouseJP.Website", "WareHouseJP.Website\WareHouseJP.Website.csproj", "{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BC70F80-6FA0-4517-A1D4-357563BBB09B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BC70F80-6FA0-4517-A1D4-357563BBB09B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BC70F80-6FA0-4517-A1D4-357563BBB09B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BC70F80-6FA0-4517-A1D4-357563BBB09B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D141603-1A9D-4EEC-82D8-C473EA436839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D141603-1A9D-4EEC-82D8-C473EA436839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D141603-1A9D-4EEC-82D8-C473EA436839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D141603-1A9D-4EEC-82D8-C473EA436839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5629A433-4816-4626-8C82-EEEF5AFC013B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5629A433-4816-4626-8C82-EEEF5AFC013B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5629A433-4816-4626-8C82-EEEF5AFC013B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5629A433-4816-4626-8C82-EEEF5AFC013B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A80302-E587-452A-932F-C75AD8AA10E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A80302-E587-452A-932F-C75AD8AA10E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A80302-E587-452A-932F-C75AD8AA10E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A80302-E587-452A-932F-C75AD8AA10E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43298E86-8D0F-4203-A8DE-00A8A4023071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43298E86-8D0F-4203-A8DE-00A8A4023071}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43298E86-8D0F-4203-A8DE-00A8A4023071}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{43298E86-8D0F-4203-A8DE-00A8A4023071}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F0EEFB25-F3D8-4B09-8D19-F7B80B62E61C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0EEFB25-F3D8-4B09-8D19-F7B80B62E61C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0EEFB25-F3D8-4B09-8D19-F7B80B62E61C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0EEFB25-F3D8-4B09-8D19-F7B80B62E61C}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{68AE27F3-D1DB-4AF6-BCCF-765429CED8DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68AE27F3-D1DB-4AF6-BCCF-765429CED8DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68AE27F3-D1DB-4AF6-BCCF-765429CED8DA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{68AE27F3-D1DB-4AF6-BCCF-765429CED8DA}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{EA996049-130D-4BCE-A127-AC92170A78E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA996049-130D-4BCE-A127-AC92170A78E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA996049-130D-4BCE-A127-AC92170A78E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA996049-130D-4BCE-A127-AC92170A78E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CDE9673-6C33-4974-89E3-FAE49C5B440F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDE9673-6C33-4974-89E3-FAE49C5B440F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDE9673-6C33-4974-89E3-FAE49C5B440F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDE9673-6C33-4974-89E3-FAE49C5B440F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{989BF306-497F-4025-B660-5B232DDA4A29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{989BF306-497F-4025-B660-5B232DDA4A29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{989BF306-497F-4025-B660-5B232DDA4A29}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{989BF306-497F-4025-B660-5B232DDA4A29}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{846FFE68-2FD8-4CDE-AA41-B79A89212283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{846FFE68-2FD8-4CDE-AA41-B79A89212283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{846FFE68-2FD8-4CDE-AA41-B79A89212283}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{846FFE68-2FD8-4CDE-AA41-B79A89212283}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{1BC0F86D-9B29-4BFA-ADA4-A39F1C06EC60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BC0F86D-9B29-4BFA-ADA4-A39F1C06EC60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BC0F86D-9B29-4BFA-ADA4-A39F1C06EC60}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BC0F86D-9B29-4BFA-ADA4-A39F1C06EC60}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{4C72F9DC-3CCF-4660-A232-FA868DA423A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C72F9DC-3CCF-4660-A232-FA868DA423A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C72F9DC-3CCF-4660-A232-FA868DA423A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C72F9DC-3CCF-4660-A232-FA868DA423A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E6FFA2A-23C8-4AC0-8D0E-D1FB882C197A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E6FFA2A-23C8-4AC0-8D0E-D1FB882C197A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E6FFA2A-23C8-4AC0-8D0E-D1FB882C197A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E6FFA2A-23C8-4AC0-8D0E-D1FB882C197A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AED182F-5A30-48D8-B1BB-50AC5FC46E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AED182F-5A30-48D8-B1BB-50AC5FC46E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AED182F-5A30-48D8-B1BB-50AC5FC46E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AED182F-5A30-48D8-B1BB-50AC5FC46E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62AEC048-A5FF-4A2B-B60F-428DA2E10557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62AEC048-A5FF-4A2B-B60F-428DA2E10557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62AEC048-A5FF-4A2B-B60F-428DA2E10557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62AEC048-A5FF-4A2B-B60F-428DA2E10557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5BC70F80-6FA0-4517-A1D4-357563BBB09B} = {1242A87D-BF9E-48AE-965D-CD4BC3F07FC0}
+		{9D141603-1A9D-4EEC-82D8-C473EA436839} = {402A7963-6197-4AA4-9083-42957B285A18}
+		{5629A433-4816-4626-8C82-EEEF5AFC013B} = {31E12B5F-D3F8-4BB6-8F31-13B803AB5C4A}
+		{86A80302-E587-452A-932F-C75AD8AA10E3} = {BB3DCD6A-4EAF-47A4-8895-29862922AB11}
+		{43298E86-8D0F-4203-A8DE-00A8A4023071} = {E01BB02E-0A7A-4B5D-B1F3-3E4649A57465}
+		{F0EEFB25-F3D8-4B09-8D19-F7B80B62E61C} = {988B1246-C1FF-4EE7-960D-B7036B2819B0}
+		{877603DD-29A6-4EF2-B1AF-A103C1A3EDEE} = {A68E546F-66A8-45E7-ACDE-0239ECE500B4}
+		{68AE27F3-D1DB-4AF6-BCCF-765429CED8DA} = {877603DD-29A6-4EF2-B1AF-A103C1A3EDEE}
+		{EA996049-130D-4BCE-A127-AC92170A78E7} = {45FEA9DE-CEA3-4C25-9993-1AFCF2F079C1}
+		{4CDE9673-6C33-4974-89E3-FAE49C5B440F} = {45FEA9DE-CEA3-4C25-9993-1AFCF2F079C1}
+		{989BF306-497F-4025-B660-5B232DDA4A29} = {877603DD-29A6-4EF2-B1AF-A103C1A3EDEE}
+		{846FFE68-2FD8-4CDE-AA41-B79A89212283} = {877603DD-29A6-4EF2-B1AF-A103C1A3EDEE}
+		{E9CB84EC-FB1A-486B-877E-BC6E7A7F1905} = {A68E546F-66A8-45E7-ACDE-0239ECE500B4}
+		{1BC0F86D-9B29-4BFA-ADA4-A39F1C06EC60} = {E9CB84EC-FB1A-486B-877E-BC6E7A7F1905}
+		{8AF75B2C-FE14-4C6D-9D89-38F65FA144F4} = {CF8A69BE-2FBD-4AF9-97C5-7E6B63F6B026}
+		{4C72F9DC-3CCF-4660-A232-FA868DA423A4} = {8AF75B2C-FE14-4C6D-9D89-38F65FA144F4}
+		{9E6FFA2A-23C8-4AC0-8D0E-D1FB882C197A} = {6DE0FB6E-8249-4A4B-911C-7792B97182F2}
+		{8AED182F-5A30-48D8-B1BB-50AC5FC46E54} = {6DE0FB6E-8249-4A4B-911C-7792B97182F2}
+		{62AEC048-A5FF-4A2B-B60F-428DA2E10557} = {33E0EB76-2A00-4101-89C3-0FC23E6DAA4A}
+		{BE047213-DDD7-48FE-AEBD-D6D39A0CAF24} = {91128141-9941-4F27-82C4-7AED0DF306F4}
+	EndGlobalSection
+EndGlobal

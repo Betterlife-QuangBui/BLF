@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ExportGoodDetail>
+@{
+    Layout = null;
+    var export = ViewBag.ExportGood as ExportGood;
+    UserPage user = new UserPage();
+}
+<div class="">
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="myTab1s">
+            <li class="active">
+                <a data-toggle="tab" href="#home" aria-expanded="true">
+                    <i class="green ace-icon fa fa-home bigger-120"></i>
+                    Tìm và lưu kiện
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade active in">
+                <div class="col-md-6">
+                    <div class="search-tracking">
+                        <div class="col-md-4"><b>Tìm kiện hàng JP: </b></div>
+                        <div class="col-md-8"><input type="text" @(export.StatusId==10?"readonly":"") placeholder="Nhập mã tracking..." class="form-control research-text" /></div>
+                    </div>
+                    <div class="result">
+                        <div class="col-md-12"><span class="blue style">Danh sách kiện hàng JP</span></div>
+                        <div class="col-md-12 row-result" id="item_container">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" id="cart_container">
+                    <div class="" id="cart_toolbar">
+                        <div class="col-md-12">
+                            <span class="blue style" style="float:left;">Danh sách kiện hàng VN</span>
+                            <span style="float:left; padding-left:20px; cursor:pointer;"><label><input type="checkbox" @(export.ExportGoodDetails.Count == 0 ? "disabled" : "") class="check-isstaffconfirm" data-id="@export.Id" @(export.IsStaffConfirm == null || export.IsStaffConfirm == false ? "" : "checked") /> Xác nhận đã đóng gói</label></span>
+                            <div class="right" style="float: right;margin-right: 4px;">
+                                Số kiện: <span class="num-package">@Model.Count()</span> - Số kg: <span class="num-kg">@(Model.Sum(n => n.TrackingDetail.Weigh))</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="cart_items">
+                            @foreach (var item in Model)
+                            {
+                                if (export.StatusId == 10)
+                                {
+                                    <div class="item" id="toi@(item.Id)">
+                                        <div class="divrm">
+                                            <a data-new="@item.Id" data-title="@item.TrackingCode" data-export="@(item.Id)" data-ids="@item.TrackingDetailId" data-id="@(item.Id)"></a><div></div>
+                                            <label class="title">@item.TrackingCode</label>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item" id="toi@(item.Id)">
+                                        <div class="divrm">
+                                            <a data-new="@item.Id" data-title="@item.TrackingCode" data-export="@(item.Id)" data-ids="@item.TrackingDetailId" data-id="@(item.Id)" class="red delete-to remove  i@(item.Id)"><i class="fa fa-trash"></i></a><div></div>
+                                            <label class="title">@item.TrackingCode</label>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="role_permission" value="@user.Staff.RoleId" />
+<input value="@export.Id" id="exportId" type="hidden" />
+<input value="@export.StatusId" id="export_status" type="hidden" />
+<script src="~/better-life/assets/js/jquery.2.1.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/better-life/assets/css/ace.min.tab.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/notifyjs-master/dist/notify.js"></script>
+<script src="~/notifyjs-master/dist/styles/metro/notify-metro.js"></script>
+<link href="~/Content/export_good_detail.css" rel="stylesheet" />
+<script src="~/Scripts/export_good_detail.js"></script>

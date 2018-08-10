@@ -1,0 +1,110 @@
+﻿@model IEnumerable<TrackingDetail>
+@{
+    Layout = null;
+}
+<table border="1" cellpadding="4" cellspacing="4">
+    <thead>
+        <tr>
+            <th style="background-color:darkgray;">TEN HANG_JP</th>
+            <th style="background-color:darkgray;">TEN HANG_EN</th>
+            <th style="background-color:darkgray;">LOAI HANG</th>
+            <th style="background-color:darkgray;">GIA</th>
+            <th style="background-color:yellow;color:brown;">SO TRACKING</th>
+            <th style="background-color:yellow;color:brown;">SO LUONG</th>
+            <th style="background-color:yellow;color:brown;">GHI CHU</th>
+            <th>THANH TIEN</th>
+            <th>SO TRACKING/NOTE</th>
+            <th>KG</th>
+        </tr>
+        <tr>
+            <th style="background-color:darkgray;">商品名</th>
+            <th style="background-color:darkgray;">PRODUCT NAME</th>
+            <th style="background-color:darkgray;">商品カテゴリー</th>
+            <th style="background-color:darkgray;">価格</th>
+            <th style="background-color:yellow;color:brown;">伝票番号 SHIPPING MARK</th>
+            <th style="background-color:yellow;color:brown;">数量</th>
+            <th style="background-color:yellow;color:brown;">備考</th>
+            <th>合計</th>
+            <th>伝票番号</th>
+            <th>重量</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr style="background-color:cyan;">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>@item.Weigh</td>
+            </tr>
+            if (item.StorageItemJPs.Count > 0)
+            {
+                <tr>
+                    <td style="background-color:darkgray;"></td>
+                    <td style="background-color:darkgray;"></td>
+                    <td style="background-color:darkgray;"></td>
+                    <td style="background-color:darkgray;"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="background-color:darkgray;"></td>
+                    <td>@item.TrackingSubCode</td>
+                    <td></td>
+                </tr>
+                foreach (var p in item.StorageItemJPs)
+                {
+                    <tr>
+                        <td style="background-color:darkgray;">@p.NameJP</td>
+                        <td style="background-color:darkgray;">@p.NameEN</td>
+                        <td style="background-color:darkgray;">@p.CategoryId</td>
+                        <td style="background-color:darkgray;">@p.PriceTax</td>
+                        <td></td>
+                        <td>@p.Quantity</td>
+                        <td>@p.Notes</td>
+                        <td style="background-color:darkgray;">@p.Amount</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr style="background-color:cyan;">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>@Model.Sum(m=>m.StorageItemJPs.Sum(n=>n.Amount))</td>
+            <td>@Model.Count() kiện</td>
+            <td>@Model.Sum(n=>n.Weigh)</td>
+        </tr>
+    </tfoot>
+</table>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+</style>

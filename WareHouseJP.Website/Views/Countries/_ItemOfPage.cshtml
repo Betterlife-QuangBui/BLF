@@ -1,0 +1,81 @@
+﻿@model PagedList.IPagedList<Country>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@foreach (var item in Model)
+{
+    <tr class="item">
+        <td class="center">
+            <label class="pos-rel">
+                <input id="@item.Id" data-id="@item.Id" type="checkbox" class="ace" />
+                <span class="lbl"></span>
+            </label>
+        </td>
+        <td>@item.NameShore</td>
+        <td style="position:relative;">
+            <div class="center">
+                <div class="task-menu-button-control">
+                    <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                    <div class="task-menu-button-crud">
+                        @*<a href="/StorageJP/EditItem/@item.Id">Edit</a>*@
+
+                        <a href="/countries/Edit/@item.Id" class="package_item-edit">
+                            Sửa
+                        </a>
+                        <a href="#" class="package_item-delete-new" data-url="/countries/Delete/@item.Id" data-id="tr_@item.Id">
+                            Xóa
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="package_edit_body"></div>
+        </td>
+        <td>@item.Name</td>
+    </tr>
+}
+<tr class="action-table">
+    <td class="center">
+        <label class="pos-rel">
+            <input data-parent="true" type="checkbox" class="ace checkall" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td colspan="3" class="right">
+        <select class="form-control select-action-table" disabled="disabled">
+            <option value="-1">Chọn thao tác</option>
+            <option value="1">Xóa</option>
+        </select>
+        <button disabled="disabled" class="btn btn-sm btn-success btn-action-table"><i class="fa fa-refresh" aria-hidden="true"></i> Thực hiện</button>
+    </td>
+</tr>
+<tr class="pagging-table">
+    <td colspan="4" class="right">
+        <div class="pagging storejp-pagging-index">
+            @Html.PagedListPager(Model, page => Url.Action("AjaxIndex", "countries", new { page = page, key = ViewBag.key, sort = ViewBag.sort }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </td>
+</tr>
+<script>
+    $(function () {
+        $(".hiden-column input[type=checkbox]").each(function (i, e) {
+            var index = parseInt($(e).attr("data-index")) + 1;
+            if (e.checked) {
+                $('#storejp-table tr > *:nth-child(' + index + ')').show();
+            }
+            else {
+                $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+            }
+        });
+        $(".hiden-column input[type=checkbox]").click(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index")) + 1;
+                if (e.checked) {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+        });
+    });
+</script>

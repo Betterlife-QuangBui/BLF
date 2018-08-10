@@ -1,0 +1,111 @@
+﻿@{ ViewBag.Title = "Dashboard"; UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/Home">Trang chủ</a>
+        </li>
+        <li class="active">Dashboard</li>
+    </ul><!-- /.breadcrumb -->
+
+</div>
+
+<div class="page-content">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+
+
+            <div class="row">
+                <div class="space-6"></div>
+
+                <div class="col-sm-12 infobox-container">
+                    @*<a href="/Shipment">
+                        <div class="infobox infobox-blue border-none border-none-blue">
+                            <div class="infobox-icon">
+                                <i class="ace-icon fa fa-truck"></i>
+                            </div>
+
+                            <div class="infobox-data">
+                                <span class="infobox-data-number">Trên đường</span>
+                                <div class="infobox-content">
+                                    Khai báo kiện hàng
+                                </div>
+                            </div>
+                        </div>
+                    </a>*@
+
+                    <a href="/StorageJP">
+                        <div class="infobox infobox-green border-none border-none-green ">
+                            <div class="infobox-icon">
+                                <i class="ace-icon fa fa-home"></i>
+                            </div>
+                            <div class="infobox-data">
+                                <span class="infobox-data-number">Lưu kho</span>
+                                <div class="infobox-content">
+                                    Lưu sản phẩm & chia kiện
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/Database">
+                        <div class="infobox infobox-blue border-none border-none-pink">
+                            <div class="infobox-icon">
+                                <i class="ace-icon fa fa-book"></i>
+                            </div>
+                            <div class="infobox-data">
+                                <span class="infobox-data-number">Danh sách hàng</span>
+                                <div class="infobox-content">Các mặt hàng có sẵn</div>
+                            </div>
+                        </div>
+                    </a>
+                    @*@if (user.Staff.RoleId < 6)
+                    {
+                        <a href="/ExportGoods">
+                            <div class="infobox infobox-pink border-none border-none-pink">
+                                <div class="infobox-icon">
+                                    <i class="ace-icon fa fa-bitbucket"></i>
+                                </div>
+
+                                <div class="infobox-data">
+                                    <span class="infobox-data-number">Xuất kho</span>
+                                    <div class="infobox-content">
+                                        Tạo kiện VN
+
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }*@
+                    @*<a href="/Shipping">
+                        <div class="infobox infobox-grey border-none border-none-gray">
+                            <div class="infobox-icon">
+                                <i class="ace-icon fa fa-book"></i>
+                            </div>
+                            <div class="infobox-data">
+                                <span class="infobox-data-number">Chuyến Bay</span>
+                                <div class="infobox-content">Chuyến bay & Consignee</div>
+                            </div>
+                        </div>
+                    </a>*@
+                    @*<a href="/Invoice">
+                            <div class="infobox infobox-red border-none border-none-red">
+                                <div class="infobox-icon">
+                                    <i class="ace-icon fa fa-tachometer"></i>
+                                </div>
+                                <div class="infobox-data">
+                                    <span class="infobox-data-number">Thông quan</span>
+                                    <div class="infobox-content">Xuất invoice & thông tin hàng</div>
+                                </div>
+                            </div>
+                        </a>*@
+                </div>
+
+            </div><!-- /.row -->
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>

@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Tra cuu thong tin";
+    Uniqlo.Models.ProductInfo pro = new Uniqlo.Models.ProductInfo();
+    if (ViewBag.ProductInfo != null)
+    {
+        pro = ViewBag.ProductInfo as Uniqlo.Models.ProductInfo;
+    }
+    else { pro = null; }
+}
+
+
+<div class="row" style="margin-top:30px;">
+    <form action="/Home" method="post" class="form-inline">
+        <div class="form-group">
+            <label for="code">Please input Jan Code or Url:</label>
+            <input type="text" class="form-control" name="code" id="code">
+            <input type="submit" class="btn btn-success" />
+        </div>
+    </form>
+</div>
+@if (pro != null)
+{
+    <div class="row" style="margin-top:20px;">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product code</th>
+                    <th>Price</th>
+                    <th>素材 ( material )</th>
+                    <th>Link</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@pro.Name</td>
+                    <td>@pro.JanCode</td>
+                    <td>@pro.Price</td>
+                    <td>@pro.Material</td>
+                    <td><a href="@pro.Url">@pro.Url</a></td>
+                    <td><img src="@pro.Image" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}

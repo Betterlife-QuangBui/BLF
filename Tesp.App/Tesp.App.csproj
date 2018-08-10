@@ -1,0 +1,690 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C70940F8-5401-4790-B7A4-35CFF2C8E981}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tesp.App</RootNamespace>
+    <AssemblyName>Tesp.App</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OOXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="db\Agency.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\AgencyAccount.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\AgencyPackage.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\AgencyPackageItem.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\AirInfo.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\Booking.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\ClearanceAir.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\ClearanceHAWB.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\ClearanceMAWB.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\Country.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\CustomsClearance.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\DeliveryAddress.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\DeliveryCom.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\EmailHistory.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\EmailSend.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\ExportGood.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\ExportGoodDetail.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\ExportInvoice.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\FlightBooking.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\FlightBookingHAWB.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\FlightBookingMAWB.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\FlightGood.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\FlightRoute.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\HAWB.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\HAWBDetail.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\Invoice.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\MAWB.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\MAWBDetail.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\ProductItem.cs" />
+    <Compile Include="db\ProductType.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\ReturnAddress.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\ReturnItem.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\ReturnTracking.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\Role.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\Shipment.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\SizeTable.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\Staff.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\StatusWareHouse.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\StorageItemJP.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\StorageJP.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sysdiagram.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\TrackingDetail.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\WareHouseCategory.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\WareHouseInfo.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\WareHouseItem.cs">
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\WareHouseJPDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WareHouseJPDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\WareHouseJPDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WareHouseJPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\WareHouseJPDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WareHouseJPDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="db\WareHouseJPDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WareHouseJPDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="db\WareHouseJPDB.edmx.diagram">
+      <DependentUpon>WareHouseJPDB.edmx</DependentUpon>
+    </None>
+    <None Include="FILES\-OVT-  C106 INVOICE A 06.27.xls" />
+    <None Include="FILES\-to HNC-C14 - INVOICE A07.08.xls" />
+    <None Include="FILES\HNC - C01 INVOICE A 06.1.xls" />
+    <None Include="FILES\HNC-C02 - INVOICE A 06.03.xls" />
+    <None Include="FILES\HNC-C03 - INVOICE A 06.6.xls" />
+    <None Include="FILES\HNC-C04 - INVOICE A 06.7.xls" />
+    <None Include="FILES\HNC-C05 - INVOICE A 06.8.xls" />
+    <None Include="FILES\HNC-C06 - INVOICE A 06.13.xls" />
+    <None Include="FILES\HNC-C07- INVOICE A 06.15.xls" />
+    <None Include="FILES\HNC-C08 - INVOICE A 06.21.xls" />
+    <None Include="FILES\HNC-C09 - INVOICE A 06.23 .xls" />
+    <None Include="FILES\HNC-C10 - INVOICE A 06.28 .xls" />
+    <None Include="FILES\HNC-C11 - INVOICE B 06.30.xls" />
+    <None Include="FILES\HNC-C12 - INVOICE B 07.04.xls" />
+    <None Include="FILES\HNC-C13 - INVOICE B 07.05.xls" />
+    <None Include="FILES\HNC-C14 - INVOICE A07.08.xls" />
+    <None Include="FILES\HNC-C15 - INVOICE A 07.11.xls" />
+    <None Include="FILES\HNC-C16 - INVOICE B 07.13.xls" />
+    <None Include="FILES\HNC-C16 - INVOICE C 07.13.xls" />
+    <None Include="FILES\HNC-C17 - INVOICE B 07.15.xls" />
+    <None Include="FILES\HNC-C18 - INVOICE B 07.19.xls" />
+    <None Include="FILES\HNC-C19 - INVOICE A 07.20.xls" />
+    <None Include="FILES\HNC-C20 - INVOICE A 07.26.xls" />
+    <None Include="FILES\HNC-C21 - INVOICE A 07.29.xls" />
+    <None Include="FILES\HNC-C22 - INVOICE A 08.01.xls" />
+    <None Include="FILES\HNC-C23 - INVOICE A 08.03.xls" />
+    <None Include="FILES\HNC-C24 - INVOICE A 08.08.xls" />
+    <None Include="FILES\HNC-C25 - INVOICE A 08.10.xls" />
+    <None Include="FILES\HNC-C26 - INVOICE A 08.12.xls" />
+    <None Include="FILES\HNC-C27 - INVOICE A 08.17 .xls" />
+    <None Include="FILES\HNC-C28 - INVOICE A 08.19.xls" />
+    <None Include="FILES\HNC-C29 - INVOICE A 08.22.xls" />
+    <None Include="FILES\HNC-C30- INVOICE A 08.24.xls" />
+    <None Include="FILES\HNC-C31 - INVOICE A 08.26.xls" />
+    <None Include="FILES\HNC-C32 - INVOICE A 08.29.xls" />
+    <None Include="FILES\HNC-C33 - INVOICE A 09.02.xls" />
+    <None Include="FILES\HNC-C34 - INVOICE A 09.05.xls" />
+    <None Include="FILES\HNC-C35 - INVOICE A 09.07.xls" />
+    <None Include="FILES\HNC-C36 - INVOICE A 09.09.xls" />
+    <None Include="FILES\HNC-C37 - INVOICE A 09.12.xls" />
+    <None Include="FILES\HNC-C38 - INVOICE A 09.14.xls" />
+    <None Include="FILES\HNC-C39 - INVOICE A 09.16.xls" />
+    <None Include="FILES\HNC-C40 - INVOICE A 09.20.xls" />
+    <None Include="FILES\HNC-C41 - INVOICE A 09.21.xls" />
+    <None Include="FILES\HNC-C42 - INVOICE A 09.23.xls" />
+    <None Include="FILES\HNC-C43 - INVOICE A 09.26.xls" />
+    <None Include="FILES\HNC-C43 - INVOICE B 09.26.xls" />
+    <None Include="FILES\HNC-C44 - INVOICE B 09.28.xls" />
+    <None Include="FILES\HNC-C45 - INVOICE A 09.30.xls" />
+    <None Include="FILES\HNC-C46 - INVOICE A 10.03.xls" />
+    <None Include="FILES\OVT HANOI-  C143 INVOICE A 09.20 %281%29.xls" />
+    <None Include="FILES\OVT HANOI-  C143 INVOICE A 09.20 %282%29.xls" />
+    <None Include="FILES\OVT HANOI-  C143 INVOICE A 09.20.xls" />
+    <None Include="FILES\OVT HANOI- C147 INVOICE A 09.26.xls" />
+    <None Include="FILES\OVT HCM -  C144 INVOICE A 09.21.xls" />
+    <None Include="FILES\OVT HCM - C145 INVOICE A 09.23.xls" />
+    <None Include="FILES\OVT HCM - C146 INVOICE A 09.26.xls" />
+    <None Include="FILES\OVT HCM - C148 INVOICE A 09.28.xls" />
+    <None Include="FILES\OVT HCM - C149 INVOICE A 09.30.xls" />
+    <None Include="FILES\OVT HCM - C150 INVOICE A 10.03.xls" />
+    <None Include="FILES\OVT-  C114 INVOICE A 07.15.xls" />
+    <None Include="FILES\OVT-  C122 INVOICE A 08.03.xls" />
+    <None Include="FILES\OVT- C100 INVOICE A 06.13.xls" />
+    <None Include="FILES\OVT- C101 INVOICE A 06.15.xls" />
+    <None Include="FILES\OVT- C102 INVOICE A 06.17.xls" />
+    <None Include="FILES\OVT- C103 INVOICE A 06.20.xls" />
+    <None Include="FILES\OVT- C104 INVOICE A 06.22.xls" />
+    <None Include="FILES\OVT- C105 INVOICE A 06.24.xls" />
+    <None Include="FILES\OVT- C107 INVOICE A 06.29.xls" />
+    <None Include="FILES\OVT- C108 INVOICE A 07.01 .xls" />
+    <None Include="FILES\OVT- C109 INVOICE A 07.4.xls" />
+    <None Include="FILES\OVT- C110 INVOICE A 07.6.xls" />
+    <None Include="FILES\OVT- C111 INVOICE A 07.08.xls" />
+    <None Include="FILES\OVT- C112 INVOICE A 07.11.xls" />
+    <None Include="FILES\OVT- C113 INVOICE A 07.13.xls" />
+    <None Include="FILES\OVT- C115 INVOICE A 07.19.xls" />
+    <None Include="FILES\OVT- C116 INVOICE A 07.20.xls" />
+    <None Include="FILES\OVT- C117 INVOICE A 07.22.xls" />
+    <None Include="FILES\OVT- C118 INVOICE A 07.25.xls" />
+    <None Include="FILES\OVT- C119 INVOICE A 07.27.xls" />
+    <None Include="FILES\OVT- C120 INVOICE A 07.29.xls" />
+    <None Include="FILES\OVT- C121 INVOICE A 08.01.xls" />
+    <None Include="FILES\OVT- C123 INVOICE A 08.05.xls" />
+    <None Include="FILES\OVT- C124 INVOICE A 08.08.xls" />
+    <None Include="FILES\OVT- C125 INVOICE A 08.10.xls" />
+    <None Include="FILES\OVT- C126 INVOICE A 08.12.xls" />
+    <None Include="FILES\OVT- C127 INVOICE A 08.15.xls" />
+    <None Include="FILES\OVT- C128 INVOICE A 08.17.xls" />
+    <None Include="FILES\OVT- C129 INVOICE A 08.19.xls" />
+    <None Include="FILES\OVT- C130 INVOICE A 08.22.xls" />
+    <None Include="FILES\OVT- C131 INVOICE A 08.24.xls" />
+    <None Include="FILES\OVT- C132 INVOICE A 08.26.xls" />
+    <None Include="FILES\OVT- C133 INVOICE A 08.29.xls" />
+    <None Include="FILES\OVT- C134 INVOICE A 08.31.xls" />
+    <None Include="FILES\OVT- C135 INVOICE A 09.02.xls" />
+    <None Include="FILES\OVT- C136 INVOICE A 09.05.xls" />
+    <None Include="FILES\OVT- C137 INVOICE A 09.07.xls" />
+    <None Include="FILES\OVT- C138 INVOICE A 09.09.xls" />
+    <None Include="FILES\OVT- C139 INVOICE A 09.12.xls" />
+    <None Include="FILES\OVT- C140 INVOICE A 09.14.xls" />
+    <None Include="FILES\OVT- C140 INVOICE B 09.14.xls" />
+    <None Include="FILES\OVT- C141 INVOICE A 09.16.xls" />
+    <None Include="FILES\OVT- C142 INVOICE A 09.20.xls" />
+    <None Include="FILES\OVT- C38 INVOICE変更2015.12.25.xls" />
+    <None Include="FILES\OVT- C45 INVOICE 01.15 A.xls" />
+    <None Include="FILES\OVT- C46 INVOICE 18.1.2016 B.xls" />
+    <None Include="FILES\OVT- C47 INVOICE 19.1.2016 B.xls" />
+    <None Include="FILES\OVT- C48 INVOICE 2016.01.22 B1.xls" />
+    <None Include="FILES\OVT- C65 INVOICE B 03.14.xls" />
+    <None Include="FILES\OVT- C68 INVOICE B 03.22.xls" />
+    <None Include="FILES\OVT- C73 INVOICE B 04.4.xls" />
+    <None Include="FILES\OVT- C88 INVOICE A 05.16.xls" />
+    <None Include="FILES\OVT- C94 INVOICE A 05.30.xls" />
+    <None Include="FILES\OVT- C95 INVOICE A 06.1.xls" />
+    <None Include="FILES\OVT- C96 INVOICE A 06.3.xls" />
+    <None Include="FILES\OVT- C97 INVOICE A 06.6.xls" />
+    <None Include="FILES\OVT- C98 INVOICE A 06.8.xls" />
+    <None Include="FILES\OVT- C99 INVOICE A 06.10.xls" />
+    <None Include="FILES\OVT- INVOICE - C42 8.1.2016.xls" />
+    <None Include="FILES\OVT- INVOICE C28 %28 XUAT KHO %29.xls" />
+    <None Include="FILES\OVT- INVOICE C28 20.11%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE C28 20.11.xls" />
+    <None Include="FILES\OVT- INVOICE C53.xls" />
+    <None Include="FILES\OVT- INVOICE- C40 5.1.2016-A.xls" />
+    <None Include="FILES\OVT- INVOICE-C01-20.08.xls" />
+    <None Include="FILES\OVT- INVOICE-C04_28.08%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C04_28.08.xls" />
+    <None Include="FILES\OVT- INVOICE-C05-01.09%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C05-01.09.xls" />
+    <None Include="FILES\OVT- INVOICE-C06-04.09の釣具含む１００ｋｇ以上%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C06-04.09の釣具含む１００ｋｇ以上.xls" />
+    <None Include="FILES\OVT- INVOICE-C07-08.09%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C07-08.09.xls" />
+    <None Include="FILES\OVT- INVOICE-C08-11.09%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C08-11.09.xls" />
+    <None Include="FILES\OVT- INVOICE-C09-15.09%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C09-15.09.xls" />
+    <None Include="FILES\OVT- INVOICE-C12-29.09%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C12-29.09.xls" />
+    <None Include="FILES\OVT- INVOICE-C13-02.10%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C13-02.10.xls" />
+    <None Include="FILES\OVT- INVOICE-C15-09.10%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C15-09.10.xls" />
+    <None Include="FILES\OVT- INVOICE-C16-13.10%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C16-13.10.xls" />
+    <None Include="FILES\OVT- INVOICE-C17-16.10%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C17-16.10.xls" />
+    <None Include="FILES\OVT- INVOICE-C18.20.10%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C18.20.10.xls" />
+    <None Include="FILES\OVT- INVOICE-C19-23.10%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C19-23.10.xls" />
+    <None Include="FILES\OVT- INVOICE-C20-27.10.xls" />
+    <None Include="FILES\OVT- INVOICE-C21-28.10.xls" />
+    <None Include="FILES\OVT- INVOICE-C22-30.10%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C22-30.10.xls" />
+    <None Include="FILES\OVT- INVOICE-C23-04.11%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C23-04.11.xls" />
+    <None Include="FILES\OVT- INVOICE-C25-10.11%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C25-10.11.xls" />
+    <None Include="FILES\OVT- INVOICE-C27-17.11%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C27-17.11.xls" />
+    <None Include="FILES\OVT- INVOICE-C29.24.11%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C29.24.11.xls" />
+    <None Include="FILES\OVT- INVOICE-C30.27.11%282%29.xls" />
+    <None Include="FILES\OVT- INVOICE-C30.27.11.xls" />
+    <None Include="FILES\OVT- INVOICE-C31.1.12.xls" />
+    <None Include="FILES\OVT- INVOICE-C32-04.12.xls" />
+    <None Include="FILES\OVT- INVOICE-C33.08.12.xls" />
+    <None Include="FILES\OVT- INVOICE-C39.29.12.xls" />
+    <None Include="FILES\OVT- INVOICEC24-06.11%282%29.xls" />
+    <None Include="FILES\OVT- INVOICEC24-06.11.xls" />
+    <None Include="FILES\OVT- INVOICEーC26.13.11%282%29.xls" />
+    <None Include="FILES\OVT- INVOICEーC26.13.11%283%29.xls" />
+    <None Include="FILES\OVT- INVOICEーC26.13.11.xls" />
+    <None Include="FILES\OVT-C11_ INVOICE%282%29.xls" />
+    <None Include="FILES\OVT-C11_ INVOICE.xls" />
+    <None Include="FILES\OVT-C41 INVOICE 8.1.2016.xls" />
+    <None Include="FILES\OVT-C43  INVOICE 12.1.2016 B.xls" />
+    <None Include="FILES\OVT-C49 INVOICE B 26.1.xls" />
+    <None Include="FILES\OVT-C50 INVOICE B 01.27.xls" />
+    <None Include="FILES\OVT-C51 INVOICE 01.29.xls" />
+    <None Include="FILES\OVT-C52 INVOICE B2 02.01.xls" />
+    <None Include="FILES\OVT-C54 INVOICE B 02.17.xls" />
+    <None Include="FILES\OVT-C55 INVOICE B 02.19.xls" />
+    <None Include="FILES\OVT-C56 INVOICE B 02.21.xls" />
+    <None Include="FILES\OVT-C57 INVOICE B 02.23.xls" />
+    <None Include="FILES\OVT-C58 INVOICE B 02.25.xls" />
+    <None Include="FILES\OVT-C59 INVOICE B 02.29-1.xls" />
+    <None Include="FILES\OVT-C60 INVOICE B 03.02.xls" />
+    <None Include="FILES\OVT-C61 INVOICE B 16.03.04.xls" />
+    <None Include="FILES\OVT-C62 INVOICE B 07.03.xls" />
+    <None Include="FILES\OVT-C63 INVOICE B1 09.03.xls" />
+    <None Include="FILES\OVT-C64 INVOICE B 03.11.xls" />
+    <None Include="FILES\OVT-C66 INVOICE B 03.16.xls" />
+    <None Include="FILES\OVT-C67 INVOICE B 03.18.xls" />
+    <None Include="FILES\OVT-C69 INVOICE B 03.25.xls" />
+    <None Include="FILES\OVT-INVOICE-C02-24.08%282%29.xls" />
+    <None Include="FILES\OVT-INVOICE-C02-24.08.xls" />
+    <None Include="FILES\OVT-INVOICE-C03-26.08%282%29.xls" />
+    <None Include="FILES\OVT-INVOICE-C03-26.08.xls" />
+    <None Include="FILES\OVT-INVOICE-C14-06.10%282%29.xls" />
+    <None Include="FILES\OVT-INVOICE-C14-06.10.xls" />
+    <None Include="FILES\OVT-IVVOICE-C10-18.09%282%29.xls" />
+    <None Include="FILES\OVT-IVVOICE-C10-18.09.xls" />
+    <None Include="FILES\to HNC-C22 - INVOICE A 08.01 %28đã thông quan%29.xls" />
+    <None Include="FILES\to OVT- C111 INVOICE A 07.08.xls" />
+    <None Include="FILES\to OVT- C125 INVOICE A 08.10 %28đang thông quan%29.xls" />
+    <None Include="FILES\to OVT- C125 INVOICE A 08.10%28đã thông quan%29.xls" />
+    <None Include="FILES\to OVT- C134 INVOICE A 08.31 %28đang thông quan%29.xls" />
+    <None Include="FILES\to OVT- C134 INVOICE A 08.31%28IEC%29.xls" />
+    <None Include="FILES\to OVT- C134 INVOICE A 08.31%28đã thông quan%29.xls" />
+    <None Include="HNC\-to HNC-C14 - INVOICE A07.08.xls" />
+    <None Include="HNC\HNC - C01 INVOICE A 06.1.xls" />
+    <None Include="HNC\HNC-C02 - INVOICE A 06.03.xls" />
+    <None Include="HNC\HNC-C03 - INVOICE A 06.6.xls" />
+    <None Include="HNC\HNC-C04 - INVOICE A 06.7.xls" />
+    <None Include="HNC\HNC-C05 - INVOICE A 06.8.xls" />
+    <None Include="HNC\HNC-C06 - INVOICE A 06.13.xls" />
+    <None Include="HNC\HNC-C07- INVOICE A 06.15.xls" />
+    <None Include="HNC\HNC-C08 - INVOICE A 06.21.xls" />
+    <None Include="HNC\HNC-C09 - INVOICE A 06.23 .xls" />
+    <None Include="HNC\HNC-C10 - INVOICE A 06.28 .xls" />
+    <None Include="HNC\HNC-C11 - INVOICE B 06.30.xls" />
+    <None Include="HNC\HNC-C12 - INVOICE B 07.04.xls" />
+    <None Include="HNC\HNC-C13 - INVOICE B 07.05.xls" />
+    <None Include="HNC\HNC-C14 - INVOICE A07.08.xls" />
+    <None Include="HNC\HNC-C15 - INVOICE A 07.11.xls" />
+    <None Include="HNC\HNC-C16 - INVOICE B 07.13.xls" />
+    <None Include="HNC\HNC-C16 - INVOICE C 07.13.xls" />
+    <None Include="HNC\HNC-C17 - INVOICE B 07.15.xls" />
+    <None Include="HNC\HNC-C18 - INVOICE B 07.19.xls" />
+    <None Include="HNC\HNC-C19 - INVOICE A 07.20.xls" />
+    <None Include="HNC\HNC-C20 - INVOICE A 07.26.xls" />
+    <None Include="HNC\HNC-C21 - INVOICE A 07.29.xls" />
+    <None Include="HNC\HNC-C22 - INVOICE A 08.01.xls" />
+    <None Include="HNC\HNC-C23 - INVOICE A 08.03.xls" />
+    <None Include="HNC\HNC-C24 - INVOICE A 08.08.xls" />
+    <None Include="HNC\HNC-C25 - INVOICE A 08.10.xls" />
+    <None Include="HNC\HNC-C26 - INVOICE A 08.12.xls" />
+    <None Include="HNC\HNC-C27 - INVOICE A 08.17 .xls" />
+    <None Include="HNC\HNC-C28 - INVOICE A 08.19.xls" />
+    <None Include="HNC\HNC-C29 - INVOICE A 08.22.xls" />
+    <None Include="HNC\HNC-C30- INVOICE A 08.24.xls" />
+    <None Include="HNC\HNC-C31 - INVOICE A 08.26.xls" />
+    <None Include="HNC\HNC-C32 - INVOICE A 08.29.xls" />
+    <None Include="HNC\HNC-C33 - INVOICE A 09.02.xls" />
+    <None Include="HNC\HNC-C34 - INVOICE A 09.05.xls" />
+    <None Include="HNC\HNC-C35 - INVOICE A 09.07.xls" />
+    <None Include="HNC\HNC-C36 - INVOICE A 09.09.xls" />
+    <None Include="HNC\HNC-C37 - INVOICE A 09.12.xls" />
+    <None Include="HNC\HNC-C38 - INVOICE A 09.14.xls" />
+    <None Include="HNC\HNC-C39 - INVOICE A 09.16.xls" />
+    <None Include="HNC\HNC-C40 - INVOICE A 09.20.xls" />
+    <None Include="HNC\HNC-C41 - INVOICE A 09.21.xls" />
+    <None Include="HNC\HNC-C42 - INVOICE A 09.23.xls" />
+    <None Include="HNC\HNC-C43 - INVOICE A 09.26.xls" />
+    <None Include="HNC\HNC-C43 - INVOICE B 09.26.xls" />
+    <None Include="HNC\HNC-C44 - INVOICE B 09.28.xls" />
+    <None Include="HNC\HNC-C45 - INVOICE A 09.30.xls" />
+    <None Include="HNC\HNC-C46 - INVOICE A 10.03.xls" />
+    <None Include="HNC\to HNC-C22 - INVOICE A 08.01 %28đã thông quan%29.xls" />
+    <None Include="OVT\-OVT-  C106 INVOICE A 06.27.xls" />
+    <None Include="OVT\OVT HANOI-  C143 INVOICE A 09.20 %281%29.xls" />
+    <None Include="OVT\OVT HANOI-  C143 INVOICE A 09.20 %282%29.xls" />
+    <None Include="OVT\OVT HANOI-  C143 INVOICE A 09.20.xls" />
+    <None Include="OVT\OVT HANOI- C147 INVOICE A 09.26.xls" />
+    <None Include="OVT\OVT HCM -  C144 INVOICE A 09.21.xls" />
+    <None Include="OVT\OVT HCM - C145 INVOICE A 09.23.xls" />
+    <None Include="OVT\OVT HCM - C146 INVOICE A 09.26.xls" />
+    <None Include="OVT\OVT HCM - C148 INVOICE A 09.28.xls" />
+    <None Include="OVT\OVT HCM - C149 INVOICE A 09.30.xls" />
+    <None Include="OVT\OVT HCM - C150 INVOICE A 10.03.xls" />
+    <None Include="OVT\OVT-  C114 INVOICE A 07.15.xls" />
+    <None Include="OVT\OVT-  C122 INVOICE A 08.03.xls" />
+    <None Include="OVT\OVT- C100 INVOICE A 06.13.xls" />
+    <None Include="OVT\OVT- C101 INVOICE A 06.15.xls" />
+    <None Include="OVT\OVT- C102 INVOICE A 06.17.xls" />
+    <None Include="OVT\OVT- C103 INVOICE A 06.20.xls" />
+    <None Include="OVT\OVT- C104 INVOICE A 06.22.xls" />
+    <None Include="OVT\OVT- C105 INVOICE A 06.24.xls" />
+    <None Include="OVT\OVT- C107 INVOICE A 06.29.xls" />
+    <None Include="OVT\OVT- C108 INVOICE A 07.01 .xls" />
+    <None Include="OVT\OVT- C109 INVOICE A 07.4.xls" />
+    <None Include="OVT\OVT- C110 INVOICE A 07.6.xls" />
+    <None Include="OVT\OVT- C111 INVOICE A 07.08.xls" />
+    <None Include="OVT\OVT- C112 INVOICE A 07.11.xls" />
+    <None Include="OVT\OVT- C113 INVOICE A 07.13.xls" />
+    <None Include="OVT\OVT- C115 INVOICE A 07.19.xls" />
+    <None Include="OVT\OVT- C116 INVOICE A 07.20.xls" />
+    <None Include="OVT\OVT- C117 INVOICE A 07.22.xls" />
+    <None Include="OVT\OVT- C118 INVOICE A 07.25.xls" />
+    <None Include="OVT\OVT- C119 INVOICE A 07.27.xls" />
+    <None Include="OVT\OVT- C120 INVOICE A 07.29.xls" />
+    <None Include="OVT\OVT- C121 INVOICE A 08.01.xls" />
+    <None Include="OVT\OVT- C123 INVOICE A 08.05.xls" />
+    <None Include="OVT\OVT- C124 INVOICE A 08.08.xls" />
+    <None Include="OVT\OVT- C125 INVOICE A 08.10.xls" />
+    <None Include="OVT\OVT- C126 INVOICE A 08.12.xls" />
+    <None Include="OVT\OVT- C127 INVOICE A 08.15.xls" />
+    <None Include="OVT\OVT- C128 INVOICE A 08.17.xls" />
+    <None Include="OVT\OVT- C129 INVOICE A 08.19.xls" />
+    <None Include="OVT\OVT- C130 INVOICE A 08.22.xls" />
+    <None Include="OVT\OVT- C131 INVOICE A 08.24.xls" />
+    <None Include="OVT\OVT- C132 INVOICE A 08.26.xls" />
+    <None Include="OVT\OVT- C133 INVOICE A 08.29.xls" />
+    <None Include="OVT\OVT- C134 INVOICE A 08.31.xls" />
+    <None Include="OVT\OVT- C135 INVOICE A 09.02.xls" />
+    <None Include="OVT\OVT- C136 INVOICE A 09.05.xls" />
+    <None Include="OVT\OVT- C137 INVOICE A 09.07.xls" />
+    <None Include="OVT\OVT- C138 INVOICE A 09.09.xls" />
+    <None Include="OVT\OVT- C139 INVOICE A 09.12.xls" />
+    <None Include="OVT\OVT- C140 INVOICE A 09.14.xls" />
+    <None Include="OVT\OVT- C140 INVOICE B 09.14.xls" />
+    <None Include="OVT\OVT- C141 INVOICE A 09.16.xls" />
+    <None Include="OVT\OVT- C142 INVOICE A 09.20.xls" />
+    <None Include="OVT\OVT- C38 INVOICE変更2015.12.25.xls" />
+    <None Include="OVT\OVT- C45 INVOICE 01.15 A.xls" />
+    <None Include="OVT\OVT- C46 INVOICE 18.1.2016 B.xls" />
+    <None Include="OVT\OVT- C47 INVOICE 19.1.2016 B.xls" />
+    <None Include="OVT\OVT- C48 INVOICE 2016.01.22 B1.xls" />
+    <None Include="OVT\OVT- C65 INVOICE B 03.14.xls" />
+    <None Include="OVT\OVT- C68 INVOICE B 03.22.xls" />
+    <None Include="OVT\OVT- C73 INVOICE B 04.4.xls" />
+    <None Include="OVT\OVT- C88 INVOICE A 05.16.xls" />
+    <None Include="OVT\OVT- C94 INVOICE A 05.30.xls" />
+    <None Include="OVT\OVT- C95 INVOICE A 06.1.xls" />
+    <None Include="OVT\OVT- C96 INVOICE A 06.3.xls" />
+    <None Include="OVT\OVT- C97 INVOICE A 06.6.xls" />
+    <None Include="OVT\OVT- C98 INVOICE A 06.8.xls" />
+    <None Include="OVT\OVT- C99 INVOICE A 06.10.xls" />
+    <None Include="OVT\OVT- INVOICE - C42 8.1.2016.xls" />
+    <None Include="OVT\OVT- INVOICE C28 %28 XUAT KHO %29.xls" />
+    <None Include="OVT\OVT- INVOICE C28 20.11%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE C28 20.11.xls" />
+    <None Include="OVT\OVT- INVOICE C53.xls" />
+    <None Include="OVT\OVT- INVOICE- C40 5.1.2016-A.xls" />
+    <None Include="OVT\OVT- INVOICE-C01-20.08.xls" />
+    <None Include="OVT\OVT- INVOICE-C04_28.08%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C04_28.08.xls" />
+    <None Include="OVT\OVT- INVOICE-C05-01.09%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C05-01.09.xls" />
+    <None Include="OVT\OVT- INVOICE-C06-04.09の釣具含む１００ｋｇ以上%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C06-04.09の釣具含む１００ｋｇ以上.xls" />
+    <None Include="OVT\OVT- INVOICE-C07-08.09%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C07-08.09.xls" />
+    <None Include="OVT\OVT- INVOICE-C08-11.09%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C08-11.09.xls" />
+    <None Include="OVT\OVT- INVOICE-C09-15.09%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C09-15.09.xls" />
+    <None Include="OVT\OVT- INVOICE-C12-29.09%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C12-29.09.xls" />
+    <None Include="OVT\OVT- INVOICE-C13-02.10%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C13-02.10.xls" />
+    <None Include="OVT\OVT- INVOICE-C15-09.10%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C15-09.10.xls" />
+    <None Include="OVT\OVT- INVOICE-C16-13.10%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C16-13.10.xls" />
+    <None Include="OVT\OVT- INVOICE-C17-16.10%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C17-16.10.xls" />
+    <None Include="OVT\OVT- INVOICE-C18.20.10%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C18.20.10.xls" />
+    <None Include="OVT\OVT- INVOICE-C19-23.10%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C19-23.10.xls" />
+    <None Include="OVT\OVT- INVOICE-C20-27.10.xls" />
+    <None Include="OVT\OVT- INVOICE-C21-28.10.xls" />
+    <None Include="OVT\OVT- INVOICE-C22-30.10%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C22-30.10.xls" />
+    <None Include="OVT\OVT- INVOICE-C23-04.11%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C23-04.11.xls" />
+    <None Include="OVT\OVT- INVOICE-C25-10.11%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C25-10.11.xls" />
+    <None Include="OVT\OVT- INVOICE-C27-17.11%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C27-17.11.xls" />
+    <None Include="OVT\OVT- INVOICE-C29.24.11%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C29.24.11.xls" />
+    <None Include="OVT\OVT- INVOICE-C30.27.11%282%29.xls" />
+    <None Include="OVT\OVT- INVOICE-C30.27.11.xls" />
+    <None Include="OVT\OVT- INVOICE-C31.1.12.xls" />
+    <None Include="OVT\OVT- INVOICE-C32-04.12.xls" />
+    <None Include="OVT\OVT- INVOICE-C33.08.12.xls" />
+    <None Include="OVT\OVT- INVOICE-C39.29.12.xls" />
+    <None Include="OVT\OVT- INVOICEC24-06.11%282%29.xls" />
+    <None Include="OVT\OVT- INVOICEC24-06.11.xls" />
+    <None Include="OVT\OVT- INVOICEーC26.13.11%282%29.xls" />
+    <None Include="OVT\OVT- INVOICEーC26.13.11%283%29.xls" />
+    <None Include="OVT\OVT- INVOICEーC26.13.11.xls" />
+    <None Include="OVT\OVT-C11_ INVOICE%282%29.xls" />
+    <None Include="OVT\OVT-C11_ INVOICE.xls" />
+    <None Include="OVT\OVT-C41 INVOICE 8.1.2016.xls" />
+    <None Include="OVT\OVT-C43  INVOICE 12.1.2016 B.xls" />
+    <None Include="OVT\OVT-C49 INVOICE B 26.1.xls" />
+    <None Include="OVT\OVT-C50 INVOICE B 01.27.xls" />
+    <None Include="OVT\OVT-C51 INVOICE 01.29.xls" />
+    <None Include="OVT\OVT-C52 INVOICE B2 02.01.xls" />
+    <None Include="OVT\OVT-C54 INVOICE B 02.17.xls" />
+    <None Include="OVT\OVT-C55 INVOICE B 02.19.xls" />
+    <None Include="OVT\OVT-C56 INVOICE B 02.21.xls" />
+    <None Include="OVT\OVT-C57 INVOICE B 02.23.xls" />
+    <None Include="OVT\OVT-C58 INVOICE B 02.25.xls" />
+    <None Include="OVT\OVT-C59 INVOICE B 02.29-1.xls" />
+    <None Include="OVT\OVT-C60 INVOICE B 03.02.xls" />
+    <None Include="OVT\OVT-C61 INVOICE B 16.03.04.xls" />
+    <None Include="OVT\OVT-C62 INVOICE B 07.03.xls" />
+    <None Include="OVT\OVT-C63 INVOICE B1 09.03.xls" />
+    <None Include="OVT\OVT-C64 INVOICE B 03.11.xls" />
+    <None Include="OVT\OVT-C66 INVOICE B 03.16.xls" />
+    <None Include="OVT\OVT-C67 INVOICE B 03.18.xls" />
+    <None Include="OVT\OVT-C69 INVOICE B 03.25.xls" />
+    <None Include="OVT\OVT-INVOICE-C02-24.08%282%29.xls" />
+    <None Include="OVT\OVT-INVOICE-C02-24.08.xls" />
+    <None Include="OVT\OVT-INVOICE-C03-26.08%282%29.xls" />
+    <None Include="OVT\OVT-INVOICE-C03-26.08.xls" />
+    <None Include="OVT\OVT-INVOICE-C14-06.10%282%29.xls" />
+    <None Include="OVT\OVT-INVOICE-C14-06.10.xls" />
+    <None Include="OVT\OVT-IVVOICE-C10-18.09%282%29.xls" />
+    <None Include="OVT\OVT-IVVOICE-C10-18.09.xls" />
+    <None Include="OVT\to OVT- C111 INVOICE A 07.08.xls" />
+    <None Include="OVT\to OVT- C125 INVOICE A 08.10 %28đang thông quan%29.xls" />
+    <None Include="OVT\to OVT- C125 INVOICE A 08.10%28đã thông quan%29.xls" />
+    <None Include="OVT\to OVT- C134 INVOICE A 08.31 %28đang thông quan%29.xls" />
+    <None Include="OVT\to OVT- C134 INVOICE A 08.31%28IEC%29.xls" />
+    <None Include="OVT\to OVT- C134 INVOICE A 08.31%28đã thông quan%29.xls" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Web.Helpers\Web.Helpers.csproj">
+      <Project>{8aed182f-5a30-48d8-b1bb-50ac5fc46e54}</Project>
+      <Name>Web.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="db\WareHouseJPDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WareHouseJPDB.edmx</DependentUpon>
+      <LastGenOutput>WareHouseJPDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="db\WareHouseJPDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WareHouseJPDB.edmx</DependentUpon>
+      <LastGenOutput>WareHouseJPDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

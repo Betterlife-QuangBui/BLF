@@ -1,0 +1,15 @@
+﻿@foreach (ShippingBooking item in ViewBag.BookingHistory)
+{
+    <tr>
+        @*<td>@item.Shipping.ShippingCode</td>*@
+        <td>@item.BookingDate.Value.ToString("yyyy-MM-dd")</td>
+        <td>@item.BookingHour</td>
+        <td>@item.TrackingCount</td>
+        <td>@item.Weigh</td>
+        <td>@item.Shipping.DateAir.Value.ToString("yyyy-MM-dd")</td>
+        <td>@item.Shipping.FromAir.Name</td>
+        <td>@item.Shipping.ToAir.Name</td>
+        <td>@item.BookingUser</td>
+        <td>@item.UpdatedBy</td>
+    </tr>
+}

@@ -1,0 +1,749 @@
+﻿@model StorageJP
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Chi tiết kiện " + Model.TrackingCode;
+}
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@{
+    var cateogry = ViewBag.CategoryId;
+    var MadeIn = ViewBag.MadeIn;}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/StorageJP">Lưu kho</a>
+        </li>
+        <li class="active">Chi tiết kiện @Model.TrackingCode</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-5 storejp-name change-color-green">Kiện @Model.TrackingCode</div>
+        <div class="col-md-7 storejp-margin">
+            <div class="detail-action">
+                @if (Model.StatusId != 8)
+                {
+                    <a href="/StorageJP/MoreQuickly/@Model.Id"><i class="fa fa-bolt fa-2x" aria-hidden="true"></i> <span>Thêm nhanh</span></a>
+                    <a href="/StorageJP/DetailPackage/@Model.Id"><i class="fa fa-folder fa-2x" aria-hidden="true"></i> <span>Thêm sản phẩm</span></a>
+                    <a class="active-detail" href="/StorageJP/Detail/@Model.Id"><i class="fa fa-bars fa-2x" aria-hidden="true"></i> <span>Kiện hàng</span></a>
+                    <a href="/StorageJP/Database/@Model.Id"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i> <span>Database</span></a>
+                    <a href="/General/Index/@Model.Id"><i class="fa fa-cogs fa-2x" aria-hidden="true"></i> <span>General</span></a>
+                }
+                else
+                {
+                    <a href="#"><i class="fa fa-bolt fa-2x" aria-hidden="true"></i> <span>Thêm nhanh</span></a>
+                    <a href="#"><i class="fa fa-folder fa-2x" aria-hidden="true"></i> <span>Thêm sản phẩm</span></a>
+                    <a class="active-detail" href="/StorageJP/Detail/@Model.Id"><i class="fa fa-bars fa-2x" aria-hidden="true"></i> <span>Kiện hàng</span></a>
+                    <a href="#"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i> <span>Database</span></a>
+                    <a href="/General/Index/@Model.Id"><i class="fa fa-cogs fa-2x" aria-hidden="true"></i> <span>General</span></a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="storejp-margin">
+            <div class="col-md-12">
+                <div class="storejp-margin">
+                    <div class="col-md-6" style="position:relative;">
+                        <table class="storejp-nav">
+                            <tr class="statusId">
+                                <td><b>Trạng thái</b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td>@Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })</td>
+                                <td>
+                                    <input type="hidden" value="@Model.Id" id="ModelId" />
+                                    @if (Model.StatusId != 8)
+                                    {
+                                        if (PageUtils.IsDisplayStoreJP(Model.Id).Length == 0 && PageUtils.CheckItemStoreJPCount(Model) ==0)
+                                        {
+                                    <button type="button" class="btn-update-status btn btn-success btn-sm"><i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu</button>
+                                        }
+                                    }
+                                    @if (PageUtils.IsDisplayStoreJP(Model.Id).Length > 0)
+                                    {
+                                    <span class="error">
+                                        <a href="/StorageJP?id=@Model.Id">@PageUtils.IsDisplayStoreJP(Model.Id)</a>
+                                    </span>
+                                    }
+                                    else
+                                    {
+                                        if (PageUtils.CheckItemStoreJPCount(Model) > 0)
+                                        {
+                                    <span class="error">
+                                        <a href="#">Vui lòng sữa lỗi nội dung...</a>
+                                    </span>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6" style="padding-left:0;text-align:right;">
+                        <a href="/Export/BarCode/@Model.Id" class="export" title="Mã vạch">
+                            <i class="btn-ie fa fa-barcode" aria-hidden="true"></i> Mã vạch
+                        </a>
+                        <a href="/Export/StorageJP/@Model.Id" class="export" title="Export">
+                            <i class="btn-ie fa fa-arrow-up"></i> Export
+                        </a>
+                        <div class="display-column hiden-column">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-primary">Thông tin hiển thị</button>
+                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu hiden-column">
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-Tracking">
+                                                <input id="col-Tracking" checked disabled type="checkbox" data-index="0" />
+                                                <span class="lbl"> Option</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-split">
+                                                <input id="col-Split" type="checkbox" data-index="1" />
+                                                <span class="lbl"> Mã tách kiện</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-TenhangJP">
+                                                <input id="col-TenhangJP" checked type="checkbox" data-index="2" />
+                                                <span class="lbl"> Tên hàng JP</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-TenhangJP">
+                                                <input id="col-TenhangJP" checked disabled type="checkbox" data-index="3" />
+                                                <span class="lbl"> Action</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-TenhangEN">
+                                                <input id="col-TenhangEN" type="checkbox" data-index="4" />
+                                                <span class="lbl"> Tên hàng EN</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-Loai">
+                                                <input id="col-Loai" checked type="checkbox" data-index="5" />
+                                                <span class="lbl"> Loại BLF</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-LoaiWeb">
+                                                <input id="col-LoaiWeb" type="checkbox" data-index="6" />
+                                                <span class="lbl"> Loại Web</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-Hinh">
+                                                <input id="col-Hinh" checked type="checkbox" data-index="7" />
+                                                <span class="lbl"> Hình</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-JanCode">
+                                                <input id="col-JanCode" checked type="checkbox" data-index="8" />
+                                                <span class="lbl"> Jan code</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-MaSP">
+                                                <input id="col-MaSP" checked type="checkbox" data-index="9" />
+                                                <span class="lbl"> Mã SP</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-Quantity">
+                                                <input id="col-Quantity" checked type="checkbox" data-index="10" />
+                                                <span class="lbl"> Số lượng</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-Price">
+                                                <input id="col-Price" checked type="checkbox" data-index="11" />
+                                                <span class="lbl"> Giá</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-Amount">
+                                                <input id="col-Amount" checked type="checkbox" data-index="12" />
+                                                <span class="lbl"> Thành tiền</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-MadeIn">
+                                                <input id="col-MadeIn" checked type="checkbox" data-index="13" />
+                                                <span class="lbl"> Xuất xứ</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-Marital">
+                                                <input id="col-Marital" checked type="checkbox" data-index="14" />
+                                                <span class="lbl"> Chất liệu</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-Component">
+                                                <input id="col-Component" type="checkbox" data-index="15" />
+                                                <span class="lbl"> Thành phần</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-ComponentImage">
+                                                <input id="col-ComponentImage" type="checkbox" data-index="16" />
+                                                <span class="lbl"> Hình(thành phần)</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-LinkWebsite">
+                                                <input id="col-LinkWebsite" checked type="checkbox" data-index="17" />
+                                                <span class="lbl"> Link website</span>
+                                            </label>
+                                        </a>
+
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#" class="default-column col-Default" id="col-Default">Default view</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="display-column">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-default">Kiểu hiển thị</button>
+                                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-split">
+                                                <input id="col-split" checked type="radio" name="displaytype" />
+                                                <span class="lbl"> Kiện con</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <label for="col-List">
+                                                <input id="col-List" type="radio" name="displaytype" />
+                                                <span class="lbl"> List</span>
+                                            </label>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="storejp-margin row-detail"></div>
+                <div class="clear-both"></div>
+                <div class="table-heigh div-table-heaer">
+                    <table id="storejp-table" class="col-md-12 fixed_headersone">
+                        <thead>
+                            <tr class="tr-th">
+                                <th class="th-tracking center" style="width:50px;"></th>
+                                <th class="th-split" style="width:50px;">
+                                    Mã TK
+                                </th>
+                                <th class="th-namejp">
+                                    Tên hàng JP <div class="error">(*)</div>
+                                </th>
+                                <th class="th-tracking center" style="width:50px;"></th>
+                                <th class="th-nameen">
+                                    Tên hàng EN
+                                </th>
+                                <th class="th-category">
+                                    Loại <div class="error">(*)</div>
+                                </th>
+                                <th class="th-category-web">
+                                    Loại web
+                                </th>
+                                <th class="th-image">
+                                    Hình <div class="error">(*)</div>
+                                </th>
+                                <th class="th-jancode">
+                                    Jan code
+                                </th>
+                                <th class="th-product-code">
+                                    Mã sp
+                                </th>
+                                <th class="th-quantity">
+                                    SL <div class="error">(*)</div>
+                                </th>
+                                <th class="th-price">
+                                    Giá <div class="error">(*)</div>
+                                </th>
+
+                                <th class="th-amount">
+                                    Thành tiền
+                                </th>
+                                <th class="th-origin">
+                                    Xuất xứ <div class="error">(*)</div>
+                                </th>
+                                <th class="th-material">
+                                    Chất liệu
+                                </th>
+                                <th class="th-Component">
+                                    Thành phần
+                                </th>
+                                <th class="th-ComponentImage">
+                                    Hình(thành phần)
+                                </th>
+                                <th class="th-LinkWebsite">
+                                    Link website
+                                </th>
+                            </tr>
+                            <tr class="filter-jp">
+                                <th data-index="0"></th>
+                                <th data-index="1"><input class="form-control" /></th>
+                                <th data-index="2"><input class="form-control" /></th>
+                                <th data-index="3"></th>
+                                <th data-index="4"><input class="form-control" /></th>
+                                <th data-index="5">@Html.DropDownList("CategorySearch", (IEnumerable<SelectListItem>)cateogry, "Tất cả", htmlAttributes: new { @class = "form-control" })</th>
+                                <th data-index="6"><input class="form-control" /></th>
+                                <th data-index="7"></th>
+                                <th data-index="8"><input class="form-control" /></th>
+                                <th data-index="9"><input class="form-control" /></th>
+                                <th data-index="10"><input class="form-control" /></th>
+                                <th data-index="11"><input class="form-control" /></th>
+                                <th data-index="12"><input class="form-control" /></th>
+                                <th data-index="13">@Html.DropDownList("MadeInSearch", (IEnumerable<SelectListItem>)MadeIn, "Tất cả", htmlAttributes: new { @class = "form-control" })</th>
+                                <th data-index="14"><input class="form-control" /></th>
+                                <th data-index="15"><input class="form-control" /></th>
+                                <th data-index="16"></th>
+                                <th data-index="17"><input class="form-control" /></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        </table>
+</div>
+                <div class="storejp-margin table-heigh div-table-heaer-one">
+                   
+                    <table id="storejp-table" class="col-md-12 fixed_headerstwo">
+                        <thead>
+                            <tr class="tr-th">
+                                <th class="th-tracking center" style="width:50px;"></th>
+                                <th class="th-split" style="width:50px;">
+                                    Mã TK
+                                </th>
+                                <th class="th-namejp">
+                                    Tên hàng JP <div class="error">(*)</div>
+                                </th>
+                                <th class="th-tracking center" style="width:50px;"></th>
+                                <th class="th-nameen">
+                                    Tên hàng EN
+                                </th>
+                                <th class="th-category">
+                                    Loại <div class="error">(*)</div>
+                                </th>
+                                <th class="th-category-web">
+                                    Loại web
+                                </th>
+                                <th class="th-image">
+                                    Hình <div class="error">(*)</div>
+                                </th>
+                                <th class="th-jancode">
+                                    Jan code
+                                </th>
+                                <th class="th-product-code">
+                                    Mã sp
+                                </th>
+                                <th class="th-quantity">
+                                    SL <div class="error">(*)</div>
+                                </th>
+                                <th class="th-price">
+                                    Giá <div class="error">(*)</div>
+                                </th>
+
+                                <th class="th-amount">
+                                    Thành tiền
+                                </th>
+                                <th class="th-origin">
+                                    Xuất xứ <div class="error">(*)</div>
+                                </th>
+                                <th class="th-material">
+                                    Chất liệu
+                                </th>
+                                <th class="th-Component">
+                                    Thành phần
+                                </th>
+                                <th class="th-ComponentImage">
+                                    Hình(thành phần)
+                                </th>
+                                <th class="th-LinkWebsite">
+                                    Link website
+                                </th>
+                            </tr>
+                            <tr class="filter-jp">
+                                <th data-index="0"></th>
+                                <th data-index="1"><input class="form-control" /></th>
+                                <th data-index="2"><input class="form-control" /></th>
+                                <th data-index="3"></th>
+                                <th data-index="4"><input class="form-control" /></th>
+                                <th data-index="5">@Html.DropDownList("CategorySearch", (IEnumerable<SelectListItem>)cateogry, "Tất cả", htmlAttributes: new { @class = "form-control" })</th>
+                                <th data-index="6"><input class="form-control" /></th>
+                                <th data-index="7"></th>
+                                <th data-index="8"><input class="form-control" /></th>
+                                <th data-index="9"><input class="form-control" /></th>
+                                <th data-index="10"><input class="form-control" /></th>
+                                <th data-index="11"><input class="form-control" /></th>
+                                <th data-index="12"><input class="form-control" /></th>
+                                <th data-index="13">@Html.DropDownList("MadeInSearch", (IEnumerable<SelectListItem>)MadeIn, "Tất cả", htmlAttributes: new { @class = "form-control" })</th>
+                                <th data-index="14"><input class="form-control" /></th>
+                                <th data-index="15"><input class="form-control" /></th>
+                                <th data-index="16"></th>
+                                <th data-index="17"><input class="form-control" /></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            @{ var trackingdetails = Model.TrackingDetails.OrderBy(n => n.TrackingSubCode);
+                                if (ViewBag._TrackingSearchCode != "")
+                                {
+                                    trackingdetails = trackingdetails.Where(n => n.TrackingSubCode == ViewBag._TrackingSearchCode).OrderBy(n => n.TrackingSubCode);
+                                }
+                                if (ViewBag.jan != "")
+                                {
+                                    trackingdetails = trackingdetails.Where(n => n.StorageItemJPs.Where(m => m.JanCode == ViewBag.jan).Count() > 0).OrderBy(n => n.TrackingSubCode);
+                                }
+                            }
+                            @foreach (var tracking in trackingdetails)
+                            {
+                                <tr id="tracking-detail-@tracking.Id" data-id="@tracking.Id" data-mainparent="@tracking.TrackingSubCode.Trim()" class="main-tracking">
+                                    <td colspan="15">
+                                        @if (Model.StatusId != 8)
+                                        {
+                                            <span style="width:43px;display:inline-block;" class="center">
+                                                <label class="pos-rel">
+                                                    <input id="@tracking.Id" data-text="@tracking.TrackingSubCode.Trim()" data-id="@tracking.Id" data-check="" data-parent="true" type="checkbox" class="ace" />
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </span>
+                                        }
+
+                                        @(tracking.TrackingSubCode.Trim() == "21" ? "Kiện trả hàng" : tracking.TrackingSubCode.Trim())
+                                    </td>
+                                </tr>
+                                var StorageItemJPs = tracking.StorageItemJPs.OrderBy(n => n.CreatedAt);
+
+                                if (ViewBag.jan != "")
+                                {
+                                    StorageItemJPs = StorageItemJPs.Where(m => m.JanCode == ViewBag.jan).OrderBy(n => n.CreatedAt);
+                                }
+                                foreach (var item in StorageItemJPs)
+                                {
+                                    <tr data-trackingparent="@tracking.TrackingSubCode.Trim()" data-parent="@tracking.Id" class="product-item" data-remove="tr_@item.Id" data-id="@item.Id" id="@item.Id">
+                                        <td class="center" style="position:relative;">
+                                            @if (Model.StatusId != 8)
+                                            {
+                                                <label class="pos-rel">
+                                                    <input data-cate="@item.CategoryId" data-jancode="@item.JanCode" data-price="@item.PriceTax" data-material="@item.Material" data-madein="@item.MadeIn" data-component="@item.Component" data-quantity="@item.Quantity" data-namejp="@item.NameJP" id="@item.Id" data-text="@tracking.TrackingSubCode.Trim()" data-id="@tracking.Id" data-parent="false" data-check="" type="checkbox" class="ace" />
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            }
+                                            <div class="se-pre-con-crud" data-id="@item.Id">
+                                                <button type="button" class="btn btn-success btn-sm conform-save" data-id="@item.Id">Lưu</button>
+                                                <button type="button" class="btn btn-danger btn-sm conform-close" data-id="@item.Id">Hủy</button>
+                                            </div>
+                                        </td>
+                                        <td class="center">
+                                            <input type="text" name="TrackingSubCode" readonly value="@tracking.TrackingSubCode.Trim()">
+                                        </td>
+                                        <td class="@(PageUtils.CheckNameJP(item))">
+                                            <textarea name="NameJP" data-value="@Html.Raw(item.NameJP)" class="textarea-edit">@Html.Raw(item.NameJP)</textarea>
+                                        </td>
+                                        <td class="center" style="position:relative;">
+                                            @if (Model.StatusId != 8)
+                                            {
+                                                <div class="task-menu-button-control">
+                                                    <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                                                    <div class="task-menu-button-crud">
+                                                        @*<a href="/StorageJP/EditItem/@item.Id">Edit</a>*@
+                                                        <a href="#">Edit</a>
+                                                        <a data-id="@item.Id" class="delete-one-item" href="#">Delete</a>
+                                                    </div>
+                                                </div>
+
+                                            }
+                                        </td>
+                                        <td class="@(PageUtils.CheckNameEN(item))">
+                                            <textarea name="NameEN" data-value="@Html.Raw(item.NameEN)" class="name-en">@Html.Raw(item.NameEN)</textarea>
+                                        </td>
+                                        <td style="line-height:25px;" class="@(PageUtils.CheckCategory(item))">
+                                            @Html.DropDownList("CategoryId", (IEnumerable<SelectListItem>)cateogry, "", htmlAttributes: new { @class = "form-control CategoryId-" + item.Id, @data_value = item.CategoryId })
+                                            <script>
+                                                $(".CategoryId-@(item.Id)").val(@(item.CategoryId));
+                                            </script>
+                                        </td>
+                                        <td style="line-height:25px;">
+                                            <span style="color:#d15b47;display:block;font-weight:bold;">
+                                                @item.CategoryName
+                                            </span>
+                                        </td>
+                                        <td class="center @(PageUtils.CheckImageBase64(item))">
+                                            <a href="@item.LinkWeb" target="_blank">
+                                                <img src="@item.ImageBase64" data-value="@item.ImageBase64" class="ImageBase64Image" style="width:70px;height:70px;" />
+                                            </a>
+                                            <input type="file" data-id="@item.Id" style="display:none;" name="fileImageBase64" />
+                                            <input type="hidden" value="@item.Id" name="Id" />
+                                            <input type="hidden" value="@item.StoregeJPId" name="StoregeJPId" />
+                                            <input type="hidden" value="@item.TrackingDetailId" name="TrackingDetailId" />
+                                            <input type="hidden" value="@item.ImageBase64" name="ImageBase64" />
+                                            <input type="hidden" value="@item.Image" name="Image" />
+                                            <input type="hidden" value="@item.ImageLinkWeb" name="ImageLinkWeb" />
+                                        </td>
+                                        <td class="center @(PageUtils.CheckJanCode(item))">
+                                            <input type="text" name="JanCode" value="@Html.Raw(item.JanCode)" data-value="@Html.Raw(item.JanCode)" />
+                                        </td>
+                                        <td class="center">
+                                            <input type="text" name="ProductCode" data-value="@Html.Raw(item.ProductCode)" value="@Html.Raw(item.ProductCode)" />
+                                        </td>
+
+                                        <td class="detail-right @(PageUtils.CheckQuantity(item))">
+                                            <input type="number" min="1" name="Quantity" style="width:55px;" max="2000" data-value="@item.Quantity" value="@item.Quantity" />
+                                        </td>
+                                        <td class="detail-right @(PageUtils.CheckPriceTax(item))">
+                                            <input type="number" min="1" style="width:80px;" max="1000000000" name="PriceTax" data-value="@item.PriceTax" value="@item.PriceTax" />
+                                        </td>
+                                        <td class="detail-right amount">@item.Amount</td>
+                                        <td class="@(PageUtils.CheckMadeIn(item))">
+                                            @Html.DropDownList("MadeIn", (IEnumerable<SelectListItem>)MadeIn, "", htmlAttributes: new { @class = "form-control MadeIn-" + item.Id, @data_value = item.MadeIn })
+                                            <script>
+                                                $(".MadeIn-@(item.Id)").val(@(item.MadeIn));
+                                            </script>
+                                        </td>
+                                        <td>
+                                            <textarea class="textarea-edit" name="Material" data-value="@Html.Raw(item.Material)">@Html.Raw(item.Material)</textarea>
+                                        </td>
+
+                                        <td>
+                                            <textarea class="textarea-edit" name="Component" data-value="@Html.Raw(item.Component)">@Html.Raw(item.Component)</textarea>
+                                        </td>
+                                        <td class="center">
+                                            <img src="@item.ComponentImage" data-value="@item.ComponentImage" class="ComponentImage" style="width:70px;height:70px;" />
+                                            <input data-id="@item.Id" type="file" style="display:none;" name="fileComponentImage" />
+                                            <input type="hidden" value="@item.ComponentImage" name="ComponentImage" />
+                                        </td>
+                                        <td class="center @(PageUtils.CheckLinkWeb(item))">
+                                            <input type="text" name="LinkWeb" data-value="@Html.Raw(item.LinkWeb)" value="@Html.Raw(item.LinkWeb)" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="tr-th-tfooter">
+                                <th class="th-tracking center" style="width:50px;"><div class="error sum-error">@PageUtils.CheckItemStoreJPCount(Model)</div></th>
+                                <th></th>
+                                <th><div class="error NameJP-error">@PageUtils.CheckItemStoreJPCountByOneColumn(Model, "namejp")</div></th>
+                                <th></th>
+                                <th><div class="error NameEN-error"><div class="error">@PageUtils.CheckItemStoreJPCountByOneColumn(Model, "nameen")</div></div></th>
+                                <th><div class="error CategoryId-error">@PageUtils.CheckItemStoreJPCountByOneColumn(Model, "category")</div></th>
+                                <th><div class="error"></div></th>
+                                <th><div class="error ImageBase64-error">@PageUtils.CheckItemStoreJPCountByOneColumn(Model, "image")</div></th>
+                                <th><div class="error JanCode-error">@PageUtils.CheckItemStoreJPCountByOneColumn(Model, "jancode")</div></th>
+                                <th><div class="error"></div></th>
+                                <th><div class="error Quantity-error">@PageUtils.CheckItemStoreJPCountByOneColumn(Model, "quantity")</div></th>
+                                <th><div class="error PriceTax-error">@PageUtils.CheckItemStoreJPCountByOneColumn(Model, "price")</div></th>
+                                <th><div class="error"></div></th>
+                                <th><div class="error MadeIn-error">@PageUtils.CheckItemStoreJPCountByOneColumn(Model, "madein")</div></th>
+                                <th><div class="error"></div></th>
+                                <th><div class="error"></div></th>
+                                <th><div class="error"></div></th>
+                                <th><div class="error LinkWeb-error">@PageUtils.CheckItemStoreJPCountByOneColumn(Model, "linkweb")</div></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="clear-both"></div>
+                <div class="storejp-margin row-detail"></div>
+                <div class="" style="position: relative;margin-bottom: 40px;">
+                    <div class="body-color">
+                        <div class="content table_insert">
+                            <div style="width:100px;display:inline-block;margin-top:8px;"><b>Thao tác </b></div>
+                            <div style="width:200px;display:inline-block;">
+                                <select class="form-control" id="storejp-detail-action">
+                                    <option value="-1"></option>
+                                    <option value="0">Xóa</option>
+                                    <option value="1">Chỉnh sửa(xuất xứ)</option>
+                                    <option value="2">Chỉnh sửa(số lượng)</option>
+                                    <option value="3">Chỉnh sửa(giá)</option>
+                                    <option value="3.1">Chỉnh sửa(loại blf)</option>
+                                    <option value="4">Tách kiện</option>
+                                    <option value="5">Chỉnh sửa(thành phần)</option>
+                                    <option value="6">Chỉnh sửa(chất liệu)</option>
+                                    <option value="7">Chỉnh sửa(jancode)</option>
+                                    <option value="8">Chỉnh sửa(tên jp)</option>
+                                </select>
+                            </div>
+                            <div data-id="1" class="hiden">
+                                <span class="tt-title-form"><b>Xuất xứ </b></span>
+                                <span colspan="3">
+                                    @Html.DropDownList("MadeIn", null, htmlAttributes: new { @class = "form-control" })
+                                </span>
+                            </div>
+                            <div data-id="2" class="hiden quantity">
+                                <span class="tt-title-form"><b>Số lượng </b></span>
+                                <span colspan="3">
+                                    <input type="number" max="2000" min="1" name="item-quantity" value="" class="form-control" />
+                                </span>
+                            </div>
+                            <div data-id="3" class="hiden">
+                                <span class="tt-title-form"><b>Giá </b></span>
+                                <span colspan="3">
+                                    <input type="number" max="1000000" min="1" name="Price" value="" class="form-control" />
+                                </span>
+                            </div>
+                            <div data-id="3.1" class="hiden">
+                                <span class="tt-title-form"><b>Loại BLF </b></span>
+                                <span colspan="3">
+                                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                                </span>
+                            </div>
+                            <div data-id="4" class="hiden">
+                                <span class="tt-title-form"><b>Tách kiện </b></span>
+                                <span>
+                                    @Html.DropDownList("TrackingCode", null, htmlAttributes: new { @class = "form-control", @style = "width:100px;" })
+                                </span>
+                                <span class="tt-title-form"><b>Số lượng</b></span>
+                                <span><input type="number" min="1" max="2000" name="quantity" value="1" class="form-control" /></span>
+                            </div>
+                            <div data-id="5" class="hiden">
+                                <span class="tt-title-form"><b>Nội dung </b></span>
+                                <span colspan="3">
+                                    <textarea name="Component" class="form-control" cols="5" rows="4"></textarea>
+                                </span>
+                            </div>
+                            <div data-id="6" class="hiden">
+                                <span class="tt-title-form"><b>Nội dung </b></span>
+                                <span colspan="3">
+                                    <textarea name="Material" class="form-control" cols="5" rows="4"></textarea>
+                                </span>
+                            </div>
+                            <div data-id="7" class="hiden">
+                                <span class="tt-title-form"><b>Jan code </b></span>
+                                <span colspan="3">
+                                    <input type="text" name="jancode" value="" class="form-control" />
+                                </span>
+                            </div>
+                            <div data-id="8" class="hiden">
+                                <span class="tt-title-form"><b>Nội dung </b></span>
+                                <span colspan="3">
+                                    <textarea name="NameJP" class="form-control" cols="5" rows="4"></textarea>
+                                </span>
+                            </div>
+                            <div style="display:inline-block;">
+                                <input value="" type="hidden" id="storejp-detail-id" />
+                                <input value="" type="hidden" id="storejp-detail-tracking" />
+                                <button type="button" class="btn-action-storejp btn btn-sm btn-danger tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Thực hiện</button>
+                                <button type="button" class="btn-cancel-action-storejp btn btn-sm btn-warning tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" value="@Model.StatusId" id="statusModel" />
+<link href="~/Content/storejp-detail.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="~/Scripts/storejp.js"></script>
+    <script>
+        //dialog delete
+        $(function () {
+            $(".table_insert").find("input,button,textarea,select").attr("disabled", "disabled");
+            if ($("#statusModel").val() == 8) {
+                $('#storejp-table tbody').find("input,button,textarea,select").attr("disabled", "disabled");
+            }
+            $(".hiden-column-content").hide(); $(".hiden-column-title").show();
+        });
+        $(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index")) + 1;
+                if (e.checked) {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+            $(".hiden-column input[type=checkbox]").click(function () {
+                $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                    var index = parseInt($(e).attr("data-index")) + 1;
+                    if (e.checked) {
+                        $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                    }
+                    else {
+                        $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                    }
+                });
+            });
+            //appytable headers
+            //$(".fixed_headerstwo thead").hide();
+            lengthtwo = $(".fixed_headerstwo tbody tr").length;
+            if (lengthtwo >= 1) {
+                $(".fixed_headersone tbody").html("<tr>"+$(".fixed_headerstwo tbody tr:eq(1)").html()+"</tr>");
+                //$(".fixed_headersone tbody tr:eq(0)").hide();
+                $(".fixed_headersone").hide()
+            }
+            $(".div-table-heaer-one").scroll(function () { //.box is the class of the div
+                if ($(this).scrollTop() >= 80) {
+                    $(".div-table-heaer").css("height","92px")
+                    $(".fixed_headersone").show();
+                } else {
+                    $(".fixed_headersone").hide();
+                    $(".div-table-heaer").css("height", "0px")
+                }
+            });
+        });
+    </script>
+}

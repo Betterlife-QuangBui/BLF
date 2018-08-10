@@ -1,0 +1,312 @@
+﻿@model StorageJP
+@{
+    ViewBag.Title = "Chi tiết kiện " + Model.TrackingCode;
+}
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/StorageJP">Lưu kho</a>
+        </li>
+        <li class="active">Chi tiết kiện @Model.TrackingCode</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-5 storejp-name change-color-green">Kiện @Model.TrackingCode</div>
+        <div class="col-md-10 storejp-margin">
+            <div class="detail-action">
+                <a class="active-detail" href="/StorageJP/MoreQuickly/@Model.Id"><i class="fa fa-bolt fa-2x" aria-hidden="true"></i> <span>Thêm nhanh</span></a>
+                <a href="/StorageJP/DetailPackage/@Model.Id"><i class="fa fa-folder fa-2x" aria-hidden="true"></i> <span>Thêm sản phẩm</span></a>
+                <a href="/StorageJP/Detail/@Model.Id"><i class="fa fa-bars fa-2x" aria-hidden="true"></i> <span>Kiện hàng</span></a>
+                <a href="/StorageJP/Database/@Model.Id"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i> <span>Database</span></a>
+                <a href="/General/Index/@Model.Id"><i class="fa fa-cogs fa-2x" aria-hidden="true"></i> <span>General</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 storejp-margin">
+            <div class="tabbable" style="width:900px;">
+
+                <ul class="nav nav-tabs" id="myTab1s">
+
+                    <li class="@((Session["resultQuickly"] != null&& Session["searchQuickly"]!=null)?"":"active")">
+                        <a data-toggle="tab" href="#home" aria-expanded="true">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            Tìm và lưu kiện
+                        </a>
+                    </li>
+                    <li class="@((Session["resultQuickly"] != null&& Session["searchQuickly"]!=null)?"active":"")">
+                        <a data-toggle="tab" href="#tab-booking">
+                            <i class="fa fa-cubes" aria-hidden="true"></i>
+                            Kết quả tìm kiếm
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" style="width:900px;">
+                    <div id="home" class="tab-pane fade @((Session["resultQuickly"] != null&& Session["searchQuickly"]!=null)?"":"active in")">
+                        <table id="simple-table" class="table table-striped table-bordered table-hover" style="width:100% !important">
+                            <thead>
+                                <tr>
+                                    <th>Jancode</th>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Loại hàng BLF</th>
+                                    <th>Xuất xứ</th>
+                                    <th>Bigshop</th>
+                                    <th></th>
+                                </tr>
+                                <tr class="enterAdd">
+                                    <td>
+                                        <textarea rows="20" class="form-control" name="Jancode" id="Jancode"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea rows="20" class="form-control" name="Productcode" id="Productcode"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea rows="20" class="form-control" name="quantity" id="quantity"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea rows="20" class="form-control" name="CategoryId" id="CategoryId"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea rows="20" class="form-control" name="MadeIn" id="MadeIn"></textarea>
+                                    </td>
+                                    <td class="Website">
+                                        <div>
+                                            <label class="pos-rel" style="padding-right:10px;">
+                                                <input type="radio" data-option="false" name="Website" value="Database" id="Database" />
+                                                <span class="lbl">Database</span>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Rakuten" id="Rakuten" />
+                                                    <span class="lbl">Rakuten</span>
+                                                </label>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Amazon" id="Amazon" />
+                                                    <span class="lbl">Amazon</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="YahooShopping" id="YahooShopping" />
+                                                    <span class="lbl">Y!Shopping</span>
+                                                </label>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="YahooAuction" id="YahooAuction" />
+                                                    <span class="lbl">Y!Auction</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Uniqlo" id="Uniqlo" />
+                                                    <span class="lbl">Uniqlo</span>
+                                                </label>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Zara" id="Zara" />
+                                                    <span class="lbl">Zara</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Adidas" id="Adidas" />
+                                                    <span class="lbl">Adidas</span>
+                                                </label>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Hm" id="Hm" />
+                                                    <span class="lbl">Hm</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Forever21" id="Forever21" />
+                                                    <span class="lbl">Forever21</span>
+                                                </label>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Locondo" id="Locondo" />
+                                                    <span class="lbl">Locondo</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Reebok" id="Reebok" />
+                                                    <span class="lbl">Reebok</span>
+                                                </label>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" disabled name="Website" value="Gap" id="Gap" />
+                                                    <span class="lbl">Gap</span>
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Crocs" id="Crocs" />
+                                                    <span class="lbl">Crocs</span>
+                                                </label>
+                                                <label class="pos-rel">
+                                                    <input type="radio" data-option="false" name="Website" value="Dena-ec" id="Dena-ec" />
+                                                    <span class="lbl">Dena-ec</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <button type="button" class="btn btn-default add-item">
+                                                Tìm
+                                            </button>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div id="tab-booking" class="tab-pane fade @((Session["resultQuickly"] != null&& Session["searchQuickly"]!=null)?"active in":"") table-heigh">
+                        @if (Session["resultQuickly"] != null && Session["searchQuickly"] != null)
+                        {
+                            <table id="storejp-table" class="col-md-12">
+                                <thead>
+                                    <tr class="tr-th">
+                                        <th class="th-tracking center" style="width:50px;"></th>
+                                        <th>Tên hàng JP</th>
+                                        <th>Hình</th>
+                                        <th>Jan code</th>
+                                        <th>Mã sp</th>
+                                        <th>Giá</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                    @{
+                                        var list = Session["resultQuickly"] as List<SearchProductInfo>;
+                                        var searchs = Session["searchQuickly"] as List<MoreQuickly>;
+                                    }
+                                    @foreach (MoreQuickly item in searchs)
+                                    {
+                                        <tr class="key-search">
+                                            <td colspan="6">
+                                                @item.Jancode
+                                            </td>
+                                        </tr>
+                                        foreach (var result in list.Where(n => n.MoreQuickly.Jancode == item.Jancode))
+                                        {
+                                            <tr>
+                                                <td class="center">
+                                                    <label class="pos-rel">
+                                                        <input type="radio" name="saveprod_@item.Jancode" data-id="@result.Id" value="@result.ProductCode" />
+                                                        <span class="lbl"></span>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <div class="name-jp">@Html.Raw(result.NameJP)</div>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="@result.LinkWeb" target="_blank">
+                                                        <img src="@result.ImageBase64" style="width:70px;height:70px;" />
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <div class="name-jp">@result.JanCode</div>
+                                                </td>
+                                                <td><div class="name-jp">@result.ProductCode</div></td>
+                                                <td class="detail-right">
+                                                    @result.PriceTax
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                            <div class="action-more">
+                                <input type="hidden" id="searchMoreQuickyId" value="" />
+                                <input type="hidden" id="countKeySearch" value="@searchs.Count" />
+                                <button class="btn btn-sm btn-success btnSaveMoreQuickyMain" data-id="@Model.Id">Lưu kiện</button>
+                            </div>
+                                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input id="StoreJPId" type="hidden" value="@Model.Id" />
+<link href="~/Content/storejp-detail.css" rel="stylesheet" />
+<style>
+    td.Website label.pos-rel {
+        width: 100px;
+    }
+</style>
+@section scripts{
+    <script src="~/Scripts/MoreQuickly_Save.js"></script>
+    <script>
+
+        function addItem() {
+            Jancode = $("#Jancode").val();
+            Productcode = $("#Productcode").val();
+            quantity = $("#quantity").val();
+            CategoryId = $("#CategoryId").val();
+            MadeIn = $("#MadeIn").val();
+            Website = $("input[name=Website]:checked").val();
+            option = $("input[name=Website]:checked").attr("data-option");
+            var arrJanCode = Jancode.trim().split(/\n/);
+            var arrProductcode = Productcode.trim().split(/\n/);
+            var arrQuantity = quantity.trim().split(/\n/);
+            var arrCategory = CategoryId.trim().split(/\n/);
+            var arrMadeIn = MadeIn.trim().split(/\n/);
+            if (option == "true") {
+                $.ajax({
+                    method: 'POST',
+                    url: '/StorageJP/MoreQuickly', data: { Id: $("#StoreJPId").val(), Productcode: arrProductcode.toString(), Jancode: arrJanCode.toString(), CategoryId: arrCategory.toString(), MadeIn: arrMadeIn.toString(), Website: Website, quantity: arrQuantity.toString() },
+                    success: function (result) {
+                        if (result.status == true) {
+                            location.reload();
+                        }
+                        else {
+                            notify('error', 'Tìm kiếm dữ liệu thất bại', "2"); $(".se-pre-con").fadeOut();
+                        }
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    method: 'POST',
+                    url: '/StorageJP/AddMoreQuickly', data: { Id: $("#StoreJPId").val(), Productcode: arrProductcode.toString(), Jancode: arrJanCode.toString(), CategoryId: arrCategory.toString(), MadeIn: arrMadeIn.toString(), Website: Website, quantity: arrQuantity.toString() },
+                    success: function (result) {
+                        if (result.status == true) {
+                            notify('white', 'Thêm dữ liệu thành công', "1");
+                            location.href = '/StorageJP/Detail/' + $("#StoreJPId").val();
+                            $(".se-pre-con").fadeOut();
+                        }
+                        else {
+                            notify('error', 'Thêm dữ liệu thất bại', "2"); $(".se-pre-con").fadeOut();
+                        }
+                    }
+                });
+            }
+        }
+        $(function () {
+            $(".add-item").click(function (e) {
+                $(".se-pre-con").show();
+                addItem();
+            });
+        });
+    </script>
+}

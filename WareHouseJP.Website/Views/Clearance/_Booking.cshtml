@@ -1,0 +1,263 @@
+﻿@model Tuple<FlightBooking, AirInfo>
+<link href="~/Content/_booking.css" rel="stylesheet" />
+<link href="~/Content/css/select2.css" rel="stylesheet" />
+<link href="~/Content/select2-bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/select2.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/booking/booking.js"></script>
+<div class="clearfix"></div>
+<div style="display:inline-block;text-align:left;width:100%;">
+    <fieldset>
+        <legend>Thông tin booking</legend>
+        @using (Html.BeginForm("Edit", "Clearance", FormMethod.Post, new { enctype = "multipart/form-data",id= "btnSaveBooking" }))
+        {
+            @*@Html.AntiForgeryToken()*@
+            @Html.ValidationSummary(true)
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tr>
+                    <td class="tt-title-form"><b>Đường bay</b></td>
+                    <td colspan="3">
+                        @Html.DropDownList("FlightRouteId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Item1.FlightRouteId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Mã booking<span class="error">(*)</span></b></td>
+                    <td>
+                        @Html.EditorFor(model => model.Item1.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Item1.Code, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="tt-title-form"><b>Trạng thái</b></td>
+                    <td>
+                        @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Item1.StatusId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Số kg tự động <span class="error">(*)</span></b></td>
+                    <td>
+                        @Html.EditorFor(model => model.Item1.AutomaticWeigh, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Item1.AutomaticWeigh, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="tt-title-form"><b>Số kg nhập tay <span class="error">(*)</span></b></td>
+                    <td>
+                        @Html.EditorFor(model => model.Item1.EnterManuallyWeigh, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Item1.EnterManuallyWeigh, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Số kiện tự động <span class="error">(*)</span></b></td>
+                    <td>
+                        @Html.EditorFor(model => model.Item1.AutomaticTrackingCount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Item1.AutomaticTrackingCount, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="tt-title-form"><b>Số kiện nhập tay <span class="error">(*)</span></b></td>
+                    <td>
+                        @Html.EditorFor(model => model.Item1.EnterManuallyTrackingCount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Item1.EnterManuallyTrackingCount, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Kích thước <span class="error">(*)</span></b></td>
+                    <td>
+                        @Html.DropDownList("Size", null, htmlAttributes: new { @class = "form-control" })
+                    </td>
+                    <td class="tt-title-form"><b>Hình vận đơn</b></td>
+                    <td>
+                        <label class="ace-file-input">
+                            <input type="file" name="upImage" id="id-input-file-2" data-id="@Model.Item1.Id">
+                            <span class="ace-file-container" data-title="Chọn hình">
+                                <span class="ace-file-name" data-title="@Model.Item1.Image">
+                                    <i class="ace-icon fa fa-upload"></i>
+                                </span>
+                            </span>
+                            <a class="remove" href="#"><i class="ace-icon fa fa-times"></i></a>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Xác nhận booking</b></td>
+                    <td>
+                        <input class="radio-inline tt-padding-radio" type="radio" name="IsBooking" value="true" @(Model.Item1.IsBooking != null && Model.Item1.IsBooking.Value == true ? "checked='checked'" : "") /> Xác nhận
+                        <input class="radio-inline tt-padding-radio" type="radio" name="IsBooking" value="false" @(Model.Item1.IsBooking == null || Model.Item1.IsBooking.Value == false ? "checked='checked'" : "") /> Hủy
+                    </td>
+                    <td class="tt-title-form"><b>Xác nhận thông quan</b></td>
+                    <td>
+                        <input class="radio-inline tt-padding-radio" type="radio" name="IsClearance" value="true" @(Model.Item1.IsClearance != null && Model.Item1.IsClearance.Value == true ? "checked='checked'" : "") /> Đã thông quan
+                        <input class="radio-inline tt-padding-radio" type="radio" name="IsClearance" value="false" @(Model.Item1.IsClearance == null || Model.Item1.IsClearance.Value == false ? "checked='checked'" : "") /> Đang thông quan
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Ngày booking <span class="error">(*)</span></b></td>
+                    <td>
+                        <div class='input-group date' id='datetimepicker2'>
+                            @Html.EditorFor(model => model.Item1.BookingDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                            @Html.ValidationMessageFor(model => model.Item1.BookingDate, "", new { @class = "text-danger" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="tt-title-form"><b>Giờ booking <span class="error">(*)</span></b></td>
+                    <td>
+                        <div class='input-group date' id='datetimepicker_hour_2'>
+                            @Html.EditorFor(model => model.Item1.BookingHour, new { htmlAttributes = new { @class = "form-control hour" } })
+                            @Html.ValidationMessageFor(model => model.Item1.BookingHour, "", new { @class = "text-danger" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tt-title-form"><b>Chọn công ty</b></td>
+                    <td id="Booking_MAWB">
+                        @Html.DropDownList("MAWB", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+
+                        <script>
+                        @if (Model.Item1.FlightBookingMAWBs != null)
+                        {
+                            foreach (var item in Model.Item1.FlightBookingMAWBs)
+                            {
+                                <text>$('#MAWB option[value=@(item.MAWBId)]').attr('selected', 'selected');</text>
+                            }
+                        }
+                        </script>
+                    </td>
+                    <td class="tt-title-form"><b>Chọn cá nhân</b></td>
+                    <td id="Booking_HAWB">
+                        @Html.DropDownList("HAWB", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                        <script>
+                        @if (Model.Item1.FlightBookingHAWBs != null)
+                        {
+                            foreach (var item in Model.Item1.FlightBookingHAWBs)
+                            {
+                                <text>$('#HAWB option[value=@(item.HAWBId)]').attr('selected', 'selected');</text>
+                            }
+                        }
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Ghi chú</b></td>
+                    <td colspan="3">
+                        <textarea rows="6" name="Notes" id="Notes" class="form-control">@Model.Item1.Notes</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align:center;">
+                        <button type="submit" class="btnSaveBooking btn btn-xs btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align:center;">
+                        @Html.ValidationSummary(false)
+                        <input name="Id" type="hidden" value="@Model.Item1.Id" />
+                        <input name="CreatedAt" type="hidden" value="@Model.Item1.CreatedAt" />
+                        <input name="AirId" type="hidden" value="@Model.Item1.AirId" />
+                        <input name="CreatedBy" type="hidden" value="@Model.Item1.CreatedBy" />
+                        <input name="StaffId" type="hidden" value="@Model.Item1.StaffId" />
+                        <input type="hidden" value="@Model.Item1.Image" name="Image" />
+                        <input name="StaffIdUpdate" type="hidden" value="@Model.Item1.StaffIdUpdate" />
+                        <input name="IsFlightGood" type="hidden" value="@Model.Item1.IsFlightGood" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </fieldset>
+    <fieldset id="SaveAirBooking">
+        <legend>Thông tin chuyến bay</legend>
+        @using (Html.BeginForm("SaveAirBooking", "FlightBooking", FormMethod.Post, new { enctype = "multipart/form-data",id= "btnSaveAirBooking" }))
+        {
+            @Html.ValidationSummary(true)
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tr>
+                    <td class="tt-title-form"><b>Mã chuyến bay <span class="error">(*)</span></b></td>
+                    <td>
+                        @if (Model.Item2.Id != null)
+                        {
+                            @Html.EditorFor(model => model.Item2.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @data_val = "false" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.Item2.Id, new { htmlAttributes = new { @class = "form-control", @data_val = "false" } })
+                        }
+                        @Html.ValidationMessageFor(model => model.Item2.Id, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="tt-title-form"><b>Tên chuyến bay <span class="error">(*)</span></b></td>
+                    <td>
+                        @Html.EditorFor(model => model.Item2.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Item2.Name, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Nơi đi <span class="error">(*)</span></b></td>
+                    <td>
+                        @Html.EditorFor(model => model.Item2.AirFrom, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Item2.AirFrom, "", new { @class = "text-danger" })
+                    </td>
+                    <td class="tt-title-form"><b>Nơi đến <span class="error">(*)</span></b></td>
+                    <td>
+                        @Html.EditorFor(model => model.Item2.AirTo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Item2.AirTo, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Ngày bay <span class="error">(*)</span></b></td>
+                    <td>
+                        <div class='input-group date' id='clea-FlightDateFrom'>
+                            @Html.EditorFor(model => model.Item2.FlightDateFrom, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                            @Html.ValidationMessageFor(model => model.Item2.FlightDateFrom, "", new { @class = "text-danger" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="tt-title-form"><b>Giờ bay <span class="error">(*)</span></b></td>
+                    <td>
+                        <div class='input-group date' id='clea-FlightHourFrom'>
+                            @Html.EditorFor(model => model.Item2.FlightHourFrom, new { htmlAttributes = new { @class = "form-control hour" } })
+                            @Html.ValidationMessageFor(model => model.Item2.FlightHourFrom, "", new { @class = "text-danger" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Ngày đến <span class="error">(*)</span></b></td>
+                    <td>
+                        <div class='input-group date' id='clea-FlightDateTo'>
+                            @Html.EditorFor(model => model.Item2.FlightDateTo, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                            @Html.ValidationMessageFor(model => model.Item2.FlightDateTo, "", new { @class = "text-danger" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="tt-title-form"><b>Giờ đến <span class="error">(*)</span></b></td>
+                    <td>
+                        <div class='input-group date' id='clea-FlightHourTo'>
+                            @Html.EditorFor(model => model.Item2.FlightHourTo, new { htmlAttributes = new { @class = "form-control hour" } })
+                            @Html.ValidationMessageFor(model => model.Item2.FlightHourTo, "", new { @class = "text-danger" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align:center;">
+                        <input name="FlightBookingId" type="hidden" value="@Model.Item1.Id" />
+                        <input name="CreatedAt" type="hidden" value="@Model.Item2.CreatedAt" />
+                        <input name="CreatedBy" type="hidden" value="@Model.Item2.CreatedBy" />
+                        <button type="button" class="btnSaveAirBooking btn btn-xs btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                    </td>
+                </tr>
+            </table>
+        }
+    </fieldset>
+</div>

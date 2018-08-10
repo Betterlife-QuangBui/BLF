@@ -1,0 +1,71 @@
+﻿@model Shipment
+
+@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+}
+<div class="body">
+    <div class="head" style="background-color:#adadad;">
+        <div class="head-center title">
+            Thông tin lô hàng
+            <div class="notify">Điền đầy đủ thông tin các mục (*)</div>
+        </div>
+        <span class="close-shipment">x</span>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm("Add", "Shipment", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tr>
+                    <td class="tt-title-form"><b>Tên lô hàng <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.ShipmentName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ShipmentName, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Ngày bay dự kiến <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td class="datepicker">
+                        @Html.EditorFor(model => model.FlightDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FlightDate, "", new { @class = "text-danger" })
+                        <span class="display-day"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Ghi chú</b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.TextAreaFor(model => model.Notes, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <input type="hidden" value="@Model.Code" name="Code" />
+                        <button type="submit" class="btncreate btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                        <button type="reset" class="btn btn-sm btn-danger tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+                    </td>
+                </tr>
+            </table>
+
+        }
+    </div>
+</div>
+@section scripts{
+    <script>
+        $("td.datepicker input").val(today());
+        $(".display-day").html(day($("td.datepicker input").val()))
+        $(document).on("change", "td.datepicker input", function () {
+            var date = today();
+            if ($(this).val() != "") {
+                date = $(this).val();
+            }
+            $("td.datepicker input").val(date);
+            $(".display-day").html(day(date))
+        })
+    </script>
+}

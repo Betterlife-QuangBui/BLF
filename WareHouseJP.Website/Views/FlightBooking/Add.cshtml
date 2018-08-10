@@ -1,0 +1,73 @@
+﻿@model FlightBooking
+
+@{
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+<link href="~/better-life/assets/css/ace.min.tab.css" rel="stylesheet" />
+<ol class="breadcrumb editbreadcrum">
+    <li><a href="/" target="_parent"><i class="glyphicon glyphicon-home"></i> Trang chủ</a></li>
+    <li><a href="/FlightBooking/" target="_parent">Booking</a></li>
+    <li class="active">Thêm mới thông tin</li>
+</ol>
+<div class="">
+    @using (Html.BeginForm("Add", "FlightBooking", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <table class="table_insert col-md-12" align="center" style="width:100%;">
+            <tr>
+                <td class="tt-title-form"><b>Mã booking<span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Kích thước <span class="error">(*)</span></b></td>
+                <td>:</td>
+                <td>
+                    @Html.DropDownList("Size", null, htmlAttributes: new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Ghi chú</b></td>
+                <td>:</td>
+                <td>
+                    <textarea rows="6" name="Notes" id="Notes" class="form-control"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <button type="submit" class="btncreate btn btn-large btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                    <button type="reset" class="btn btn-large btn-info tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Xóa</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    @Html.ValidationSummary(false)
+                </td>
+            </tr>
+        </table>
+
+    }
+</div>
+
+<script type="text/javascript">
+    jQuery(function ($) {
+        $('#id-input-file-2').change(function () {
+            $(".ace-file-name").attr("data-title", $(this).val().split('\\').pop());
+            $(".ace-file-input .remove").show();
+            $(".ace-file-input .remove").css("right", "66px");
+        });
+        $(".ace-file-input .remove").click(function () {
+            $('#id-input-file-2').val("");
+            $(".ace-file-input .remove").hide();
+            $(".ace-file-name").attr("data-title", "Chưa có hình");
+        });
+    });
+</script>

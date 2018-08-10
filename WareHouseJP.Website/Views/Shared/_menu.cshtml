@@ -1,0 +1,234 @@
+﻿@{
+    var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    UserPage user = new UserPage();
+}
+<div id="sidebar" class="sidebar h-sidebar navbar-collapse collapse">
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn btn-success"></span>
+
+            <span class="btn btn-info"></span>
+
+            <span class="btn btn-warning"></span>
+
+            <span class="btn btn-danger"></span>
+        </div>
+    </div><!-- /.sidebar-shortcuts -->
+    <ul class="nav nav-list">
+        <li class="@ActiveMenu.Active("Home",controllerName) hover">
+            <a href="/">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> Dashboard </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+
+        @*<li class="@ActiveMenu.Active("Shipment,AgencyPackageItem",controllerName) hover">
+            <a href="/Shipment">
+                <i class="menu-icon fa fa-truck"></i>
+                <span class="menu-text">
+                    Trên đường
+                </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+        </li>*@
+
+        <li class="@ActiveMenu.Active("StorageJP,General",controllerName) hover">
+            <a href="/StorageJP">
+                <i class="menu-icon fa fa-home"></i>
+                <span class="menu-text"> Lưu kho </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+        </li>
+
+        <li class="@ActiveMenu.Active("Database", controllerName) hover">
+            <a href="/Database">
+                <i class="menu-icon fa fa-book"></i>
+                <span class="menu-text"> Danh sách hàng </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+        </li>
+
+        @*@if (user.Staff.RoleId < 6)
+        {
+            <li class="@ActiveMenu.Active("ExportGoods", controllerName) hover">
+                <a href="/ExportGoods">
+                    <i class="menu-icon fa fa-bitbucket"></i>
+                    <span class="menu-text"> Xuất kho </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+            </li>
+        }*@
+        @*<li class="@ActiveMenu.Active("Shipping",controllerName) hover">
+            <a href="/Shipping">
+                <i class="menu-icon fa fa-book"></i>
+                <span class="menu-text"> Chuyến Bay </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+        </li>*@
+        @*<li class="@ActiveMenu.Active("PackageReturn",controllerName) hover">
+            <a href="/PackageReturn">
+                <i class="menu-icon fa fa-refresh"></i>
+                <span class="menu-text"> Trả hàng </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+        </li>*@
+
+        @*@if (user.Staff.RoleId < 6)
+        {
+            <li class="@ActiveMenu.Active("DeliveryCom,Staff,WareHouseInfo,TrackingStatus,WareHouseCategory,Countries,StatusWareHouse,AirInfo,FromAir,Agency,DeliveryAddresses,MAWB,HAWB,AgencyAccount,ToAir,Database", controllerName) hover">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-cog"></i>
+                    <span class="menu-text">
+                        Cấu hình
+                    </span>
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="@ActiveMenu.Active("TrackingStatus", controllerName) hover">
+                            <a href="/TrackingStatus">
+                                <i class="menu-icon fa fa-caret-right"></i> Trạng thái kiện hàng
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    <li class="@ActiveMenu.Active("WareHouseInfo", controllerName) hover">
+                        <a href="/WareHouseInfo">
+                            <i class="menu-icon fa fa-caret-right"></i> Danh sách Shipper
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@ActiveMenu.Active("DeliveryCom", controllerName) hover">
+                        <a href="/DeliveryCom">
+                            <i class="menu-icon fa fa-caret-right"></i> Danh sách giao nhận
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@ActiveMenu.Active("FromAir", controllerName) hover">
+                        <a href="/FromAir">
+                            <i class="menu-icon fa fa-caret-right"></i> Danh sách nơi đi
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@ActiveMenu.Active("ToAir", controllerName) hover">
+                        <a href="/ToAir">
+                            <i class="menu-icon fa fa-caret-right"></i> Danh sách nơi đến
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@ActiveMenu.Active("Countries", controllerName) hover">
+                        <a href="/Countries">
+                            <i class="menu-icon fa fa-caret-right"></i> Xuất xứ hàng hóa
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@ActiveMenu.Active("WareHouseCategory", controllerName) hover">
+                        <a href="/WareHouseCategory">
+                            <i class="menu-icon fa fa-caret-right"></i> Loại hàng BLF
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="@ActiveMenu.Active("Countries", controllerName) hover">
+                            <a href="/Countries">
+                                <i class="menu-icon fa fa-caret-right"></i> Xuất xứ hàng hóa
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="@ActiveMenu.Active("StatusWareHouse", controllerName) hover">
+                            <a href="/StatusWareHouse">
+                                <i class="menu-icon fa fa-caret-right"></i> Tình trạng sản phẩm
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    <li class="@ActiveMenu.Active("AirInfo", controllerName) hover">
+                            <a href="/AirInfo">
+                                <i class="menu-icon fa fa-caret-right"></i> Danh sách chuyến bay
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    <li class="@ActiveMenu.Active("Database", controllerName) hover">
+                            <a href="/Database">
+                                <i class="menu-icon fa fa-caret-right"></i> Danh sách hàng trong kho
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    <li class="@ActiveMenu.Active("Staff", controllerName) hover">
+                        <a href="/Staff">
+                            <i class="menu-icon fa fa-caret-right"></i> Tài khoản nhân viên
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@ActiveMenu.Active("Agency,MAWB,HAWB,AgencyAccount,DeliveryAddresses", controllerName) hover">
+                        <a href="#" class="dropdown-toggle">
+                            <span class="menu-text"> Đại lý </span>
+
+                            <b class="arrow fa fa-angle-down"></b>
+                        </a>
+
+                        <b class="arrow"></b>
+
+                        <ul class="submenu">
+                            <li class="@ActiveMenu.Active("Agency", controllerName) hover">
+                                <a href="/Agency">
+                                    <i class="menu-icon fa fa-caret-right"></i> Danh sách đại lý
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+                            <li class="@ActiveMenu.Active("DeliveryAddresses", controllerName) hover">
+                                <a href="/DeliveryAddresses">
+                                    <i class="menu-icon fa fa-caret-right"></i> Danh sách địa chỉ nhận hàng
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+                            <li class="@ActiveMenu.Active("MAWB", controllerName) hover">
+                                <a href="/MAWB">
+                                    <i class="menu-icon fa fa-caret-right"></i> Danh sách MAWB
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+
+                            <li class="@ActiveMenu.Active("HAWB", controllerName) hover">
+                                <a href="/HAWB">
+                                    <i class="menu-icon fa fa-caret-right"></i> Danh sách HAWB
+                                </a>
+                                <b class="arrow"></b>
+                            </li>
+                            <li class="@ActiveMenu.Active("AgencyAccount", controllerName) hover">
+                                <a href="/AgencyAccount">
+                                    <i class="menu-icon fa fa-caret-right"></i> Tài khoản đăng nhập
+                                </a>
+                                <b class="arrow"></b>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        }*@
+    </ul>
+    <!-- /.nav-list -->
+
+
+</div>

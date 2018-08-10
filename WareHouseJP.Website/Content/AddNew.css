@@ -1,0 +1,189 @@
+﻿.tt-title-form {
+    font-size: 12px;
+    vertical-align: top;
+    width:160px !important;
+    max-width:200px !important;
+}
+
+.form-control, .input-group-addon, .breadcrumb, .btn {
+    border-radius: 0 !important;
+}
+
+.select2-container {
+    width: 100% !important;
+}
+
+.table_insert tr td {
+    padding: 7px;
+    vertical-align: top;
+    font-size:12px !important;
+}
+
+.tt-padding-radio {
+    margin: 0px 2px 2px !important;
+}
+
+.editbreadcrum {
+    background-color: #307ecc;
+    color: #ffffff;
+}
+
+    .editbreadcrum a {
+        color: #ffffff;
+    }
+
+.breadcrumb > .active {
+    color: white;
+}
+span.display-day,span.display-edit-day {
+    display: inline-block;
+    /* float: left; */
+    color: #438eb9 !important;
+    width: 30%;
+    position: absolute;
+    top: 15px;
+    right: 21px;
+}
+td.datepicker input,td.edit-datepicker input {
+    width: 60%;
+    display: inline-block;
+}
+.table > thead > tr {
+    color: #707070;
+    font-weight: 400;
+    /* background: #F2F2F2; */
+    /* background-image: -webkit-linear-gradient(top,#f8f8f8 0,#ececec 100%); */
+    background-image: -o-linear-gradient(top,#f8f8f8 0,#ececec 100%);
+    background-image: linear-gradient(to bottom,#f8f8f8 0,#ececec 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8', endColorstr='#ffececec', GradientType=0);
+}
+
+    .table > thead > tr > th {
+        border-color: #ddd;
+        font-weight: 700;
+    }
+
+.select2-search--inline {
+    display: none;
+    border-radius: 0;
+}
+
+.select2-selection--multiple, .select2-selection--single {
+    border-radius: 0 !important;
+}
+
+div.body {
+    width: inherit;
+    border: 3px solid #808080;
+    position: relative;
+    /* padding: 10px; */
+    display: inline-block;
+}
+
+.tt-title-form b {
+    font-size: 12px;
+}
+.head-package {
+    background: #86c791 !important;
+    padding: 10px;
+    position: relative;
+}
+div.body .head {
+    background: #adadad;
+    padding: 10px;
+    position: relative;
+}
+
+div.body .content {
+    padding: 10px;
+    position: relative;
+}
+
+div.body .head .head-center {
+    width: 80%;
+    margin: 0 auto;
+}
+
+div.body .head .title {
+    text-transform: uppercase;
+    font-size: 22px;
+    text-align: center;
+    color: #ffffff;
+    position: relative;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+td.datepicker,td.edit-datepicker {
+    position: relative;
+}
+.field-validation-error {
+    font-size: 12px;
+    display: block;
+}
+.close-package,div.body .head span.close-shipment,.close-storejp {
+    position: absolute;
+    right: 7px;
+    top: 5px;
+    background: #fff;
+    padding: 0px 8px 0px 8px;
+    /* border-radius: 16px; */
+    /* width: 24px; */
+    /* height: 24px; */
+    color: #707070;
+    font-weight: bold;
+    display: block;
+    font-size: 17px;
+    cursor:pointer;
+}
+.close-package:hover,div.body .head span.close-shipment:hover{
+    background-color:#808080;
+    color:#ff0000;
+}
+img.ui-datepicker-trigger {
+    position: absolute;
+    right: 41%;
+    top: 8px;
+}
+div.body .head .notify {
+    color: #ffffff;
+    font-size: 12px;
+    position: absolute;
+    text-transform: none;
+    font-weight: normal;
+    right: 22%;
+    top: 28px;
+}
+div.body .head-package .notify {
+    color: #ffffff;
+    font-size: 12px;
+    position: absolute;
+    text-transform: none;
+    font-weight: normal;
+    right: 19%;
+    top: 28px;
+}
+
+/**
+    Import file
+*/
+.content-import{
+    padding:10px;
+    line-height:25px;
+}
+.fileImport{
+    display:none !important;
+}
+.content.content-import div {
+    margin-bottom: 10px;
+    line-height: 25px;
+    text-align: left;
+}
+.btn-button{
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.file .progress{
+    height:23px;
+}

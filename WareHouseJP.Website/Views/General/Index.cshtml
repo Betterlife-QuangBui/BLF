@@ -1,0 +1,124 @@
+﻿@model StorageJP
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Tham khảo kiện " + Model.TrackingCode;
+}
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/StorageJP">Lưu kho</a>
+        </li>
+        <li class="active">Tổng quan về kiện @Model.TrackingCode</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-5 storejp-name change-color-green">
+            <a href="/StorageJP?id=@Model.Id" style="color:#000000;">
+                @Model.TrackingCode
+            </a>
+        </div>
+        <div class="col-md-10 storejp-margin">
+            <div class="detail-action">
+                @if (Model.StatusId != 8)
+                {
+                    <a href="/StorageJP/MoreQuickly/@Model.Id"><i class="fa fa-bolt fa-2x" aria-hidden="true"></i> <span>Thêm nhanh</span></a>
+                    <a href="/StorageJP/DetailPackage/@Model.Id"><i class="fa fa-folder fa-2x" aria-hidden="true"></i> <span>Thêm sản phẩm</span></a>
+                    <a href="/StorageJP/Detail/@Model.Id"><i class="fa fa-bars fa-2x" aria-hidden="true"></i> <span>Kiện hàng</span></a>
+                    <a href="/StorageJP/Database/@Model.Id"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i> <span>Database</span></a>
+                    <a class="active-detail" href="/General/Index/@Model.Id"><i class="fa fa-cogs fa-2x" aria-hidden="true"></i> <span>General</span></a>
+                }
+                else
+                {
+                    <a href="#"><i class="fa fa-bolt fa-2x" aria-hidden="true"></i> <span>Thêm nhanh</span></a>
+                    <a href="#"><i class="fa fa-folder fa-2x" aria-hidden="true"></i> <span>Thêm sản phẩm</span></a>
+                    <a href="/StorageJP/Detail/@Model.Id"><i class="fa fa-bars fa-2x" aria-hidden="true"></i> <span>Kiện hàng</span></a>
+                    <a href="#"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i> <span>Database</span></a>
+                    <a class="active-detail" href="/General/Index/@Model.Id"><i class="fa fa-cogs fa-2x" aria-hidden="true"></i> <span>General</span></a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="storejp-margin">
+            <div class="col-md-12">
+                <div class="storejp-margin row-detail"></div>
+                <div class="clear-both"></div>
+                <div class="storejp-margin table-heigh">
+                    <table id="storejp-table" class="col-md-12">
+                        <thead>
+                            <tr class="tr-title">
+                                <th class="one" colspan="6">LƯU KHO</th>
+                                <th class="two" colspan="4">XUẤT KHO</th>
+                                <th class="three" colspan="2">CHUYẾN BAY</th>
+                                <th class="four" colspan="2">TRẢ HÀNG</th>
+                            </tr>
+                            <tr class="tr-th">
+                                <!--LƯU KHO-->
+                                <th>MÃ TRACKING</th>
+                                <th>TRẠNG THÁI</th>
+                                <th>GHI CHÚ</th>
+                                <th>HÌNH VẬN ĐƠN</th>
+                                <th>KHỐI LƯỢNG</th>
+                                <th>KÍCH THƯỚC</th>
+                                <!--XUẤT KHO-->
+                                <th>SHIPPING MASK</th>
+                                <th>TRẠNG THÁI</th>
+                                <th>KHỐI LƯỢNG</th>
+                                <th>KÍCH THƯỚC</th>
+                                <!--CHUYẾN BAY-->
+                                <th>MÃ CHUYẾN BAY</th>
+                                <th>TRẠNG THÁI</th>
+                                <!--TRẢ HÀNG-->
+                                <th>MÃ TRẢ HÀNG</th>
+                                <th>TRẠNG THÁI</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @{ GeneralRelation relation = PageUtils.GeneralRelation(Model);}
+                            <tr>
+                                <td>@Model.TrackingCode</td>
+                                <td>@PageUtils.PackageStatus(Model.StatusId.Value, 2)</td>
+                                <td>@Model.Notes</td>
+                                <td>
+                                    @if (Model.Image != null && Model.Image.Length > 0)
+                                    {
+                                        <img src="/Uploads/StoreHourse/@Model.Image" style="width:70px;" />
+                                    }
+                                </td>
+                                <td>@Model.Weigh</td>
+                                <td>@PageUtils.DisplaySize(Model.Weigh, Model.SizeInput, Model.SizeTableId, Model.Size)</td>
+                                
+                                <td>@relation.GeneralExportGood.ShippingMask</td>
+                                <td>@relation.GeneralExportGood.Status</td>
+                                <td>@relation.GeneralExportGood.Weigh</td>
+                                <td>@relation.GeneralExportGood.Size</td>
+
+                                <td>@relation.GeneralShipping.ShippingCode</td>
+                                <td>@relation.GeneralShipping.Status</td>
+
+                                <td>@relation.GeneralReturn.ReturnCode</td>
+                                <td>@relation.GeneralReturn.Status</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="clear-both"></div>
+                <div class="storejp-margin row-detail"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/Content/storejp-general.css" rel="stylesheet" />

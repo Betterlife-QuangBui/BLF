@@ -1,0 +1,58 @@
+﻿@model PagedList.IPagedList<StorageJP>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@foreach (var item in Model)
+{
+    <div class="control" data-id="@item.Id">
+        <a href="/StorageItemJP/Index/@item.Id" class="iframe_storageitemjp_add cboxElement @(@item.StatusId==8?"disabled":"")">
+            <span class="btn btn-xs btn-success edit-item">
+                <i class="ace-icon fa fa-cubes bigger-120 "></i>
+            </span>
+        </a>
+        <a  href="/StorageJP/Edit/@item.Id" class="iframe_storagejp_add cboxElement @(@item.StatusId==8?"disabled":"")">
+            <span class="btn btn-xs btn-info edit-item">
+                <i class="ace-icon fa fa-pencil bigger-120 "></i>
+            </span>
+        </a>
+        <a href="javascript:;" class="delete-item-main @(@item.StatusId==8?"disabled":"")" data-url="/StorageJP/Delete/@item.Id" data-id="tr_@item.Id">
+            <span class="btn btn-xs btn-danger" data-url="/StorageJP/Delete/@item.Id" data-id="tr_@item.Id">
+                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+            </span>
+        </a>
+        @if (item.TrackingDetails.Count > 0 && item.StorageItemJPs.Count > 0)
+        {
+        <a class="export1" data-href="/Export/StorageJP/@item.Id" href="/Export/StorageJP/@item.Id">
+            <span class="btn btn-xs btn-success">
+                Xuất thông tin
+            </span>
+        </a>
+        }
+    </div>
+}
+<script src="~/better-life/assets/js/jquery.2.1.1.min.js"></script>
+<script src="~/better-life/assets/colorbox/jquery.colorbox.js"></script>
+<style>
+    #cboxClose {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        text-indent: -9999px;
+        z-index: 99999;
+        top: 12px !important;
+        right: 12px !important;
+    }
+</style>
+<script>
+    $(function () {
+        $(".iframe_storageitemjp_add").colorbox({ iframe: true, innerWidth: "90%", innerHeight: "80%", overlayClose: false });
+        $(".iframe_storagejp_add").colorbox({ iframe: true, innerWidth: 600, innerHeight: 680, overlayClose: false });
+    })
+
+    function paging(number) {
+        $(".item-of-page").html("");
+        $(".item-of-page").load('/Ajax/StoreJP?page=' + number + '&key=@(ViewBag.key)');
+        $(".action-crud").html("");
+        $(".action-crud").load('/Ajax/ControlCrud?page=' + number + '&key=@(ViewBag.key)');
+    }
+</script>

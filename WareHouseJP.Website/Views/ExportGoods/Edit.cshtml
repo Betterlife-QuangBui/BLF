@@ -1,0 +1,235 @@
+﻿@model ExportGood
+
+@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+}
+<div class="body">
+    <div class="head" style="background:#adadad;">
+        <div class="head-center title">
+            Thông tin xuất kho
+            <div class="notify">Điền đầy đủ thông tin các mục (*)</div>
+        </div>
+        <span class="close-package">x</span>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm("Edit", "ExportGoods", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td class="tt-title-form"><b>Trạng thái <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Shipping Mark <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.ShippingMarkVN, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ShippingMarkVN, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Khối lượng <span class="error text-orange">(*)</span></b></td>
+                        <td>:</td>
+                        <td class="Weigh">
+                            @Html.EditorFor(model => model.Weigh, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Weigh, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Kích thước <span class="error text-orange">(*)</span></b></td>
+                        <td>:</td>
+                        <td>
+                            @if (Model.Size == "size-mau")
+                            {
+                                <div class="size">
+                                    <div class="size-template">
+                                        <div class="col-md-5">
+                                            <input type="radio" checked value="size-mau" name="size" /> Size mẫu
+                                        </div>
+                                        <div class="col-md-7 SizeTableId">
+                                            @Html.DropDownList("SizeTableId", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.SizeTableId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="size-input">
+                                        <div class="col-md-5">
+                                            <input type="radio" value="size-input" name="size" /> Nhập tay
+                                        </div>
+                                        <div class="col-md-7">
+                                            @Html.EditorFor(model => model.SizeInput, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                            @Html.ValidationMessageFor(model => model.SizeInput, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="sokg-quydoi">
+                                        KQ quy đổi
+                                        <p>(<span class="Weigh-Input">@Model.WeighInput</span> kg)</p>
+                                        <input name="WeighInput" value="@Model.WeighInput" id="WeighInput" type="hidden" />
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="size">
+                                    <div class="size-template">
+                                        <div class="col-md-5">
+                                            <input type="radio" value="size-mau" name="size" /> Size mẫu
+                                        </div>
+                                        <div class="col-md-7 SizeTableId">
+                                            @Html.DropDownList("SizeTableId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                                            @Html.ValidationMessageFor(model => model.SizeTableId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="size-input">
+                                        <div class="col-md-5">
+                                            <input type="radio" checked value="size-input" name="size" /> Nhập tay
+                                        </div>
+                                        <div class="col-md-7">
+                                            @Html.EditorFor(model => model.SizeInput, new { htmlAttributes = new { @class = "form-control", } })
+                                            @Html.ValidationMessageFor(model => model.SizeInput, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="sokg-quydoi">
+                                        KQ quy đổi
+                                        <p>(<span class="Weigh-Input">@Model.WeighInput</span> kg)</p>
+                                        <input name="WeighInput" value="@Model.WeighInput" id="WeighInput" type="hidden" />
+                                    </div>
+                                </div>
+                            }
+
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Ghi chú</b></td>
+                        <td>:</td>
+                        <td>
+                            <textarea rows="6" name="Notes" id="Notes" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                    @*<tr>
+                            <td class="tt-title-form"><b>Hình vận đơn</b></td>
+                            <td>:</td>
+                            <td style="position:relative;">
+                                <div>
+                                    <label class="ace-file-input">
+                                        <span class="ace-file-container" data-title="Chọn hình">
+                                            <span class="ace-file-name" data-title="">
+                                                <i class="ace-icon fa fa-upload"></i>
+                                            </span>
+                                        </span>
+                                        <a class="remove" href="#"><i class="ace-icon fa fa-times"></i></a>
+                                    </label>
+                                    <input style="display:none" type="file" name="upImage" id="id-input-file-2">
+                                    <div class="picture-option">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                        <a id="upload-computer" href="#"><i class="fa fa-share" aria-hidden="true"></i> Tải từ máy tính</a>&nbsp;
+                                        <a href="#"><i class="fa fa-camera" aria-hidden="true"></i> Chụp hình từ webcam</a>
+                                    </div>
+                                </div>
+                                <div class="img-review" id="img-review">
+                                    <img src="@Model.ImageBase64" />
+                                </div>
+                            </td>
+                        </tr>*@
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Ngày đóng gói <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td class="edit-datepicker">
+                            @Html.EditorFor(model => model.ExportDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ExportDate, "", new { @class = "text-danger" })
+                            <span class="display-edit-day"></span>
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Giờ đóng gói <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        @*<td>
+                                @Html.DropDownList("ExportHour", null, htmlAttributes: new { @class = "form-control ReceivedHour" })
+                                @Html.ValidationMessageFor(model => model.ExportHour, "", new { @class = "text-danger" })
+                            </td>*@
+                        <td>
+                            @Html.EditorFor(model => model.ExportHour, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ExportHour, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="position:relative;">
+                            <input type="hidden" id="ImageBase64" value="@Model.ImageBase64" name="ImageBase64" />
+                            <input type="hidden" id="Id" value="@Model.Id" name="Id" />
+                            <input type="hidden" id="Id" value="@Model.CreatedAt" name="CreatedAt" />
+                            <input type="hidden" id="Id" value="@Model.CreatedBy" name="CreatedBy" />
+                            @if (Request["actionlink"] != null)
+                            {
+                                <input type="hidden" value="@Request["actionlink"]" name="actionlink" />
+                            }
+                            else
+                            {
+                                <input type="hidden" value="" name="actionlink" />
+                            }
+                            <button type="submit" class="btncreate btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                            <button type="reset" class="btn btn-sm btn-danger tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+                            <div class="option-detail-crud">
+                                <a href="#" data-index="1">Chi tiết</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        }
+    </div>
+</div>
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+
+    .ace-file-input {
+        width: 100%;
+    }
+
+    .tt-title-form {
+        font-size: 12px;
+        vertical-align: top;
+        width: 170px !important;
+        max-width: 200px !important;
+    }
+
+    .size {
+        position: relative;
+    }
+
+    .size-template, .size-input {
+        width: 250px !important;
+    }
+
+    .sokg-quydoi {
+        position: absolute;
+        right: -17px;
+        top: 19px;
+        width: 100px;
+        text-align: center;
+    }
+</style>
+@section scripts{
+    <script>
+        $("td.edit-datepicker input").val($("td.edit-datepicker input").val().split(' ')[0]);
+        $(".display-edit-day").html(day($("td.edit-datepicker input").val()))
+        $(document).on("change", "td.edit-datepicker input", function () {
+            var date = today();
+            if ($(this).val() != "") {
+                date = $(this).val();
+            }
+            $("td.edit-datepicker input").val(date);
+            $(".display-edit-day").html(day(date))
+        })
+    </script>
+}

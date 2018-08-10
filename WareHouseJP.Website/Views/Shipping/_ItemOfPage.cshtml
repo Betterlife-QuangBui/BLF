@@ -1,0 +1,100 @@
+﻿@model PagedList.IPagedList<Shipping>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@foreach (var item in Model)
+{
+    <tr class="item" data-id="@item.Id">
+        <td class="center">
+            <label class="pos-rel">
+                <input id="@item.Id" data-id="@item.Id" type="checkbox" class="ace" />
+                <span class="lbl"></span>
+            </label>
+        </td>
+        <td class="@(item.StatusId.Value==13?"border-unchecked":"border-done")"><a data-id="@item.Id" class="" href="/Shipping/ShippingPackage/@item.Id">@item.ShippingCode</a></td>
+        <td style="position:relative;">
+            <div class="center">
+                <div class="task-menu-button-control">
+                    <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                    <div class="task-menu-button-crud">
+                        @*<a href="/StorageJP/EditItem/@item.Id">Edit</a>*@
+                        <a href="/Shipping/Edit/@item.Id" class="package_item-edit" title="Edit">
+                            Sửa
+                        </a>
+                        <a href="/Shipping/Delete/@item.Id" data-url="/Shipping/Delete/@item.Id" data-id="tr_@item.Id" class="delete-shipping-one" title="Delete">
+                            Xóa
+                        </a>
+                        <a data-id="@item.Id" class="" href="/Shipping/ShippingPackage/@item.Id">
+                            Chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="package_edit_body"></div>
+        </td>
+        <td>@item.WareHouseInfo.Name</td>
+        <td>@item.MAWB.Name</td>
+        <td>@item.DateAir.Value.ToString("yyyy-MM-dd")</td>
+        <td>@item.FromAir.Name</td>
+        <td>@item.ToAir.Name</td>
+        <td>@item.Notes</td>
+        <td>
+            @PageUtils.PackageStatus(item.ShippingBookings.Count() == 0 ? 11 : item.ShippingBookings.Last().StatusId.Value, 4)
+        </td>
+        <td>
+            @*<span class="@(item.StatusId.Value==13?"text-unchecked":(item.StatusId.Value==14?"text-done":"text-unchecked"))">
+                @PageUtils.PackageStatus(item.StatusId.Value, 5)
+            </span>*@
+            @PageUtils.PackageStatus(item.StatusId.Value, 5)
+        </td>
+        <td>@item.PreAD_Note</td>
+    </tr>
+}
+<tr class="action-table">
+    <td class="center">
+        <label class="pos-rel">
+            <input data-parent="true" type="checkbox" class="ace checkall" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td colspan="11" class="right">
+        <select class="form-control select-action-table select2" disabled="disabled">
+            <option value="-1">Chọn thao tác</option>
+            <option value="1">Xóa</option>
+        </select>
+        <button disabled="disabled" class="btn btn-sm btn-danger btn-action-table"><i class="fa fa-refresh" aria-hidden="true"></i> Thực hiện</button>
+    </td>
+</tr>
+<tr class="pagging-table">
+    <td colspan="12" class="right">
+        <div class="pagging storejp-pagging-index">
+            @Html.PagedListPager(Model, page => Url.Action("Shipping", "Ajax", new { page = page, sort = ViewBag.sort }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </td>
+</tr>
+
+
+<script>
+    $(function () {
+        $(".hiden-column input[type=checkbox]").each(function (i, e) {
+            var index = parseInt($(e).attr("data-index")) + 1;
+            if (e.checked) {
+                $('#storejp-table tr > *:nth-child(' + index + ')').show();
+            }
+            else {
+                $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+            }
+        });
+        $(".hiden-column input[type=checkbox]").click(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index")) + 1;
+                if (e.checked) {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+        });
+    });
+</script>

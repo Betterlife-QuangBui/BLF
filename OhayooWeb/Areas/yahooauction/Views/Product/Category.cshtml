@@ -1,0 +1,51 @@
+﻿@model OhayooWeb.Models.ProductPagger
+<div class="row left"><div class="ohayoo-title"><i class="glyphicon glyphicon-th-large"></i>ホーム - @ViewBag.Title</div></div>
+<div class="right">
+    <select name="sort" onchange="sortItems(this.value);" class="form-control sort">
+        <option value="Y2JpZHMsYQ==">価格の安い順</option>
+        <option value="Y2JpZHMsZA==">価格の高い順</option>
+        <option value="Ymlkcyxh">入札の多い順</option>
+        <option value="Ymlkcyxk">入札の少ない順</option>
+        <option value="ZW5kLGE=">残り時間の短い順</option>
+        <option value="ZW5kLGQ=">残り時間の長い順</option>
+        <option value="Ymlkb3JidXksYQ==">即決価格の安い順</option>
+        <option value="Ymlkb3JidXksZA==">即決価格の高い順</option>
+        <option value="c2NvcmUscG9wdWxhcg==">人気＋新着順</option>
+    </select>
+</div>
+@if (Request["sort"] != null)
+{
+    string sort = Request["sort"];
+    if (sort.Contains("standard"))
+    {
+        sort = "Y2JpZHMsYQ==";
+    }
+    <script>activeSort('@sort');</script>
+}
+<div class="row clear-both" style="background:#ffffff;">
+    @foreach (var item in Model.lstPros)
+    {
+        <div class="col-sm-6 col-md-3 padding-item">
+            <div class="thumbnail item-custom">
+                <a href="http://@(Request.Url.Host)/yahooauction/product/detail/@item.itemCode/ohayoo/@item.CateId/@item.cateName?page=@Request["page"]&sort=@Request["sort"]">
+                    <img src="@item.image" alt="@item.name">
+                </a>
+                <div class="caption">
+                    <h5 style="height:75px;overflow:hidden;">
+                        <a href="http://@(Request.Url.Host)/yahooauction/product/detail/@item.itemCode/ohayoo/@item.CateId/@item.cateName?page=@Request["page"]&sort=@Request["sort"]">
+                            @item.name
+                        </a>
+                    </h5>
+                    <p class="auction">@Html.Raw(item.auction)</p>
+                    <p class="price-yen">@item.price.ToString("#,##0 Y")</p>
+                    <p class="price-vnd">@item.priceVN.ToString("#,##0 VND")</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row clear-both">
+    <div class="pagger">
+        @Html.Raw(Model.nav)
+    </div>
+</div>

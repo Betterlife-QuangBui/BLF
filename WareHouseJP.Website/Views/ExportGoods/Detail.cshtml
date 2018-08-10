@@ -1,0 +1,184 @@
+﻿@model ExportGood
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Thông tin kiện hàng xuất kho " + Model.ShippingMarkVN;
+}
+@{
+    var lstJP = ViewBag.ListJP as PagedList.IPagedList<TrackingDetail>;
+    var ListVN = ViewBag.ListVN as PagedList.IPagedList<ExportGoodDetail>;
+}
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/ExportGoods">Xuất kho</a>
+        </li>
+        <li class="active">Kiện xuất kho - @Model.ShippingMarkVN</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-5 storejp-name" style="background-color:#f7bf5a !important;margin-left: 27px;width: 330px;border-radius: 20px;">
+            <a href="/ExportGoods?id=@Model.Id" style="color:#000000;">
+                @Model.ShippingMarkVN
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="storejp-margin">
+            <div class="col-md-10">
+                <div class="col-xs-5">
+                    @if (PageUtils.IsDisplayExport(Model.Id).Length > 0)
+                    {
+                        <div class="update-status">
+                            <a href="/ExportGoods?id=@Model.Id">@PageUtils.IsDisplayExport(Model.Id)</a>
+                        </div>
+                    }
+                    <div class="update-status">
+                        <div class="col-xs-4"><b style="position:absolute;top:7px;color:#262423;text-transform:uppercase;">Trạng thái</b></div>
+                        @if (Model.StatusId != 10)
+                        {
+                            if (Model.ExportGoodDetails.Count() == 0)
+                            {
+                                <div class="col-xs-5">@Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })</div>
+                            }
+                            else
+                            {
+                                <div class="col-xs-5">@Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control"})</div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="col-xs-5">@Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })</div>
+                        }
+                        <div class="col-xs-3" style="text-align:right;padding-right:0;">
+                            <input type="hidden" value="@Model.Id" id="ModelId" />
+                            @if (PageUtils.IsDisplayExport(Model.Id).Length == 0&&Model.StatusId!=10&&Model.ExportGoodDetails.Count>0)
+                            {
+                                <button type="button" class="btn-update-status btn btn-warning btn-sm"><i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu</button>
+                            }
+                        </div>
+                    </div>
+                    <div class="kien-jp-head change-color col-xs-12">Danh sách kiện vn</div>
+                    <div>
+                        <table id="storevn-table">
+                            <thead>
+                                <tr class="sort-row">
+                                    <th style="width:50px;"></th>
+                                    <th class="sort-column" data-sort="tracking-asc">
+                                        MÃ TRACKING &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                        <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                    </th>
+                                    <th data-sort="split-asc">
+                                        MÃ CHIA KIỆN &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                        <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                    </th>
+                                </tr>
+                                <tr class="filter-vn">
+                                    <th></th>
+                                    <th style="position:relative;">
+                                        <input class="form-control" id="barcode" />
+                                        <button class="btn btn-sm btn-success barcode-button">Lưu</button>
+                                    </th>
+                                    <th><input class="form-control" /></th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="tbody">
+                                @Html.Partial("_DetailOfVN", ListVN)
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-1">
+                    <div style="display:block;width:100%;height:176px;"></div>
+                    <div class="action-export-detail">
+                        @if (Model.StatusId != 10)
+                        {
+                            <button type="button" disabled class="btn btn-success action-left-to-right"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            <button type="button" disabled class="btn btn-warning action-right-to-left"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                        }
+                        else
+                        {
+                            <button type="button" disabled style="display:none;" class="btn action-left-to-right"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            <button type="button" disabled style="display:none;" class="btn btn-warning action-right-to-left"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                        }
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div style="display:block;width:100%;height:41px;"></div>
+                    <div class="kien-jp-head col-xs-12">Danh sách kiện jp</div>
+                    <table id="storejp-table">
+                        <thead>
+                            <tr class="sort-row">
+                                <th style="width:50px;"></th>
+                                <th class="sort-column" data-sort="tracking-asc">
+                                    MÃ TRACKING &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th data-sort="split-asc">
+                                    MÃ CHIA KIỆN &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th style="width:125px;" data-sort="status-asc">
+                                    TRẠNG THÁI &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                            </tr>
+                            <tr class="filter-jp">
+                                <th></th>
+                                <th><input class="form-control" /></th>
+                                <th><input class="form-control" /></th>
+                                <th>
+                                    <select class="form-control">
+                                        <option value="0">Tất cả</option>
+                                        <option value="1">Chưa trộn</option>
+                                        <option value="2">Đang trộn</option>
+                                    </select>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            @Html.Partial("_DetailOfJP", lstJP)
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" value="createdat-desc" id="sort-jp" />
+<input type="hidden" value="createdat-desc" id="sort-vn" />
+<input type="hidden" value="" id="tracking-jp-add" />
+<input type="hidden" value="" id="tracking-remove-vn" />
+<input type="hidden" value="@Model.Id" id="ExportId" />
+<input type="hidden" value="@Model.StatusId" id="StatusId" />
+<link href="~/Content/storejp-detail.css" rel="stylesheet" />
+<link href="~/Content/export-detail.css" rel="stylesheet" />
+<style>
+    .update-status a{color:#ff0000;}
+</style>
+@section scripts{
+    <link href="~/Content/storejp.css" rel="stylesheet" />
+    <!--Update script từ đây-->
+    <!--Selectpicker-->
+    <link href="~/HTML/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/HTML/bootstrap-select.js"></script>
+    <!--Scroll-->
+    <script src="~/HTML/jquery.slimscroll.js"></script>
+    <script src="~/Scripts/ExportGoods.js"></script>
+    <!--Kết thúc-->
+    <link href="~/Content/export_good_detail.css" rel="stylesheet" />
+
+}

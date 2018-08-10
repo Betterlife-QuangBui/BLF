@@ -1,0 +1,421 @@
+﻿@model IEnumerable<TrackingDetail>
+@if (Model.Count() > 0)
+{
+    <div class="conform-ischeck">
+    <input type="hidden" name="leftId" value="@Model.First().StorageJP.Id" />
+    <input class="conform-check" data-id="@Model.First().StorageJP.Id" type="checkbox" @(Model.First().StorageJP.IsCheck == null || Model.First().StorageJP.IsCheck == false ? "" : "checked") />  Xác nhận kiểm hàng & tách kiện</div>
+    <div class="hiden-column">
+
+        <ul>
+            <li style="cursor:pointer;">
+                Tùy chỉnh cột
+                <ul class="sub">
+                    <li>
+                        <label for="col-Tracking">
+                            <input id="col-Tracking" checked disabled type="checkbox" data-index="0" />Tracking
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-MaSP">
+                            <input id="col-MaSP" type="checkbox" data-index="1" />Mã SP
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-JanCode">
+                            <input id="col-JanCode" checked type="checkbox" data-index="2" />Jan code
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-TenhangJP">
+                            <input id="col-TenhangJP" checked type="checkbox" data-index="3" />Tên hàng JP
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-TenhangEN">
+                            <input id="col-TenhangEN" type="checkbox" data-index="4" />Tên hàng EN
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-Loai">
+                            <input id="col-Loai" type="checkbox" data-index="5" />Loại
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-LoaiWeb">
+                            <input id="col-LoaiWeb" type="checkbox" data-index="6" />Loại Web
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-Hinh">
+                            <input id="col-Hinh" checked type="checkbox" data-index="7" />Hình
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-Quantity">
+                            <input id="col-Quantity" checked type="checkbox" data-index="8" />Số lượng
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-Price">
+                            <input id="col-Price" checked type="checkbox" data-index="9" />Giá
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-Amount">
+                            <input id="col-Amount" checked type="checkbox" data-index="10" />Thành tiền
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-Marital">
+                            <input id="col-Marital" type="checkbox" data-index="11" />Chất liệu
+                        </label>
+                    </li>
+                    <li>
+                        <label for="col-MadeIn">
+                            <input id="col-MadeIn" type="checkbox" data-index="12" />Xuất xứ
+                        </label>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+    <div class="height-spit">
+        <table id="simple-table" data-id="@Model.First().StorageJP.Id" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr class="tr-th">
+                    <th class="th-tracking">Tracking</th>
+                    <th class="th-product-code">Mã sp</th>
+                    <th class="th-jancode">Jan code</th>
+                    <th class="th-namejp">Tên hàng JP <span class="error">(*)</span></th>
+                    <th class="th-nameen">Tên hàng EN</th>
+                    <th class="th-category">Loại <span class="error">(*)</span></th>
+                    <th class="th-category-web">Loại web</th>
+                    <th class="th-image">Hình</th>
+                    <th class="th-quantity">Số lượng <span class="error">(*)</span></th>
+                    <th class="th-price">Giá <span class="error">(*)</span></th>
+                    <th class="th-amount">Thành tiền</th>
+                    <th class="th-material">Chất liệu</th>
+                    <th class="th-origin">Xuất xứ <span class="error">(*)</span></th>
+                    <th></th>
+                    <th class="th-weight">Số kg</th>
+                </tr>
+            </thead>
+
+            <tbody class="tbody">
+                @foreach (var tracking in Model.OrderBy(n => n.TrackingSubCode))
+                {
+                    <tr id="tracking-detail-@tracking.Id" data-id="@tracking.Id" data-mainparent="@tracking.TrackingSubCode.Trim()" class="main-tracking">
+                        <td>@tracking.TrackingSubCode</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td>
+                            <input data-id="@tracking.Id" @(tracking.StorageJP.StatusId == 8 ? "readonly" : "") class="update-weigh" style="width:50px;" type="text" value="@tracking.Weigh">
+                        </td>
+                    </tr>
+                    foreach (var item in tracking.StorageItemJPs.OrderBy(n => n.CreatedAt))
+                    {
+                        <tr data-trackingparent="@tracking.TrackingSubCode.Trim()" data-parent="@tracking.Id" class="product-item  @(item.NameJP.CheckName()?"deny-product":"") @((item.IsDeny==null||item.IsDeny==true)?"":"deny-product")" data-remove="tr_@item.Id" data-id="@item.Id" id="@item.Id">
+                            <td style="position:relative;">
+                                @if (item.StorageJP.StatusId == 8)
+                                {
+                                    @Html.DropDownList("TrackingCode", null, htmlAttributes: new { @class = "form-control TrackingCode-" + item.Id, @style = "width:130px;", @disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownList("TrackingCode", null, htmlAttributes: new { @class = "form-control TrackingCode-" + item.Id, @style = "width:130px;" })
+                                }
+                                <input type="hidden" value="@item.TrackingDetail.TrackingSubCode" />
+                                <script>
+                                    $(function () {
+                                        $(".TrackingCode-@item.Id option[value='@item.TrackingDetail.TrackingSubCode']").attr("selected", "selected");
+                                    })
+                                </script>
+                                <div class="se-pre-con" data-id="@item.Id">
+                                    <img src="~/check_row.png" class="conform-save" data-id="@item.Id" />
+                                    <img src="~/1471956623_close.png" class="conform-close" data-id="@item.Id" />
+                                </div>
+
+                            </td>
+                            <td><div style="width:130px" class="limit-length"><span>@Html.Raw(item.ProductCode)</span></div></td>
+                            <td>
+                                <div class="name-width limit-length">
+                                    <span>@Html.Raw(item.JanCode)</span>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" @(item.StorageJP.StatusId == 8 ? "readonly" : "") class="form-control name" value="@Html.Raw(item.NameJP)" />
+                            </td>
+                            <td>
+                                <input type="text" @(item.StorageJP.StatusId == 8 ? "readonly" : "") class="form-control name" value="@Html.Raw(item.NameEN)" />
+                            </td>
+                            <td style="line-height:25px;">
+                                @if (item.StorageJP.StatusId == 8)
+                                {
+                                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control CategoryId-" + item.Id, @style = "width:150px;", @disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control CategoryId-" + item.Id, @style = "width:150px;" })
+                                }
+                                <script>
+                                    $(function () {
+                                        $(".CategoryId-@item.Id option[value='@item.CategoryId']").attr("selected", "selected");
+                                    })
+                                </script>
+                            </td>
+                            <td style="line-height:25px;">
+                                <span style="color:#d15b47;display:block;font-weight:bold;">
+                                    @item.CategoryName
+                                </span>
+                            </td>
+                            <td>
+                                <a href="@item.LinkWeb" target="_blank">
+                                    <img src="@item.Image" style="width:70px;height:70px;" />
+                                </a>
+                            </td>
+                            <td><input type="text" @(item.StorageJP.StatusId == 8 ? "readonly" : "") class="form-control quantity" value="@item.Quantity" /></td>
+                            <td>
+                                <input type="text" @(item.StorageJP.StatusId == 8 ? "readonly" : "") class="form-control name" value="@item.PriceTax" />
+                            </td>
+
+                            <td class="amount">@item.Amount</td>
+                            <td>
+                                <textarea class="form-control">@item.Material</textarea>
+                            </td>
+                            <td>
+                                @if (item.StorageJP.StatusId == 8)
+                                {
+                                    @Html.DropDownList("MadeIn", null, htmlAttributes: new { @class = "form-control MadeIn-" + item.Id, @disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownList("MadeIn", null, htmlAttributes: new { @class = "form-control MadeIn-" + item.Id })
+                                }
+                                <script>
+                                    $(function () {
+                                        $(".MadeIn-@item.Id option[value='@item.MadeIn']").attr("selected", "selected");
+                                    })
+                                </script>
+                            </td>
+                            <td class="center">
+                                <label class="pos-rel">
+                                    <input @(item.StorageJP.StatusId == 8 ? "disabled" : "") type="checkbox" @((item.IsDeny == null || item.IsDeny == true) ? "checked" : "") value="@item.Id" class="ace" />
+                                    <span class="lbl"></span>
+                                </label>
+                            </td>
+                            <td>
+                                <a href="#" data-main="true" class="copy-row @(item.StorageJP.StatusId==8? "disabled" : "")" data-id="@item.Id">
+                                    <span class="btn btn-xs btn-warning" data-id="@item.Id">
+                                        +
+                                    </span>
+                                </a>
+                                <a href="#" data-main="true" class="delete-row @(item.StorageJP.StatusId==8? "disabled" : "")" data-id="@item.Id">
+                                    <span class="btn btn-xs btn-danger" data-id="@item.Id">
+                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                    </span>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+            <tfoot>
+                <tr id="summary-tracking" class="main-tracking-footer">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td><span class="total-quantity">@Model.Sum(n=>n.StorageItemJPs.Sum(m=>m.Quantity))</span></td>
+                    <td>&nbsp;</td>
+                    <td><span class="total-amount">@Model.Sum(n => n.StorageItemJPs.Sum(m => m.Amount))</span></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td>
+                        <span class="total-weigh">@Model.Sum(n => n.Weigh)</span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <style>
+        .hiden-column {
+            padding: 1px 20px;
+            background: #307ecc;
+            text-align: right;
+            color: #fff;
+            height: 37px;
+            display: block;
+        }
+
+            .hiden-column li {
+                list-style: none;
+                display: inline-block;
+                margin-top: 3px;
+            }
+
+            .hiden-column label {
+                margin: 0px;
+            }
+
+            .hiden-column input[type=checkbox] {
+                margin: 5px;
+            }
+
+        .box-ok .table-header {
+            position: relative;
+        }
+
+        .height-spit {
+            overflow: scroll;
+            max-height: 808px;
+        }
+
+        .box-wasehouse {
+            background-color: #f5eeee;
+            padding: 5px;
+            border-bottom: 1px solid #ffffff;
+            width: 100%;
+            cursor: move;
+        }
+
+        .name-jp {
+            line-height: 25px;
+            font-size: 12px;
+        }
+
+        .title-box {
+            height: 40px;
+        }
+
+        .jancode {
+            float: left;
+            color: #d15b47;
+            font-weight: bold;
+        }
+
+        .price {
+            float: right;
+            color: #0094ff;
+        }
+
+        .hiden-column ul ul {
+            display: none;
+        }
+
+        .hiden-column ul li:hover .sub {
+            display: block;
+        }
+
+        .hiden-column ul li {
+            position: relative;
+        }
+
+        .sub {
+            width: 130px;
+            background-color: lightgrey;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            right: -20px;
+            padding: 10px;
+            color: black;
+            text-align: left;
+            z-index: 9;
+        }
+
+            .sub li {
+                display: block;
+                padding: 0;
+                margin: 0;
+            }
+    </style>
+    <script src="~/better-life/assets/js/jquery.2.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.nicescroll.js"></script>
+  <!--notifyjs-master-->
+    <script src="~/notifyjs-master/dist/notify.js"></script>
+    <script src="~/notifyjs-master/dist/styles/metro/notify-metro.js"></script>
+    <!--/notifyjs-master-->
+    <script>
+        //dialog delete
+        $(function () {
+
+            $(".hiden-column-content").hide(); $(".hiden-column-title").show();
+            //$(".hiden-column-title").toggle(function () { $(".hiden-column-content").show(); }, function () { $(".hiden-column-content").hide(); });
+            $(".delete-item").on('click', function (e) {
+                //e.preventDefault();
+                if (confirm('Bạn có chắc muốn xóa không?')) {
+                    var id = $(this).attr("data-id");
+                    var href = $(this).attr("data-url");
+                    $.ajax({
+                        url: href,
+                        method: 'POST',
+                        success: function (result) {
+                            if (result.status == true) {
+                                $("tr.product-item [data-remove=" + id + "]").hide();
+                                notify('success', result.result, "1");
+                            }
+                            else {
+                                notify('error', result.result, "2");
+                            }
+                        }
+                    }).done(function (data) { $(this).dialog("close"); });
+                }
+
+            });
+
+        });
+        $(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index")) + 1;
+                if (e.checked) {
+                    //$("#simple-table thead th:eq(" + index + ")").show();
+                    $('#simple-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    //$("#simple-table thead th:eq(" + index + ")").hide();
+                    $('#simple-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+            $(".hiden-column input[type=checkbox]").click(function () {
+                $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                    var index = parseInt($(e).attr("data-index")) + 1;
+                    if (e.checked) {
+                        //$("#simple-table thead th:eq(" + index + ")").show();
+                        $('#simple-table tr > *:nth-child(' + index + ')').show();
+                    }
+                    else {
+                        //$("#simple-table thead th:eq(" + index + ")").hide();
+                        $('#simple-table tr > *:nth-child(' + index + ')').hide();
+                    }
+                });
+            });
+            // $(".height-spit").niceScroll({ touchbehavior: true, cursorcolor: "#808080", cursoropacitymax: 0.7, cursorwidth: 7, cursorborder: "1px solid #808080", cursorborderradius: "8px", background: "#ccc", autohidemode: "scroll" }).cursor.css({ "background-image": "url(img/mac6scroll.png)" }); // MAC like scrollbar
+        });
+        //clone row
+
+
+    </script>
+}
+else
+{
+    <p>Chưa có sản phẩm nào trong kiện hàng này...</p>
+}

@@ -1,0 +1,33 @@
+﻿@model PagedList.IPagedList<ExportGoodDetail>
+@using PagedList.Mvc;
+@using PagedList;
+@foreach (var tracking in Model)
+{
+    <tr>
+
+        <td class="center">
+            <label class="pos-rel">
+                <input id="@tracking.Id" data-id="@tracking.ExportGoodId" data-parent="false" type="checkbox" class="ace" />
+                <span class="lbl"></span>
+            </label>
+        </td>
+        <td>@tracking.TrackingDetail.StorageJP.TrackingCode</td>
+        <td>@tracking.TrackingDetail.TrackingSubCode</td>
+    </tr>
+}
+<tr>
+    <td colspan="4">
+        <div class="pagging storejp-pagging">
+            @Html.PagedListPager(Model, page => Url.Action("ExportGoodsVN", "Ajax", new { page = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </td>
+</tr>
+<script>
+    $(function () {
+
+        if ($("#StatusId").val() == "10") {
+            $(".ace,#StatusId").attr("disabled", "disabled");
+            $(".btn-update-status").hide();
+        }
+    })
+</script>

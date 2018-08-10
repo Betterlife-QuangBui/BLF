@@ -1,0 +1,51 @@
+﻿@model PagedList.IPagedList<ExportGood>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@foreach (var item in Model)
+{
+    <div class="control" data-id="@item.Id">
+       
+        <a href="/ExportGoods/Edit/@item.Id" class="iframe_exportgood_add cboxElement @(@item.StatusId==10?"disabled":"")">
+            <span class="btn btn-xs btn-info edit-item">
+                <i class="ace-icon fa fa-pencil bigger-120 "></i>
+            </span>
+        </a>
+        <a href="#" class="delete-item-main  @(@item.StatusId==10?"disabled":"")" data-url="/ExportGoods/Delete/@item.Id" data-id="tr_@item.Id">
+            <span class="btn btn-xs btn-danger"  data-url="/ExportGoods/Delete/@item.Id" data-id="tr_@item.Id">
+                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+            </span>
+        </a>
+        <a class="export1 @(item.ExportGoodDetails.Count > 0?"":"hidden")" data-href="/Export/ExportGood/@item.Id" href="/Export/ExportGood/@item.Id">
+            <span class="btn btn-xs btn-success">
+                Xuất thông tin
+            </span>
+        </a>
+    </div>
+}
+<script src="~/better-life/assets/js/jquery.2.1.1.min.js"></script>
+<script src="~/better-life/assets/colorbox/jquery.colorbox.js"></script>
+<style>
+    #cboxClose {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        text-indent: -9999px;
+        z-index: 99999;
+        top: 12px !important;
+        right: 12px !important;
+    }
+    .hidden{display:none;}
+</style>
+<script>
+    $(function () {
+        $(".iframe_exportgood_add").colorbox({ iframe: true, innerWidth: 600, innerHeight: 640, overlayClose: false });
+    })
+
+    function paging(number) {
+        $(".item-of-page").html("");
+        $(".item-of-page").load('/Ajax/ExportGood?page=' + number + '&key=@(ViewBag.key)');
+        $(".action-crud").html("");
+        $(".action-crud").load('/Ajax/ExportGoodControl?page=' + number + '&key=@(ViewBag.key)');
+    }
+</script>

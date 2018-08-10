@@ -1,0 +1,165 @@
+﻿@model PagedList.IPagedList<WareHouseItem>
+@*@model PagerCus<WareHouseItem>*@
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage(); int currentpage = 1; var modelPagging = ViewBag.Pagging as PagedList.IPagedList<int>;  }
+@{ var cateogry = ViewBag.CategoryId; var MadeIn = ViewBag.MadeIn; var ProductTypeId = ViewBag.ProductType; }
+@foreach (var item in Model)
+{
+    <tr class="item product-item" data-remove="tr_@item.Id" data-id="@item.Id" id="@item.Id">
+        <td class="center" style="position:relative;">
+            <label class="pos-rel">
+                <input id="@item.Id" data-id="@item.Id" data-parent="false" type="checkbox" class="ace" />
+                <span class="lbl"></span>
+            </label>
+            <div class="se-pre-con-crud" data-id="@item.Id">
+                <button type="button" class="btn btn-success btn-sm conform-save" data-id="@item.Id">Lưu</button>
+                <button type="button" class="btn btn-danger btn-sm conform-close" data-id="@item.Id">Hủy</button>
+            </div>
+        </td>
+        <td>
+            @*<div class="name-jp">@Html.Raw(item.NameJP)</div>*@
+            <textarea name="NameJP" data-value="@Html.Raw(item.NameJP)" class="textarea-edit">@Html.Raw(item.NameJP)</textarea>
+        </td>
+        <td class="center">
+            <div class="task-menu-button-control">
+                <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                <div class="task-menu-button-crud">
+                    <a href="#" class="package_item-edit">
+                        Sửa
+                    </a>
+                    <a href="#" class="package_item-delete" data-url="/Database/Delete/@item.Id" data-id="tr_@item.Id">
+                        Xóa
+                    </a>
+                    <a href="/Database/Detail/@item.Id">
+                        Chi tiết
+                    </a>
+                </div>
+            </div>
+        </td>
+        <td>
+            @*<div class="name-en">@Html.Raw(item.NameEN)</div>*@
+            <textarea name="NameEN" data-value="@Html.Raw(item.NameEN)" class="textarea-edit">@Html.Raw(item.NameEN)</textarea>
+        </td>
+        <td style="line-height:25px;">
+            @*@(item.CategoryId == null ? "" : PageUtils.Category(item.CategoryId.Value))*@
+            @Html.DropDownList("CategoryId", (IEnumerable<SelectListItem>)cateogry, "", htmlAttributes: new { @class = "form-control CategoryId-" + item.Id, @data_value = item.CategoryId })
+            <script>
+                $(".CategoryId-@(item.Id)").val(@(item.CategoryId));
+            </script>
+        </td>
+        <td>
+            <input type="text" name="CategoryWebName" data-value="@Html.Raw(item.CategoryWebName)" value="@Html.Raw(item.CategoryWebName)" />
+        </td>
+        <td class="center">
+            <a href="@item.LinkWeb" target="_blank">
+                <img src="@item.ImageBase64" style="width:70px;height:70px;" />
+            </a>
+            <input type="hidden" value="@item.Id" name="Id" />
+            <input type="hidden" id="ImageBase64" value="@item.ImageBase64" name="ImageBase64" />
+        </td>
+        <td>
+            <input type="text" name="JanCode" data-value="@Html.Raw(item.JanCode)" value="@Html.Raw(item.JanCode)" />
+        </td>
+        <td>
+            <input type="text" name="ProductCode" data-value="@Html.Raw(item.ProductCode)" value="@Html.Raw(item.ProductCode)" />
+        </td>
+        <td>
+            <input type="number" name="Quantity" data-value="@Html.Raw(item.Quantity)" value="@Html.Raw(item.Quantity)" />
+        </td>
+        <td class="detail-right">
+            <input type="number" name="PriceTax" data-value="@Html.Raw(item.PriceTax)" value="@Html.Raw(item.PriceTax)" />
+        </td>
+        <td class="amount">@item.Amount</td>
+        <td>
+            <div class="name-jp">
+                @*@if(!string.IsNullOrEmpty(item.MadeIn))
+                {
+                    if (CommonCust.CheckNumber(item.MadeIn.Trim()))
+                    {
+                        @PageUtils.MadeIn(int.Parse(item.MadeIn));
+                    }
+                }*@
+                @Html.DropDownList("MadeIn", (IEnumerable<SelectListItem>)MadeIn, "", htmlAttributes: new { @class = "form-control MadeIn-" + item.Id, @data_value = item.MadeIn })
+                <script>
+                    $(".MadeIn-@(item.Id)").val(@(item.MadeIn));
+                </script>
+            </div>
+        </td>
+        <td>
+            @*<div class="name-jp">@Html.Raw(item.Material)</div>*@
+            <textarea class="textarea-edit" name="Material" data-value="@Html.Raw(item.Material)">@Html.Raw(item.Material)</textarea>
+        </td>
+        <td>
+            @*<div class="name-jp">@Html.Raw(item.Component)</div>*@
+            <textarea class="textarea-edit" name="Component" data-value="@Html.Raw(item.Component)">@Html.Raw(item.Component)</textarea>
+        </td>
+        <td class="center">
+            <img src="@item.ComponentImage" data-value="@item.ComponentImage" class="ComponentImage" style="width:70px;height:70px;" />
+            <input data-id="@item.Id" type="file" style="display:none;" name="fileComponentImage" />
+            <input type="hidden" id="ComponentImage" value="@item.ComponentImage" name="ComponentImage" />
+        </td>
+        <td>
+            @*@item.LinkWeb*@
+            <input type="text" name="LinkWeb" data-value="@Html.Raw(item.LinkWeb)" value="@Html.Raw(item.LinkWeb)" />
+        </td>
+        <td>
+            @*@item.FlightCode*@
+            <input type="text" name="FlightCode" data-value="@Html.Raw(item.FlightCode)" value="@Html.Raw(item.FlightCode)" />
+        </td>
+        <td>
+            @*@item.TrackingCode*@
+            <input type="text" name="TrackingCode" data-value="@Html.Raw(item.TrackingCode)" value="@Html.Raw(item.TrackingCode)" />
+        </td>
+        <td>
+            @*@PageUtils.ProductCode(item.ProductTypeId.Value)*@
+            @Html.DropDownList("ProductTypeId", (IEnumerable<SelectListItem>)ProductTypeId, "", htmlAttributes: new { @class = "form-control ProductTypeId-" + item.Id, @data_value = item.ProductTypeId })
+            <script>
+                $(".ProductTypeId-@(item.Id)").val(@(item.ProductTypeId));
+            </script>
+        </td>
+    </tr>
+}
+<tr class="pagging-table">
+    <td colspan="13" class="right">
+        <div class="pagging pagging-sub-db pagging-db">
+            @Html.PagedListPager(modelPagging, page => Url.Action("DBStorage", "Ajax", new { pageno = page, pageSize = Model.PageSize, totalCount = modelPagging.TotalItemCount }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </td>
+</tr>
+<input type="hidden" value="@currentpage" id="inPageNo" name="inPageNo" />
+@*<div class="pagging-table">
+    <div class="pagging pagging-sub-db pagging-db" style="margin-top:-10px">
+        @Html.PagedListPager(modelPagging, page => Url.Action("DBStorage", "Ajax", new { page = page, key = ViewBag.key, sort = ViewBag.sort }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>*@
+<script>
+        //dialog delete
+        $(function () {
+            $(".hiden-column-content").hide(); $(".hiden-column-title").show();
+            $(".pagging-db").html($(".pagging-sub-db").html())
+            $(".pagging-table").remove()
+        });
+        $(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index"));
+                if (e.checked) {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+            $(".hiden-column input[type=checkbox]").click(function () {
+                $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                    var index = parseInt($(e).attr("data-index"));
+                    if (e.checked) {
+                        $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                    }
+                    else {
+                        $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                    }
+                });
+            });
+        });
+</script>

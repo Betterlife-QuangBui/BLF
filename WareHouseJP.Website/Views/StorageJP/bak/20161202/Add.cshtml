@@ -1,0 +1,245 @@
+﻿@model StorageJP
+
+@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+}
+<div class="body">
+    <div class="head">
+        <div class="head-center title">
+            Thông tin lưu kho
+            <div class="notify">Điền đầy đủ thông tin các mục (*)</div>
+        </div>
+        <span class="close-shipment">x</span>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm("Add", "StorageJP", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td class="tt-title-form"><b>Trạng thái</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Mã tracking <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.TrackingCode, new { htmlAttributes = new { @class = "form-control input-validation-error" } })
+                            @Html.ValidationMessageFor(model => model.TrackingCode, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Khối lượng</b></td>
+                        <td>:</td>
+                        <td class="Weigh">
+                            @Html.EditorFor(model => model.Weigh, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Weigh, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Kích thước</b></td>
+                        <td>:</td>
+                        <td>
+                            <div class="size">
+                                <div class="size-template">
+                                    <div class="col-md-5">
+                                        <input type="radio" checked value="size-mau" name="size" /> Size mẫu
+                                    </div>
+                                    <div class="col-md-7 SizeTableId">
+                                        @Html.DropDownList("SizeTableId", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.SizeTableId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="size-input">
+                                    <div class="col-md-5">
+                                        <input type="radio" value="size-input" name="size" /> Nhập tay
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.EditorFor(model => model.SizeInput, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        @Html.ValidationMessageFor(model => model.SizeInput, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="sokg-quydoi">
+                                    KQ quy đổi
+                                    <p>(<span class="Weigh-Input">xxxx</span> kg)</p>
+                                    <input name="WeighInput" id="WeighInput" type="hidden" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Địa chỉ nhận hàng</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("DeliveryAddress", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                            @Html.ValidationMessageFor(model => model.DeliveryAddress, "", new { @class = "text-danger" })
+
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Ghi chú</b></td>
+                        <td>:</td>
+                        <td>
+                            <textarea rows="2" name="Notes" id="Notes" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Hình</b></td>
+                        <td>:</td>
+                        <td style="position:relative;">
+                            <div>
+                                <label class="ace-file-input">
+                                    <span class="ace-file-container" data-title="Chọn hình">
+                                        <span class="ace-file-name" data-title="Chưa có hình">
+                                            <i class="ace-icon fa fa-upload"></i>
+                                        </span>
+                                    </span>
+                                    <a class="remove" href="#"><i class="ace-icon fa fa-times"></i></a>
+                                </label>
+                                <input style="display:none" type="file" name="upImage" id="id-input-file-2">
+                                <div class="picture-option">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                    <a id="upload-computer" href="#"><i class="fa fa-share" aria-hidden="true"></i> Tải từ máy tính</a>&nbsp;
+                                    <a id="upload-webcam" href="#"><i class="fa fa-camera" aria-hidden="true"></i> Chụp hình từ webcam</a>
+                                </div>
+                            </div>
+                            <div class="img-review" id="img-review">
+                                <img src="~/Uploads/no_image.jpg" />
+                            </div>
+                            <div id="webcam"></div>
+                            <button ID="btnCapture" class="btn btn-sm btn-warning" onclick="return Capture();">Capture</button>
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Ngày nhận</b></td>
+                        <td>:</td>
+                        <td class="datepicker">
+                            @Html.EditorFor(model => model.ReceivedDate, new { htmlAttributes = new { @class = "form-control input-validation-error" } })
+                            @Html.ValidationMessageFor(model => model.ReceivedDate, "", new { @class = "text-danger" })
+                            <span class="display-day"></span>
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Giờ nhận</b></td>
+                        <td>:</td>
+                        <td>
+                            @*@Html.DropDownList("ReceivedHour", null, htmlAttributes: new { @class = "form-control ReceivedHour input-validation-error" })
+                                @Html.ValidationMessageFor(model => model.ReceivedHour, "", new { @class = "text-danger" })*@
+                            @Html.EditorFor(model => model.ReceivedHour, new { htmlAttributes = new { @class = "form-control" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="position:relative;">
+                            <input type="hidden" id="ImageBase64" value="@Model.ImageBase64" name="ImageBase64" />
+                            <input type="hidden" id="imageWC" value="" name="imageWC" />
+                            <input type="hidden" value="false" name="IsAgencyConfirm" />
+                            <input type="hidden" value="false" name="IsStaffConfirm" />
+                            <button type="submit" class="btncreate btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                            <button type="reset" class="btn btn-sm btn-danger tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+                            <div class="option-detail-crud">
+                                <a href="#" data-index="1">Chi tiết</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        }
+    </div>
+</div>
+
+
+
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+
+    .ace-file-input {
+        width: 100%;
+    }
+
+    .tt-title-form {
+        font-size: 12px;
+        vertical-align: top;
+        width: 170px !important;
+        max-width: 200px !important;
+    }
+    .size{
+        position:relative;
+    }
+    .size-template,.size-input{
+            width: 250px !important;
+    }
+    .sokg-quydoi{
+        position: absolute;
+        right: -17px;
+        top: 19px;
+        width: 100px;
+        text-align: center;
+    }
+</style>
+@section scripts{
+    <script>
+        $(function () {
+            $("#DeliveryAddress").select2({
+                maximumSelectionLength: 2,
+                theme: "bootstrap"
+            });
+        });
+    </script>
+    <script>
+        $("td.datepicker input").val(today());
+        $(".display-day").html(day($("td.datepicker input").val()))
+        $(document).on("change", "td.datepicker input", function () {
+            var date = today();
+            if ($(this).val() != "") {
+                date = $(this).val();
+            }
+            $("td.datepicker input").val(date);
+            $(".display-day").html(day(date))
+        })
+    </script>
+    <script src="~/Webcam_Plugin/jquery.webcam.js"></script>
+    <script type="text/javascript">
+        var pageUrl = '/StorageJP/WebcamUpload';
+        $(function () {
+            jQuery("#webcam").webcam({
+                width: 320,
+                height: 240,
+                mode: "save",
+                swffile: '/Webcam_Plugin/jscam.swf',
+                debug: function (type, status) {
+                    //$('#camStatus').append(type + ": " + status + '<br /><br />');
+                },
+                onSave: function (data) {
+                    $.ajax({
+                        method: 'POST', async: false,
+                        url: "/StorageJP/LoadImageUpload",
+                        success: function (result) {
+                            $(".se-pre-con").fadeOut();
+                            $("#imageWC").val(result.message);
+                            $("#img-review img").attr("src", "/Uploads/StoreHourse/" + result.message);
+                        }
+                    });
+                },
+                onCapture: function (e) {
+                    $(".se-pre-con").show();webcam.save(pageUrl);
+                }
+            });
+        });
+        function Capture() {
+            $(".se-pre-con").show();
+            webcam.capture();
+            return false;
+        }
+    </script>
+}

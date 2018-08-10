@@ -1,0 +1,44 @@
+﻿@model PagedList.IPagedList<Shipment>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@foreach (var item in Model)
+{
+    <div class="control" data-id="@item.Id">
+        <a href="/Shipment/Edit/@item.Id" class="iframe_shipment_add">
+            <span class="btn btn-xs btn-info edit-item">
+                <i class="ace-icon fa fa-pencil bigger-120 "></i>
+            </span>
+        </a>
+        <a href="#" class="delete-item-main" data-url="/Shipment/Delete/@item.Id" data-id="tr_@item.Id">
+            <span class="btn btn-xs btn-danger" data-url="/Shipment/Delete/@item.Id" data-id="tr_@item.Id">
+                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+            </span>
+        </a>
+    </div>
+}
+<script src="~/better-life/assets/js/jquery.2.1.1.min.js"></script>
+<script src="~/better-life/assets/colorbox/jquery.colorbox.js"></script>
+<style>
+    #cboxClose {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        text-indent: -9999px;
+        z-index: 99999;
+        top: 12px !important;
+        right: 12px !important;
+    }
+</style>
+<script>
+    $(function () {
+        $(".iframe_shipment_add").colorbox({ iframe: true, innerWidth: 550, innerHeight: 450, overlayClose: false });
+    })
+
+    function paging(number) {
+        $(".item-of-page").html("");
+        $(".item-of-page").load('/Ajax/Shipment?page=' + number + '&sort=@(ViewBag.sort)');
+        $(".action-crud").html("");
+        $(".action-crud").load('/Ajax/ShipmentControl?page=' + number + '&sort=@(ViewBag.sort)');
+    }
+</script>

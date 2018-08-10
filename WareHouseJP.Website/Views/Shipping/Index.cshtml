@@ -1,0 +1,261 @@
+﻿@model PagedList.IPagedList<Shipping>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/Shipping">Chuyến bay</a>
+        </li>
+        <li class="active">Danh sách chuyến bay</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="package package-items col-md-10">
+            <div class="package_header">
+                <div class="status_notes" style="height:30px;">
+                    @*<div class="status_note bg-orange">Chưa thông quan</div>
+                    <div class="status_note bg-blue">Đã thông quan</div>*@
+                </div>
+                <a href="/Import/Shipping" class="import-item-btn shipment_item-ixport" title="Import">
+                    <i class="fa fa-arrow-down"></i>
+                </a>
+                <a href="/Export/Shipping" class="export-item-btn shipment_item-export" title="Export">
+                    <i class="fa fa-arrow-up"></i>
+                </a>
+                <a class="package_add add-item-btn" href="/Shipping/Add">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <!-- Split button -->
+                <div class="display-column">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-primary">Thông tin hiển thị</button>
+                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu hiden-column">
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-shipping" type="checkbox" checked class="ace" data-index="1" />
+                                        <span class="lbl"> Mã chuyến hàng</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-shipper" checked type="checkbox" class="ace" data-index="3" />
+                                        <span class="lbl"> Shipper</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-mawb" type="checkbox" checked class="ace" data-index="4" />
+                                        <span class="lbl"> Mawb Consignee</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-date" type="checkbox" checked class="ace" data-index="5" />
+                                        <span class="lbl"> Ngày bay</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-from" type="checkbox" class="ace" data-index="6" />
+                                        <span class="lbl"> Nơi đi</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-to" type="checkbox" class="ace" data-index="7" />
+                                        <span class="lbl"> Nơi đến</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-note" type="checkbox" class="ace" data-index="8" />
+                                        <span class="lbl"> Ghi chú</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-status" type="checkbox" checked class="ace" data-index="9" />
+                                        <span class="lbl"> Booking</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-status" type="checkbox" checked class="ace" data-index="10" />
+                                        <span class="lbl"> Trạng thái</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-pread" type="checkbox" class="ace" data-index="11" />
+                                        <span class="lbl"> Pre-AD</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" class="default-column">Default view</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="package_add_body"></div>
+            </div>
+            <div class="package_content">
+                <table id="storejp-table">
+                    <thead>
+                        <tr class="sort-row">
+                            <th style="width:50px;"></th>
+                            <th class="sort-column" data-sort="shipping-asc">
+                                MÃ CHUYẾN HÀNG &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error">(*)</div>
+                            </th>
+                            <th style="width:50px;"></th>
+                            <th class="shipper-column" data-sort="shipper-asc">
+                                SHIPPER &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error">(*)</div>
+                            </th>
+                            <th data-sort="mawb-asc">
+                                MAWB CONSIGNEE&nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error">(*)</div>
+                            </th>
+                            <th data-sort="flightdate-asc">
+                                NGÀY BAY &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span><div class="error">(*)</div>
+                            </th>
+                            <th data-sort="from-asc">
+                                NƠI ĐI &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span><div class="error">(*)</div>
+                            </th>
+                            <th data-sort="to-asc">
+                                NƠI ĐẾN &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span><div class="error">(*)</div>
+                            </th>
+                            <th data-sort="notes-asc">
+                                GHI CHÚ &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                            </th>
+                            <th style="width:100px;">
+                                BOOKING
+                            </th>
+                            <th style="width:155px;" data-sort="status-asc">
+                                TRẠNG THÁI &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span><div class="error">(*)</div>
+                            </th>
+                            <th data-sort="pread-asc">
+                                PRE-AD &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                            </th>
+                        </tr>
+                        <tr class="filter-jp">
+                            <th></th>
+                            <th><input class="form-control" /></th>
+                            <th></th>
+                            <th>@Html.DropDownList("WareHouseInfoId", null, "Tất cả", htmlAttributes: new { @class = "form-control select2" })</th>
+                            <th>@Html.DropDownList("MaWBId", null, "Tất cả", htmlAttributes: new { @class = "form-control select2" })</th>
+                            <th class="datepicker" style="position:relative;"><input class="form-control" /></th>
+                            <th>@Html.DropDownList("FromAirId", null, "Tất cả", htmlAttributes: new { @class = "form-control select2" })</th>
+                            <th>@Html.DropDownList("ToAirId", null, "Tất cả", htmlAttributes: new { @class = "form-control select2" })</th>
+                            <th><input class="form-control" /></th>
+                            <th></th>
+                            <th>
+                                <select class="form-control select2">
+                                    <option value="0">Tất cả</option>
+                                    <option value="13" selected>Chưa thông quan</option>
+                                    <option value="14">Đã thông quan</option>
+                                </select>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                        @{Html.RenderPartial("_ItemOfPage", Model); }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="package-detail col-xs-5">
+            <div class="package-detail_header"></div>
+            <div class="package-detail_content">
+                <div class="col-xs-12 wasehouse-info"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" value="created-desc" id="sort-shipping" />
+<input type="hidden" value="" id="ShippingId" />
+<input type="hidden" value="@Request["id"]" id="RequestId" />
+@section scripts{
+    <style>
+
+    .select2 {
+        width: 100%;
+        max-width: 100% !important;
+    }
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        white-space: pre-line !important;
+        word-wrap: break-word !important;
+    }
+
+    .select2-selection__rendered {
+        white-space: pre-wrap !important;
+        overflow: hidden !important;
+        height: 22px;
+    }
+    .tt-title-form {
+        font-size: 12px;
+        vertical-align: top;
+        width: 170px !important;
+        max-width: 200px !important;
+    }
+
+
+    </style>
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet">
+    <link href="~/Content/shipping_index.css" rel="stylesheet" />
+    <!--Update script từ đây-->
+    <!--Selectpicker-->
+    <link href="~/HTML/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/HTML/bootstrap-select.js"></script>
+    <!--Scroll-->
+    <script src="~/HTML/jquery.slimscroll.js"></script>
+    <script src="~/Scripts/shipping_index.js"></script>
+    <!--Kết thúc-->
+}

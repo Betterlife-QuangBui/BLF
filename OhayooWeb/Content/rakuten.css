@@ -1,0 +1,254 @@
+﻿body {
+    font-family: Tahoma !important;
+    background:rgb(229, 229, 229) !important;
+}
+
+ul#rakuten_ul_cate {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+    ul#rakuten_ul_cate > li {
+        border-bottom: 1px solid #efe9e9;
+        padding-left: 10px;
+        position: relative;
+        line-height: 35px;
+    }
+
+        ul#rakuten_ul_cate > li:last-child {
+            border-bottom: none;
+        }
+
+.padding-no {
+    padding: 0;
+}
+
+.sub-menu {
+    display: none;
+    position: absolute;
+    left: 260px;
+    top: 0px;
+    background-color: #fcf8e3;
+    list-style: none;
+    z-index: 9999;
+    width: 300px;
+    border-radius: 4px;
+    margin: 0;
+    padding: 0;
+}
+.rakuten_li_cate_sub{
+    border-bottom:1px solid #fbeed5;
+}
+.rakuten_li_cate_sub a{
+    padding: 0px 14px;
+}
+.ohayoo-title{
+        background: rgb(186, 56, 38);
+    font-size: 20px;
+    padding: 6px 10px 7px 4px;
+    font-weight: bold;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: white;
+    margin-top: 2px;
+    padding-left: 19px;
+}
+.ohayoo-title-detail{
+    background: rgb(186, 56, 38);
+    font-size: 20px;
+    padding: 11px 0px 9px 4px;
+    font-weight: bold;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: white;
+    margin-top: 2px;
+    padding-left: 19px;
+}
+.rakuten_li_cate_parent:hover .sub-menu {
+    display: block;
+}
+
+.price-yen {
+    font-weight: bold;
+    color: #cc7b42;
+}
+
+.price-vnd {
+    font-weight: bold;
+    color: #d52929;
+}
+
+.sort {
+        float: right;
+    margin-top: -37px;
+    margin-right: -11px;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.padding-item {
+    padding: 5px;
+}
+a{
+    text-decoration:none;
+}
+.item-custom {
+    height: 315px;
+    text-align: center;
+}
+.attr dt, .attr dd{
+    line-height:30px;
+}
+.sub-image{cursor:pointer;}
+.pagger{
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:10px;
+    width:100%;
+}
+.paginate_button{
+    padding:4px 8px;
+    min-width:30px;
+    background-color:#d52929;
+    margin:5px;
+    color:white;
+    border-radius:4px;
+}
+.paginate_active{
+    padding:4px 8px;
+    min-width:30px;
+    background-color:#ffd800;
+    margin:5px;
+    color:white;
+    border-radius:4px;
+    cursor:default;
+    pointer-events:none;
+}
+.paginate_button:hover{
+    padding:4px 8px;
+    min-width:30px;
+    background-color:#ffd800;
+    margin:5px;
+    color:white;
+    border-radius:4px;
+}
+.modal{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 9999999999999; /* Sit on top */
+    padding: 15px 0; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    font-family: Tahoma;
+}
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 500px;
+    max-height: 80vh;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    overflow:auto;
+}
+.close {
+    position: absolute;
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    right: 6px;
+    top: 0px;
+    font-weight: bold;
+}
+.modal-content table caption{
+    padding: 12px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.active-menu{
+    background:rgb(186, 56, 38);
+}
+.active-menu-yahooshopping{
+    background:#ff9000;
+}
+.active-menu-yahooauction{
+    background:#ffdc2f;
+}
+.active-menu-zozo{
+    background:#323232;
+}
+.ohayoo-footer{
+    color: white;
+    background: #202020;
+    height: 100px;
+    padding: 5px;
+}
+.head-style{
+    background: rgb(186, 56, 38) !important;
+    color: white !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+}
+#rakuten_ul_cate a,.padding-item a{
+    color:#888 !important;
+}
+#rakuten_ul_cate a:hover,.padding-item a:hover{
+    color:rgb(186, 56, 38) !important;
+}
+a{text-decoration:none !important;}
+.col-md-9 .clear-both:nth-child(2){
+    background-color:white !important;
+    margin-bottom:10px;
+    border-bottom-left-radius:4px;
+    border-bottom-right-radius:4px;
+}
+ul#itemDetail_data li {
+    padding: 8px 0 6px;
+    font-size: 12px;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+ul#itemDetail_data li em {
+    display: block;
+    width: 166px;
+    float: left;
+    padding: 0 6px;
+    font-weight: normal;
+}
+ul#itemDetail_data li span {
+    width: 210px;
+    padding-bottom: 2px;
+    display: block;
+    float: right;
+    word-wrap: break-word;
+}
+.detail iframe{
+    width:100% !important;
+}
+.detail table{
+    width:100% !important;
+}

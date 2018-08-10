@@ -1,0 +1,27 @@
+﻿@model List<OhayooWeb.Models.ProductInfo>
+@{
+    ViewBag.Title = "オークション";
+}
+
+<div class="row clear-both"><div class="ohayoo-title"><i class="glyphicon glyphicon-th-large"></i>オークション - ホーム</div></div>
+<div class="row clear-both">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-3 padding-item">
+            <div class="thumbnail item-custom">
+                <a href="product/detail/@item.itemCode">
+                    <img src="@item.image" alt="@item.name">
+                </a>
+                <div class="caption">
+                    <h5 style="height:75px;overflow:hidden;">
+                        <a href="product/detail/@item.itemCode">
+                            @item.name
+                        </a>
+                    </h5>
+                    <p class="price-yen">@item.price.ToString("#,##0 Y")</p>
+                    <p class="price-vnd">@item.priceVN.ToString("#,##0 VND")</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

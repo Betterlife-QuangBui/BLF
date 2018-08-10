@@ -1,0 +1,243 @@
+﻿@model PagedList.IPagedList<AgencyPackageItem>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@{
+    var AgencyPackage = ViewBag.Package as AgencyPackage;
+    ViewBag.Title = "Chi tiết kiện hàng " + AgencyPackage.TrackingCode;
+}
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/Shipment">Lô hàng</a>
+        </li>
+        <li>
+            <a href="/Shipment/Package/@AgencyPackage.Shipment.Id">Kiện hàng</a>
+        </li>
+        <li class="active">Chi tiết kiện hàng @AgencyPackage.TrackingCode</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+
+    </div>
+    <div class="row">
+        <div class="package package-items col-xs-10">
+            <div class="package_header" style="height:40px;">
+                <div class="shipment-name" style="position:absolute;left:0px;top:-18px;width:250px;">
+                    <a href="/AgencyPackage/Edit/@AgencyPackage.Id?actionlink=Package" class="shipment_item-edit-child">@AgencyPackage.TrackingCode</a>
+                </div>
+                <div class="shipment_edit_body"></div>
+                <a class="package_item_add add-item-btn btn-add-item" href="#">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <!-- Split button -->
+                <div class="display-column display-column-first">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-primary">Thông tin hiển thị</button>
+                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu hiden-column">
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-Tracking" type="checkbox" checked class="ace" data-index="1" />
+                                        <span class="lbl"> Tên hàng</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-delivery" type="checkbox" checked class="ace" data-index="3" />
+                                        <span class="lbl"> Loại hàng</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-weigh" type="checkbox" class="ace" data-index="4" />
+                                        <span class="lbl"> Web link</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-senddate" type="checkbox" class="ace" data-index="5" />
+                                        <span class="lbl"> Jan code</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-sendhour" type="checkbox" class="ace" data-index="6" />
+                                        <span class="lbl"> Mã SP</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-reciveddate" type="checkbox" checked class="ace" data-index="7" />
+                                        <span class="lbl"> Số lượng</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-recivedhour" type="checkbox" class="ace" data-index="8" />
+                                        <span class="lbl"> Giá</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-status" type="checkbox" checked class="ace" data-index="9" />
+                                        <span class="lbl"> Ghi chú</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" class="default-column">Default view</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="display-column">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-default">Kiểu hiển thị</button>
+                        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">
+                                    <label for="col-split">
+                                        <input id="col-split" checked type="radio" name="displaytype" />
+                                        <span class="lbl"> Nhanh</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label for="col-List">
+                                        <input id="col-List" type="radio" name="displaytype" />
+                                        <span class="lbl"> Chi tiết</span>
+                                    </label>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="package_add_body"></div>
+            </div>
+            <div class="package_content">
+                <table id="storejp-table">
+                    <thead>
+                        <tr>
+                            <th style="width:50px;"></th>
+                            <th>TÊN HÀNG <span class="error">(*)</span></th>
+                            <th style="width:50px;"></th>
+                            <th>LOẠI HÀNG <span class="error">(*)</span></th>
+                            <th>WEB LINK</th>
+                            <th>JANCODE</th>
+                            <th>MÃ SP</th>
+                            <th>SỐ LƯỢNG <span class="error">(*)</span></th>
+                            <th>GIÁ</th>
+                            <th>GHI CHÚ</th>
+                        </tr>
+                        <tr class="filter-jp">
+                            <td></td>
+                            <td><input class="form-control" name="name" id="name" /></td>
+                            <td style="position:relative;">
+                                <div class="center">
+                                    <div class="task-menu-button-control">
+                                        <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                                        <div class="task-menu-button-crud">
+                                            @*<a href="/StorageJP/EditItem/@item.Id">Edit</a>*@
+
+                                            @*<a href="#" id="btn-save-add" data-id="@AgencyPackage.Id" class="package_item-edit">
+                                                Lưu
+                                            </a>
+                                            <a href="#" class="cancel-add">
+                                                Hủy
+                                            </a>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="package_edit_body"></div>
+                            </td>
+                            <td>@Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control select2" })</td>
+                            <td><input class="form-control" name="weblink" id="weblink" /></td>
+                            <td><input class="form-control" name="jancode" id="jancode" /></td>
+                            <td><input class="form-control" name="productcode" id="productcode" /></td>
+                            <td>
+                                <input type="hidden" id="code" value="@AgencyPackage.Id" />
+                                <input type="number" class="form-control" name="quantity" id="quantity" value="0" />
+                            </td>
+                            <td><input type="number" class="form-control" name="price" id="price" value="0" /></td>
+                            <td><input class="form-control" name="note" id="note" /></td>
+                        </tr>
+                        <tr class="filter-jp-action">
+                            <td colspan="10" class="center">
+                                <div>
+                                    <button type="button" id="btn-save-add" data-id="@AgencyPackage.Id" class="btn btn-success btn-sm">Lưu</button>
+                                    <button type="button" class="cancel-add-item btn btn-danger btn-sm">Hủy</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                        @{Html.RenderPartial("_ItemOfPage", Model); }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="package-detail col-xs-6">
+            <div class="package-detail_header"></div>
+            <div class="package-detail_content">
+                <div class="col-xs-12 wasehouse-info"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" value="created-desc" id="sort-jp" />
+<input type="hidden" value="" id="AgencyPackageItemId" />
+<input type="hidden" value="@AgencyPackage.Id" id="idAgencyPackage" />
+@section scripts{
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet">
+    <link href="~/Content/shipment.css" rel="stylesheet" />
+    <link href="~/Content/package-index.css" rel="stylesheet" />
+    <link href="~/Content/AgencyPackageItem.css" rel="stylesheet" />
+
+    <!--Update script từ đây-->
+    <!--Selectpicker-->
+    <link href="~/HTML/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/HTML/bootstrap-select.js"></script>
+    <!--Scroll-->
+    <script src="~/HTML/jquery.slimscroll.js"></script>
+    <!--Kết thúc-->
+    <script src="~/Scripts/AgencyPackageItem.js"></script>
+
+}

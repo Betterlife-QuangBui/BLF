@@ -1,0 +1,74 @@
+﻿@model IEnumerable<StorageItemJP>
+@{
+    Layout = null;
+    PageUtils p = new PageUtils();
+}
+<table id="simple-table" class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+
+            <th>Loại</th>
+            <th style="min-width:50px">Code</th>
+            <th style="min-width:65px">Jan code</th>
+            <th style="min-width:100px">Tên hàng JP</th>
+            <th style="min-width:100px">Tên hàng EN</th>
+            <th>Giá</th>
+            <th style="min-width:85px">Số lượng</th>
+            <th style="min-width:85px">Thành tiền</th>
+            <th>Hình</th>
+            <th style="min-width:150px;">Chất liệu</th>
+            <th style="min-width:86px;">Xuất xứ</th>
+            <th style="min-width:86px;">Tình trạng</th>
+        </tr>
+    </thead>
+
+    <tbody class="tbody">
+        @foreach (var item in Model)
+        {
+            <tr class="product-item" data-id="@item.Id" id="@item.Id">
+                <td>
+                    @p.Category(item.CategoryId.Value)
+                    <br />
+                    <span style="color:brown;">@item.CategoryName</span>
+                </td>
+
+                <td>
+                    @item.ProductCode
+                </td>
+                <td>
+                    @item.JanCode
+                </td>
+                <td>
+                    @Html.Raw(item.NameJP)
+                </td>
+                <td>
+                    @Html.Raw(item.NameEN)
+                </td>
+                <td>
+                    @item.PriceTax
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td class="amount">@(item.Quantity * item.PriceTax)</td>
+                <td>
+                    <a href="@item.LinkWeb" target="_blank">
+                        <img src="@item.Image" style="width:70px;height:70px;" />
+                    </a>
+                </td>
+                <td>
+                    @item.Material
+                </td>
+                <td>
+                    @p.MadeIn(Convert.ToInt32(item.MadeIn))
+                </td>
+                <td>
+                    @p.Status(item.StatusId.Value)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

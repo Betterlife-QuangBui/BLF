@@ -1,0 +1,290 @@
+﻿@model PackageReturn
+
+@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+    var detail = Model.ReturnHAWBs.First();
+}
+<div class="body">
+    <div class="head">
+        <div class="head-center title">
+            THÔNG TIN TRẢ HÀNG
+            <div class="notify">Điền đầy đủ thông tin các mục (*)</div>
+        </div>
+        <span class="close-shipment">x</span>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm("Edit", "PackageReturn", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td class="tt-title-form"><b>Trạng thái</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Mã trả hàng <span class="error">(*)</span></b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.ReturnCode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ReturnCode, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><div class="info-recive">Thông tin người nhận</div></td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b><input type="radio" @(detail.IsChooseList==true?"checked":"") value="address-list" id="address-list" name="address_choose" /> <label for="address-list">&nbsp; Từ danh sách</label></b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("HAWB", null, htmlAttributes: new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b><input type="radio" @(detail.IsChooseList==true?"":"checked") value="address-input" name="address_choose" id="address-input" /> <label for="address-input">Địa chỉ mới</label></b></td>
+                    </tr>
+                    <tr class="hiden-address">
+                        <td class="tt-title-form"><b>Họ & tên</b></td>
+                        <td>:</td>
+                        <td>
+                            <input rows="2" type="text" name="name" id="name" value="@detail.Name" class="form-control"/>
+                            <span class="text-danger field-validation-error" data-valmsg-for="name" data-valmsg-replace="true"><span for="name" generated="true" class="">Vui lòng nhập họ tên</span></span>
+                        </td>
+                    </tr>
+                    <tr class="hiden-address">
+                        <td class="tt-title-form"><b>Mã bưu chính</b></td>
+                        <td>:</td>
+                        <td>
+                            <input rows="2" type="text" value="@detail.PostalCode" name="PostalCode" id="PostalCode" class="form-control" />
+                            <span class="text-danger field-validation-error" data-valmsg-for="PostalCode" data-valmsg-replace="true"><span for="PostalCode" generated="true" class="">Vui lòng nhập mã bưu chính</span></span>
+                        </td>
+                    </tr>
+                    <tr class="hiden-address">
+                        <td class="tt-title-form"><b>Địa chỉ</b></td>
+                        <td>:</td>
+                        <td>
+                            <input rows="2" type="text" value="@detail.Address" name="Address" id="Address" class="form-control" />
+                            <span class="text-danger field-validation-error" data-valmsg-for="Address" data-valmsg-replace="true"><span for="Address" generated="true" class="">Vui lòng nhập địa chỉ</span></span>
+                        </td>
+                    </tr>
+                    <tr class="hiden-address">
+                        <td class="tt-title-form"><b>Số điện thoại</b></td>
+                        <td>:</td>
+                        <td>
+                            <input rows="2" type="text" value="@detail.Phone" name="Phone" id="Phone" class="form-control" />
+                            <span class="text-danger field-validation-error" data-valmsg-for="Phone" data-valmsg-replace="true"><span for="Phone" generated="true" class="">Vui lòng nhập điện thoại</span></span>
+                            <input type="hidden" value="@detail.Id" name="ReturnHAWBId" id="ReturnHAWBId" class="form-control" />
+                        </td>
+                    </tr>
+                    @*<tr class="hiden-address">
+                        <td colspan="3" class="">
+                            <label class="pos-rel address-option">
+                                <input type="checkbox" value="true" name="address_option"  class="ace" />
+                                <span class="lbl"> Thêm địa chỉ vào danh sách</span>
+                            </label>
+                        </td>
+                    </tr>*@
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Ghi chú</b></td>
+                        <td>:</td>
+                        <td>
+                            <textarea rows="2" name="Notes" id="Notes" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Hình</b></td>
+                        <td>:</td>
+                        <td style="position:relative;">
+                            <div>
+                                <label class="ace-file-input">
+                                    <span class="ace-file-container" data-title="Chọn hình">
+                                        <span class="ace-file-name" data-title="Chưa có hình">
+                                            <i class="ace-icon fa fa-upload"></i>
+                                        </span>
+                                    </span>
+                                    <a class="remove" href="#"><i class="ace-icon fa fa-times"></i></a>
+                                </label>
+                                <input style="display:none" type="file" name="upImage" id="id-input-file-2">
+                                <div class="picture-option">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                    <a id="upload-computer" href="#"><i class="fa fa-share" aria-hidden="true"></i> Tải từ máy tính</a>&nbsp;
+                                    <a id="upload-webcam" href="#"><i class="fa fa-camera" aria-hidden="true"></i> Chụp hình từ webcam</a>
+                                </div>
+                            </div>
+                            <div class="img-review" id="img-review">
+                                @if (Model.ReturnImage != null)
+                                {
+                                    <img src="~/Uploads/PackageReturn/@Model.ReturnImage" />
+                                }
+                                else
+                                {
+                                    <img src="~/Uploads/no_image.jpg" />
+                                }
+                            </div>
+                            <div id="webcam"></div>
+                            <button ID="btnCapture" class="btn btn-sm btn-warning" onclick="return Capture();">Capture</button>
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Ngày yêu cầu</b></td>
+                        <td>:</td>
+                        <td class="edit-datepicker">
+                            @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                            @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
+                            <span class="display-edit-day"></span>
+                        </td>
+                    </tr>
+                    <tr class="tr-hidden">
+                        <td class="tt-title-form"><b>Giờ yêu cầu</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.ReturnHour, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="position:relative;">
+                            <input type="hidden" id="ReturnImageBase64" value="@Model.ReturnImageBase64" name="ReturnImageBase64" />
+                            <input type="hidden" id="ReturnImage" value="@Model.ReturnImage" name="ReturnImage" />
+                            <input type="hidden" value="@Model.Id" name="Id" />
+                            <input type="hidden" value="@Model.CreatedAt" name="CreatedAt" />
+                            <input type="hidden" value="@Model.CreatedBy" name="CreatedBy" />
+                            <input type="hidden" value="@Model.UpdatedAt" name="UpdatedAt" />
+                            <input type="hidden" value="@Model.UpdatedBy" name="UpdatedBy" />
+                            <input type="hidden" value="@Model.CreatedBy" name="CreatedBy" />
+                            <input type="hidden" value="@Model.ReciveName" name="ReciveName" />
+                            <input type="hidden" value="@Model.AgencyId" name="AgencyId" />
+                            <input type="hidden" value="@Model.ReturnDate" name="ReturnDate" />
+                            <input type="hidden" value="@Model.ReturnHour" name="ReturnHour" />
+                            <input type="hidden" id="imageWC" value="" name="imageWC" />
+                            @if (Request["actionlink"] != null)
+                            {
+                                <input type="hidden" value="@Request["actionlink"]" name="actionlink" />
+                            }
+                            else
+                            {
+                                <input type="hidden" value="" name="actionlink" />
+                            }
+                            <button type="submit" class="btncreate btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                            <button type="reset" class="btn btn-sm btn-danger tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+                            <div class="option-detail-crud">
+                                <a href="#" data-index="1">Chi tiết</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        }
+    </div>
+</div>
+
+
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        white-space: pre-line !important;
+        word-wrap: break-word !important;
+    }
+
+    .select2-selection__rendered {
+        white-space: pre-wrap !important;
+        overflow: hidden !important;
+        height: 22px;
+    }
+    .ace-file-input {
+        width: 100%;
+    }
+
+    .tt-title-form {
+        font-size: 12px;
+        vertical-align: top;
+        width: 170px !important;
+        max-width: 200px !important;
+    }
+    .size{
+        position:relative;
+    }
+    .size-template,.size-input{
+            width: 250px !important;
+    }
+    .sokg-quydoi{
+        position: absolute;
+        right: -17px;
+        top: 19px;
+        width: 100px;
+        text-align: center;
+    }
+</style>
+@section scripts{
+    <script>
+        $(function () {
+            $(".shipment_add_body,.shipment_edit_body,.package_edit_body,.package_edit_body,.storejp_add_body,.package_add_body").draggable('disable');
+            value = $("input[name=address_choose]:checked").val();
+            $(".hiden-address").hide();
+            $("#HAWB").attr('disabled', 'disabled');
+            if (value == "address-input") {
+                $(".hiden-address").show();
+            }
+            else {
+                $("#HAWB").removeAttr('disabled');
+            }
+        });
+    </script>
+    <script>
+        $("td.edit-datepicker input").val($("td.edit-datepicker input").val().split(' ')[0]);
+        $(".display-edit-day").html(day($("td.edit-datepicker input").val()))
+        $(document).on("change", "td.edit-datepicker input", function () {
+            var date = today();
+            if ($(this).val() != "") {
+                date = $(this).val();
+            }
+            $("td.edit-datepicker input").val(date);
+            $(".display-edit-day").html(day(date))
+        })
+
+    </script>
+   <script src="~/Webcam_Plugin/jquery.webcam.js"></script>
+<script type="text/javascript">
+    var pageUrl = '/PackageReturn/WebcamUpload';
+        $(function () {
+            jQuery("#webcam").webcam({
+                width: 320,
+                height: 240,
+                mode: "save",
+                swffile: '/Webcam_Plugin/jscam.swf',
+                debug: function (type, status) {
+                    //$('#camStatus').append(type + ": " + status + '<br /><br />');
+                },
+                onSave: function (data) {
+                    $.ajax({
+                        method: 'POST', async: false,
+                        url: "/PackageReturn/LoadImageUpload",
+                        success: function (result) {
+                            $(".se-pre-con").fadeOut();
+                            $("#imageWC").val(result.message);
+                            $("#img-review img").attr("src", "/Uploads/PackageReturn/" + result.message);
+                        }
+                    });
+                },
+                onCapture: function (e) {
+                    $(".se-pre-con").show();
+                    webcam.save(pageUrl);
+                }
+            });
+        });
+        function Capture() {
+            $(".se-pre-con").show();
+            webcam.capture();
+            return false;
+        }
+</script>
+}

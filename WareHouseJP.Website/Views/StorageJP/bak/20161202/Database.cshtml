@@ -1,0 +1,435 @@
+﻿@model PagedList.IPagedList<WareHouseItem>
+@*@model PagerCus<WareHouseItem>*@
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    var storejp = ViewBag.StoreJP;
+    ViewBag.Title = "Chi tiết kiện " + storejp.TrackingCode;
+}
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/StorageJP">Lưu kho</a>
+        </li>
+        <li class="active">Chi tiết kiện @storejp.TrackingCode</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-5 storejp-name change-color-green">Kiện @storejp.TrackingCode</div>
+        <div class="col-md-10 storejp-margin">
+            <div class="detail-action">
+                <a href="/StorageJP/MoreQuickly/@storejp.Id"><i class="fa fa-bolt fa-2x" aria-hidden="true"></i> <span>Thêm nhanh</span></a>
+                <a href="/StorageJP/DetailPackage/@storejp.Id"><i class="fa fa-folder fa-2x" aria-hidden="true"></i> <span>Thêm sản phẩm</span></a>
+                <a href="/StorageJP/Detail/@storejp.Id"><i class="fa fa-bars fa-2x" aria-hidden="true"></i> <span>Kiện hàng</span></a>
+                <a class="active-detail" href="/StorageJP/Database/@storejp.Id"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i> <span>Database</span></a>
+                <a href="/General/Index/@storejp.Id"><i class="fa fa-cogs fa-2x" aria-hidden="true"></i> <span>General</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="storejp-margin">
+            <div class="col-md-12">
+                <div class="storejp-margin">
+                    <div class="col-md-8 storejp-gray">
+                        <form>
+                            <table class="storejp-nav">
+                                <tr class="statusId">
+                                    <td><b>Loại BLF</b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td>@Html.DropDownList("SearchCategoryId", null, htmlAttributes: new { @class = "form-control" })</td>
+                                    <td><b>Nhóm hàng</b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td>@Html.DropDownList("TypeSearch", null, htmlAttributes: new { @class = "form-control" })</td>
+                                    <td><b>Từ khóa</b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td><input class="form-control" name="key" value="@ViewBag.key" /></td>
+                                    <td>
+                                        <input type="hidden" value="@storejp.Id" id="ModelId" />
+                                        <button type="submit" class="btn-update-status btn btn-success btn-sm"><i class="fa fa-search" aria-hidden="true"></i> Tìm kiếm</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="col-md-2 storejp-gray" style="text-align:right;height:44px;padding-top:2px;">
+                        <a href="/Database/Import" title="Import" class="database-import">
+                            <i class="btn-add-ie fa fa-arrow-down"></i>
+                        </a>
+                        <a href="#" title="Add" class="storejp_add">
+                            <i class="btn-add-ie fa fa-plus"></i>
+                        </a>
+                        <div class="storejp_add_body"></div>
+                    </div>
+                    <div class="col-md-2" style="padding-left:0">
+                        <div class="hiden-column">
+                            <ul>
+                                <li class="header-display" style="cursor:pointer;">
+                                    Thông tin hiển thị <i class="arrow fa fa-sort" aria-hidden="true"></i>
+                                    <ul class="sub">
+                                        <li>
+                                            <label for="col-Option">
+                                                <input id="col-Option" checked disabled type="checkbox" data-index="1" />Option
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-TenhangJP">
+                                                <input id="col-TenhangJP" checked type="checkbox" data-index="2" />Tên hàng JP
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-action">
+                                                <input id="col-action" checked type="checkbox" data-index="3" />
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-TenhangEN">
+                                                <input id="col-TenhangEN" type="checkbox" data-index="4" />Tên hàng EN
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-LoaiBLF">
+                                                <input id="col-LoaiBLF" checked type="checkbox" data-index="5" />Loại BLF
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-LoaiWeb">
+                                                <input id="col-LoaiWeb" type="checkbox" data-index="6" />Loại Web
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-Hinh">
+                                                <input id="col-Hinh" checked type="checkbox" data-index="7" />Hình
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-JanCode">
+                                                <input id="col-JanCode" checked type="checkbox" data-index="8" />Jan code
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-MaSP">
+                                                <input id="col-MaSP" checked type="checkbox" data-index="9" />Mã SP
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-Quantity">
+                                                <input id="col-Quantity" checked type="checkbox" data-index="10" />Số lượng
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-Price">
+                                                <input id="col-Price" checked type="checkbox" data-index="11" />Giá
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-Amount">
+                                                <input id="col-Amount" type="checkbox" data-index="12" />Thành tiền
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-MadeIn">
+                                                <input id="col-MadeIn" checked type="checkbox" data-index="13" />Xuất xứ
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-Marital">
+                                                <input id="col-Marital" checked type="checkbox" data-index="14" />Chất liệu
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-Component">
+                                                <input id="col-Component" type="checkbox" data-index="15" />Thành phần
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-ComponentImage">
+                                                <input id="col-ComponentImage" type="checkbox" data-index="16" />Hình(thành phần)
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-LinkWeb">
+                                                <input id="col-LinkWeb" type="checkbox" data-index="17" />Link website
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-FlightCode">
+                                                <input id="col-FlightCode" type="checkbox" data-index="18" />Chuyến bay
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-TrackingCode">
+                                                <input id="col-TrackingCode" type="checkbox" data-index="19" />Kiện hàng
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="col-ProductType">
+                                                <input id="col-ProductType" type="checkbox" data-index="20" />Loại hàng
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="storejp_add_body"></div>
+                <div class="storejp-margin row-detail"></div>
+                <div class="clear-both"></div>
+                <div class="storejp-margin table-heigh">
+                    <table id="storejp-table" class="col-md-12">
+                        <thead>
+                            <tr class="sort-row tr-th">
+                                <th class="th-option" style="width:50px;"></th>
+                                <th class="sort-column th-namejp" data-sort="NameJP-asc">
+                                    Tên hàng JP &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th style="width:50px;"></th>
+                                <th class="th-nameen" data-sort="NameEN-asc">
+                                    Tên hàng EN &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-category" data-sort="CategoryId-asc">
+                                    Loại BLF &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-categoryweb" data-sort="CategoryWebName-asc">
+                                    Loại Web &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-image">Hình</th>
+                                <th class="th-jancode" data-sort="JanCode-asc">
+                                    Jan code &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-product-code" data-sort="ProductCode-asc">
+                                    Mã sp &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-quantity" data-sort="Quantity-asc">
+                                    Số lượng &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-price" data-sort="PriceTax-asc">
+                                    Giá &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-amount" data-sort="Amount-asc">
+                                    Thành tiền &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-origin" data-sort="MadeIn-asc" style="width:100px;">
+                                    Xuất xứ &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-material" data-sort="Material-asc">
+                                    Chất liệu &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-Component" data-sort="Component-asc">
+                                    Thành phần &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-ComponentImage">Hình(thành phần)</th>
+                                <th class="th-Linkweb" data-sort="linkweb-asc" style="width:200px;">
+                                    Link website @*&nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>*@
+                                </th>
+                                <th class="th-flightcode" data-sort="FlightCode-asc" style="width:200px;">
+                                    Chuyến bay &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-trackingcode" data-sort="TrackingCode-asc">
+                                    Kiện hàng &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th class="th-producttype" data-sort="ProductTypeId-asc">
+                                    Loại hàng &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                            </tr>
+                            <tr class="filter-jp">
+                                <th></th><!--/ Option -->
+                                <th><input type="text" class="form-control" /></th><!--/ Name JP -->
+                                <th></th><!--/ Option -->
+                                <th><input type="text" class="form-control" /></th><!--/ Name En -->
+                                <th>@Html.DropDownList("SearchCategoryId", null, htmlAttributes: new { @class = "form-control" })</th><!--/ Category -->
+                                <th><input type="text" class="form-control" /></th><!--/ CategoryWeb -->
+                                <th></th><!--/ Image -->
+                                <th><input type="text" class="form-control" /></th><!--/ Jancode -->
+                                <th><input type="text" class="form-control" /></th><!--/ Productcode -->
+                                <th><input type="number" class="form-control" /></th><!--/ Quantity -->
+                                <th><input type="number" class="form-control" /></th><!--/ Price -->
+                                <th><input type="number" class="form-control" /></th><!--/ Amount -->
+                                <th>@Html.DropDownList("SearchMadeIn", null, htmlAttributes: new { @class = "form-control" })</th><!--/ Origin -->
+                                <th><input type="text" class="form-control" /></th><!--/ Material -->
+                                <th><input type="text" class="form-control" /></th><!--/ Component -->
+                                <th></th><!--/ Image Component -->
+                                <th></th><!--/ LinkWeb -->
+                                <th><input type="text" class="form-control" /></th><!--/ FlightCode -->
+                                <th><input type="text" class="form-control" /></th><!--/ TrackingCode -->
+                                <th>@Html.DropDownList("TypeSearch", null, htmlAttributes: new { @class = "form-control" })</th><!--/ ProductType -->
+                            </tr>
+                            <tr class="database-add text-center">
+                                <th></th><!--/ Option -->
+                                <th><input type="text" value="" class="form-control" /></th><!--/ Name JP -->
+                                <th>
+                                    <div class="task-menu-button-control">
+                                        <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                                        <div class="task-menu-button-crud">
+                                            <a href="#" id="storejp_add">
+                                                Thêm
+                                            </a>
+                                            <a href="#" class="package_item-cancel">
+                                                Hủy
+                                            </a>
+                                        </div>
+                                    </div>
+                                </th><!--/ Option -->
+                                <th><input type="text" value="" class="form-control" /></th><!--/ Name En -->
+                                <th>@Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })</td><!--/ Category -->
+                                <th><input type="text" class="form-control" /></th><!--/ CategoryWeb -->
+                                <th style="position:relative;">
+                                    <div>
+                                        <label class="ace-file-input">
+                                            <span class="ace-file-container" data-title="Chọn hình">
+                                                <span class="ace-file-name" data-title="Chưa có hình">
+                                                    <i class="ace-icon fa fa-upload"></i>
+                                                </span>
+                                            </span>
+                                            <a class="remove" href="#"><i class="ace-icon fa fa-times"></i></a>
+                                        </label>
+                                        <input style="display:none" type="file" name="upImage" id="id-input-file-2">
+                                        <div class="picture-option">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                            <a id="upload-computer" href="#"><i class="fa fa-share" aria-hidden="true"></i> Tải từ máy tính</a>&nbsp;
+                                            <a href="#"><i class="fa fa-camera" aria-hidden="true"></i> Chụp hình từ webcam</a>
+                                        </div>
+                                    </div>
+                                    <div class="img-review" id="img-review">
+                                        <img src="~/Uploads/no_image.jpg" />
+                                    </div>
+                                </th><!--/ Image -->
+                                <th><input type="text" class="form-control" /></th><!--/ Jancode -->
+                                <th><input type="text" class="form-control" /></th><!--/ Productcode -->
+                                <th><input type="number" value="" class="form-control" /></th><!--/ Quantity -->
+                                <th><input type="number" value="" class="form-control" /></th><!--/ Price -->
+                                <th></th><!--/ Amount -->
+                                <th>@Html.DropDownList("MadeIn", null, htmlAttributes: new { @class = "form-control" })</th><!--/ Origin -->
+                                <th><input type="text" value="" class="form-control" /></th><!--/ Material -->
+                                <th><input type="text" value="" class="form-control" /></th><!--/ Component -->
+                                <th style="position:relative;">
+                                    <div>
+                                        <label class="ace-file-input label-component">
+                                            <span class="ace-file-container" data-title="Chọn hình">
+                                                <span class="ace-file-name" data-title="Chưa có hình">
+                                                    <i class="ace-icon fa fa-upload"></i>
+                                                </span>
+                                            </span>
+                                            <a class="remove" href="#"><i class="ace-icon fa fa-times"></i></a>
+                                        </label>
+                                        <input style="display:none" type="file" id="id-input-file-component">
+                                        <div class="picture-option div-op-component">
+                                            <i class="fa fa-times icon-component" aria-hidden="true"></i>
+                                            <a id="upload-computer-component" href="#"><i class="fa fa-share" aria-hidden="true"></i> Tải từ máy tính</a>&nbsp;
+                                            <a href="#"><i class="fa fa-camera" aria-hidden="true"></i> Chụp hình từ webcam</a>
+                                        </div>
+                                    </div>
+                                    <div class="img-review" id="img-review-component">
+                                        <img src="~/Uploads/no_image.jpg" />
+                                    </div>
+                                </th><!--/ Image Component -->
+                                <th><input type="text" class="form-control" /></th><!--/ LinkWeb -->
+                                <th><input type="text" class="form-control" /></th><!--/ FlightCode -->
+                                <th><input type="text" class="form-control" /></th><!--/ TrackingCode -->
+                                <th>@Html.DropDownList("ProductType", null, htmlAttributes: new { @class = "form-control" })</th><!--/ ProductType -->
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            @{Html.RenderPartial("_SearchDBOfJP", Model); }
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <form class="action-table form-inline">
+                        <div class="form-group">
+                            <label class="pos-rel col-sm-2">
+                                <input data-parent="true" type="checkbox" class="ace checkall" />
+                                <span class="lbl"></span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <select class="form-control select-action-table" disabled="disabled">
+                                    <option>Chọn thao tác</option>
+                                    <option>Xóa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button disabled="disabled" class="btn btn-sm btn-success btn-action-table">
+                                <i class="fa fa-refresh" aria-hidden="true"></i>
+                                Thực hiện
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    <div class="pagging storejp-pagging-index pagging-db"></div>
+                </div>
+                
+                <div class="clear-both"></div>
+            </div>
+            <div class="col-md-3">
+                <div style="height:54px;"></div>
+                <div class="database-body-crud"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="CreatedAt-desc" id="sort-jp" />
+<input type="hidden" value="@Model.PageSize" id="inPageSize" name="inPageSize" />
+
+<input type="hidden" value="@ViewBag.Total" id="inTotalCount" name="inTotalCount" />
+<input type="hidden" value="@storejp.Id" id="StoreJPId" />
+<link href="~/Content/database.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet">
+@section scripts{
+    <script src="~/Scripts/database.js"></script>
+    <script src="~/Scripts/database-search.js"></script>
+    <script>
+        //dialog delete
+        $(function () {
+            $(".hiden-column-content").hide(); $(".hiden-column-title").show();
+        });
+        $(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index"));
+                if (e.checked) {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+            $(".hiden-column input[type=checkbox]").click(function () {
+                $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                    var index = parseInt($(e).attr("data-index"));
+                    if (e.checked) {
+                        $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                    }
+                    else {
+                        $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                    }
+                });
+            });
+        });
+    </script>
+}

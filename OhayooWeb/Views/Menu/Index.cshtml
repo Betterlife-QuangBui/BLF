@@ -1,0 +1,28 @@
+﻿@model OhayooWeb.Models.MenuPage
+<div class="panel panel-default">
+    <div class="panel-heading head-style"><span class="glyphicon glyphicon-th-list"></span> カタログ</div>
+    <div class="panel-body padding-no">
+        <ul id="rakuten_ul_cate">
+            @foreach (var item in Model.listCate)
+            {
+                //@(Model.area==""?"rakuten":Model.area)
+                <li class="rakuten_li_cate_parent">
+                    <a href="http://@Request.Url.Host/@(Model.area==""?"rakuten/":Model.area+"/")product/category/@item.id/@item.name?page=1&sort=standard"> @item.name</a>
+                    @if (Model.listSub.Where(n => n.CateId == item.id).Count() > 0)
+                    {
+                        <ul class="sub-menu">
+                            @foreach (var sub in Model.listSub.Where(n => n.CateId == item.id))
+                            {
+                                <li class="rakuten_li_cate_sub">
+                                    <a href="http://@Request.Url.Host/@(Model.area==""?"rakuten/":Model.area+"/")product/category/@sub.id/@sub.name?page=1&sort=standard"> @sub.name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+

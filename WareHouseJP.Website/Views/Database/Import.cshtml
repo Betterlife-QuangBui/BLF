@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+}
+
+<link href="~/better-life/assets/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/better-life/assets/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/better-life/assets/css/ace.min.css" rel="stylesheet" />
+
+<div class="body" style="width: 100%">
+    <div class="head head-package">
+        <div class="head-center title">
+            Import dữ liệu
+        </div>
+        @*<span class="close-package">x</span>*@
+    </div>
+    <div class="content content-import">
+        @using (Html.BeginForm("Import", "Database", FormMethod.Post, new { enctype = "multipart/form-data", @role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="file">
+                @*<div class="progress">
+                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                </div>*@
+                <input type="file" class="fileImport" name="fileImport" id="fileImport">
+            </div>
+            <div>
+                <div class="col-md-12 center">
+                    <button type="submit" class="btn-action-import btn-button btn btn-sm btn-success tt-margin-right tt-width-button">Tải lên</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/better-life/assets/js/jquery.2.1.1.min.js"></script>
+
+<script src="~/better-life/assets/js/bootstrap.min.js"></script>
+
+<script src="~/better-life/assets/js/ace-elements.min.js"></script>
+<script src="~/better-life/assets/js/ace.min.js"></script>
+@if (Session["Database"] != null)
+{
+    <script>
+        alert('Import dữ liệu thành công!');
+        window.parent.location.href = '/Database';
+    </script>
+    Session["Database"] = null;
+}
+<script type="text/javascript">
+    jQuery(function ($) {
+        
+        $('#fileImport').ace_file_input({
+            style: 'well',
+            btn_choose: 'Drop files here or click to choose',
+            btn_change: null,
+            no_icon: 'ace-icon fa fa-cloud-upload',
+            droppable: true,
+            thumbnail: 'small'//large | fit
+            //,icon_remove:null//set null, to hide remove/reset button
+            /**,before_change:function(files, dropped) {
+                //Check an example below
+                //or examples/file-upload.html
+                return true;
+            }*/
+            /**,before_remove : function() {
+                return true;
+            }*/
+            ,
+            preview_error: function (filename, error_code) {
+                //name of the file that failed
+                //error_code values
+                //1 = 'FILE_LOAD_FAILED',
+                //2 = 'IMAGE_LOAD_FAILED',
+                //3 = 'THUMBNAIL_FAILED'
+                //alert(error_code);
+            }
+
+        }).on('change', function () {
+            //console.log($(this).data('ace_input_files'));
+            //console.log($(this).data('ace_input_method'));
+        });
+    });
+</script>

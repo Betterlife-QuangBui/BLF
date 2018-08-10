@@ -1,0 +1,46 @@
+﻿@model StatusWareHouse
+
+@{
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+<ol class="breadcrumb editbreadcrum">
+    <li><a href="/" target="_parent"><i class="glyphicon glyphicon-home"></i> Trang chủ</a></li>
+    <li><a href="/StatusWareHouse/" target="_parent">Tình trạng</a></li>
+    <li class="active">Thêm tình trạng</li>
+</ol>
+<div class="">
+    @using (Html.BeginForm("Add", "StatusWareHouse", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <table class="table_insert col-md-12" align="center" style="width:100%;">
+
+            <tr>
+                <td class="tt-title-form"><b>Tên tình trạng</b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <button type="submit" class="btncreate btn btn-large btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                    <button type="reset" class="btn btn-large btn-info tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Xóa</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    @Html.ValidationSummary(false)
+                </td>
+            </tr>
+        </table>
+
+    }
+</div>
+
+

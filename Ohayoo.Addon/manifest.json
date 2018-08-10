@@ -1,0 +1,33 @@
+{
+   "background": {
+      "page": "template/background.html",
+      "persistent": true
+   },
+   "browser_action": {
+      "default_icon": "images/icon.png",
+      "default_popup": "app/popup.html"
+   },
+   "content_scripts": [ {
+      "css": [ "css/font-awesome.css" ],
+      "js": [ "js/jquery.js", "js/test.js", "js/config.js", "js/rakuten/rakuten.js" ],
+      "matches": ["http://*.rakuten.co.jp/*","https://*.rakuten.co.jp/*" ]
+   }, {
+      "js": [ "js/web_service_config.js", "js/web_service_script.js" ],
+      "matches": [ "http://*.seudo.vn/*", "https://*.seudo.vn/*" ]
+   } ],
+   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+   "description": "Công cụ Đặt hàng của Ohayoo.vn trên trình duyệt Chrome & Cờ rôm+.",
+   "icons": {
+      "128": "images/icon.png",
+      "16": "images/icon.png",
+      "48": "images/icon.png"
+   },
+   
+   "manifest_version": 2,
+   "name": "Công Cụ Đặt Hàng Ohayoo",
+   "options_page": "template/options.html",
+   "permissions": [ "http://*/*", "https://*/*", "storage", "tabs", "notifications" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "4.11.73",
+   "web_accessible_resources": [ "template/index.htm", "css/main.css", "css/cn_main.css", "images/save-product-ao.png", "images/icon-arr-ao.png", "images/addon-icon-shopping-cart.png", "images/close-warning-ao.png", "images/icon-seudo-ao.png", "images/addon-icon-orderhang.png", "images/add_on/bg-addon.png", "images/not_translate.png", "images/exception_tool.png", "images/cart28x28.png", "images/shop-cart-icon.png", "images/box-nh-background.png" ]
+}

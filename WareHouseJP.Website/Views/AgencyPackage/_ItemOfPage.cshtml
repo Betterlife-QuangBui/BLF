@@ -1,0 +1,38 @@
+﻿@model PagedList.IPagedList<AgencyPackage>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@foreach (var item in Model)
+{
+    <div class="box-item" data-id="@item.Id" id="@item.Id" data-href="/AgencyPackageItem/Index/@item.Id">
+        <div class="tracking">@item.TrackingCode</div>
+        <div class="kg-size">@item.Weigh kg</div>
+
+        <div class="status">
+            @if (item.AgencyPackageItems.Count == 0)
+            {
+                <span class="label label-danger" id="span-@item.Id">Chưa khai báo</span>
+            }
+            else
+            {
+                <span class="label label-danger" id="span-@item.Id">Đã khai báo</span>
+            }
+            <span class="label label-info">@PageUtils.OnRoad(item.TrackingCode)</span>
+        </div>
+        <div class="info-tracking">
+            <span>@(item.SentDate != null ? item.SentDate.Value.ToString("yyyy-MM-dd") : "") @item.SendHour</span>
+            <span class="info-date">@(item.ReceivedDate != null ? item.ReceivedDate.Value.ToString("yyyy-MM-dd") : "") @item.ReceivedHour</span>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+}
+<div class="pagging">
+    @Html.PagedListPager(Model, page => Url.Action("AgencyPackage", "Ajax", new { page = page, key = ViewBag.key }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>
+
+<script>
+    function paging(number) {
+        $(".item-of-page").html("");
+        $(".item-of-page").load('/Ajax/AgencyPackage?page=' + number + '&key=@(ViewBag.key)');
+    }
+</script>

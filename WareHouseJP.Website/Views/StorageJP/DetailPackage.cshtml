@@ -1,0 +1,319 @@
+﻿@model StorageJP
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Chi tiết kiện " + Model.TrackingCode;
+}
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/StorageJP">Lưu kho</a>
+        </li>
+        <li class="active">Chi tiết kiện @Model.TrackingCode</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-5 storejp-name change-color-green">
+            <a href="/StorageJP?id=@Model.Id" style="color:#000000;">
+                @Model.TrackingCode
+            </a>
+        </div>
+        <div class="col-md-10 storejp-margin">
+            <div class="detail-action">
+                <a href="/StorageJP/MoreQuickly/@Model.Id"><i class="fa fa-bolt fa-2x" aria-hidden="true"></i> <span>Thêm nhanh</span></a>
+                <a class="active-detail" href="/StorageJP/DetailPackage/@Model.Id"><i class="fa fa-folder fa-2x" aria-hidden="true"></i> <span>Thêm sản phẩm</span></a>
+                <a href="/StorageJP/Detail/@Model.Id"><i class="fa fa-bars fa-2x" aria-hidden="true"></i> <span>Kiện hàng</span></a>
+                <a href="/StorageJP/Database/@Model.Id"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i> <span>Database</span></a>
+                <a href="/General/Index/@Model.Id"><i class="fa fa-cogs fa-2x" aria-hidden="true"></i> <span>General</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="storejp-margin">
+            <div class="col-md-8">
+                <form method="post" id="search-form">
+                    <div class="storejp-margin">
+                        <div class="col-md-12 storejp-margin">
+                            <table class="storejp-nav">
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <label class="pos-rel" style="padding-right:10px;">
+                                            <input type="checkbox" name="Website" value="Database" id="Database" />
+                                            <span class="lbl">Database</span>
+                                        </label>
+                                    </td>
+                                    <td style="border-left:2px solid #dddddd;">
+                                        <ul class="shopping">
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="Rakuten" id="Rakuten" />
+                                                    <span class="lbl">Rakuten</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="Amazon" id="Amazon" />
+                                                    <span class="lbl">Amazon</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="YahooShopping" id="YahooShopping" />
+                                                    <span class="lbl">Y!Shopping</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="YahooAuction" id="YahooAuction" />
+                                                    <span class="lbl">Y!Auction</span>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td style="border-left:2px solid #dddddd;">
+                                        <ul class="clothing">
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="Uniqlo" id="Uniqlo" />
+                                                    <span class="lbl">Uniqlo</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="Zara" id="Zara" />
+                                                    <span class="lbl">Zara</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="Adidas" id="Adidas" />
+                                                    <span class="lbl">Adidas</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="Hm" id="Hm" />
+                                                    <span class="lbl">Hm</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="Locondo" id="Locondo" />
+                                                    <span class="lbl">Locondo</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" disabled name="Website" value="Dena-ec" id="Dena-ec" />
+                                                    <span class="lbl">Dena-ec</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="Crocs" id="Crocs" />
+                                                    <span class="lbl">Crocs</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="Reebok" id="Reebok" />
+                                                    <span class="lbl">Reebok</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" name="Website" value="Forever21" id="Forever21" />
+                                                    <span class="lbl">Forever21</span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" disabled name="Website" value="Gap" id="Gap" />
+                                                    <span class="lbl">Gap</span>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                    <div class="clear-both"></div>
+                    <div class="storejp-margin">
+                        <div class="col-md-12 storejp-gray">
+                            <table class="storejp-nav">
+                                <tr>
+                                    <td><b>Từ khóa</b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td>
+                                        <input class="form-control" value="@ViewBag.SearchCode" style="width: 329px;margin-left: 13px;" name="SearchCode" id="SearchCode" />
+                                    </td>
+                                    <td>
+                                        <input name="StoregeJPId" value="@Model.Id" type="hidden" />
+                                        <button type="submit" id="btnSearchJP" class="btn btn-sm btn-success">
+                                            <span class="glyphicon glyphicon-search"></span> Tìm kiếm
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="storejp-margin row-detail"></div>
+                    <div class="clear-both"></div>
+                </form>
+                <div class="storejp-margin table-heigh" style="width:100.5% !important">
+                    <table id="storejp-table" class="col-md-12">
+                        <thead>
+                            <tr class="tr-th">
+                                <th class="th-tracking center" style="width:50px;"></th>
+                                <th>Tên hàng JP</th>
+                                @*<th>Loại BLF</th>*@
+                                <th>Hình</th>
+                                <th>Jan code</th>
+                                <th>Mã sp</th>
+                                <th>Giá</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            @foreach (SearchProductInfo item in ViewBag.listResultSearch)
+                            {
+                                <tr>
+                                    <td class="center">
+                                        <label class="pos-rel">
+                                            <input type="radio" name="saveprod" data-id="@item.Id" value="@item.ProductCode" />
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <div class="name-jp">@Html.Raw(item.NameJP)</div>
+                                    </td>
+                                    @*<td>
+                                        <div class="name-jp">@item.CategoryName</div>
+                                    </td>*@
+                                    <td class="center">
+                                        <a href="@item.LinkWeb" target="_blank">
+                                            <img src="@item.ImageBase64" style="width:70px;height:70px;" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <div class="name-jp">@item.JanCode</div>
+                                    </td>
+                                    <td><div class="name-jp">@item.ProductCode</div></td>
+                                    <td class="detail-right">
+                                        @item.PriceTax
+                                    </td>
+                                    
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+            <div class="col-md-4">
+                <div style="height:105px;"></div>
+                <form method="post" action="/StorageJP/AddNewItem">
+                    <div class="body">
+                        <div class="head head-package">
+                            <div class="head-center title">
+                                THÔNG TIN SẢN PHẨM LƯU KHO
+                                <div class="notify">Điền đầy đủ thông tin ở các mục (*)</div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                                <tr>
+                                    <td class="tt-title-form"><b>Mã kiện con </b></td>
+                                    <td>
+                                        @Html.DropDownList("TrackingCode", null, htmlAttributes: new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt-title-form"><b>Số lượng</b></td>
+                                    <td><input type="number" min="1" max="2000" name="quantity" value="1" class="form-control" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt-title-form"><b>Xuất xứ </b></td>
+                                    <td>
+                                        @Html.DropDownList("MadeIn", null, htmlAttributes: new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt-title-form"><b>Loại hàng </b></td>
+                                    <td>
+                                        @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr class="hiden">
+                                    <td class="tt-title-form"><b>Hình </b></td>
+                                    <td style="position:relative;">
+                                        <div>
+                                            <label class="ace-file-input">
+                                                <span class="ace-file-container" data-title="Chọn hình">
+                                                    <span class="ace-file-name" data-title="">
+                                                        <i class="ace-icon fa fa-upload"></i>
+                                                    </span>
+                                                </span>
+                                            </label>
+                                            <input style="display:none" type="file" name="upImage" id="id-input-file-2">
+                                            <div class="picture-option">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                <a id="upload-computer" href="#"><i class="fa fa-share" aria-hidden="true"></i> Tải từ máy tính</a>&nbsp;
+                                                <a href="#"><i class="fa fa-camera" aria-hidden="true"></i> Chụp hình từ webcam</a>
+                                            </div>
+                                        </div>
+                                        <div class="img-review" id="img-review">
+                                            <img src="~/Uploads/no_image.jpg" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt-title-form"></td>
+                                    <td colspan="3" valign="middle">
+                                        <input name="StoregeJPId" value="@Model.Id" type="hidden" />
+                                        <input type="hidden" value="" name="IdItem" id="IdItem" />
+                                        <input type="hidden" value="" name="ComponentImage" id="ComponentImage" />
+                                        <button type="submit" class="btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Thực hiện</button>
+                                        <button type="reset" class="btn btn-sm btn-danger tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+
+                                        <a href="#" class="advan-add">Nâng cao</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@{ string[] searchCate = ViewBag.searchCate as string[];}
+<link href="~/Content/storejp-detail.css" rel="stylesheet" />
+<link href="~/Content/storejp-detailpackage.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Scripts/storejp-search.js"></script>
+    <script>
+        $(function () {
+            @foreach (var item in searchCate)
+            {
+                <text>$('input#@(item)').attr('checked', 'checked');</text>
+            }
+        })
+    </script>
+}

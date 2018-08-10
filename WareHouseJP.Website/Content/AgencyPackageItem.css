@@ -1,0 +1,58 @@
+﻿.filter-jp td{
+    background-color: #adadad !important;
+
+}
+.filter-jp-action td {
+    background-color: #fff !important;
+}
+#storejp-table tbody input, #storejp-table textarea, #storejp-table tbody select, #storejp-table tbody input[readonly] {
+    background-color: transparent;
+    border: none;
+    color: black;
+}
+
+#storejp-table tbody input[readonly], #storejp-table tbody input[disabled], #storejp-table tbody textarea[disabled], #storejp-table tbody select[disabled] {
+    background-color: transparent;
+    border: none;
+    color: black;
+}
+
+#storejp-table tbody input:focus, #storejp-table tbody textarea:focus, #storejp-table tbody select:focus {
+    background-color: #fff;
+}
+.action-table select,.action-table select[disabled]{
+    background-color:#808080;
+}
+.se-pre-con-crud button {
+    /* position: absolute; */
+    margin-top: -27px;
+}
+.display-column-first {
+    display: inline-block;
+    position: absolute;
+    right: 130px;
+    top: -4px;
+}
+.add-item-btn {
+    border: 1px solid #585858 !important;
+    position: absolute;
+    display: block;
+    right: 286px;
+    bottom: 18px;
+    width: 24px;
+    height: 24px;
+    /* background: #585858 !important; */
+    color: #585858 !important;
+    font-size: 15px;
+    text-align: center;
+    line-height: 24px;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+.select2-container{
+    width:100% !important;
+}

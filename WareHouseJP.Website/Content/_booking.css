@@ -1,0 +1,62 @@
+﻿.table_insert tr td {
+    width:300px;
+}
+.tt-title-form {
+    width: 200px !important;
+    font-size: 14px;
+    vertical-align: top;
+}
+
+.table_insert tr td {
+    padding: 7px;
+    vertical-align: top;
+}
+#result-clearance legend {
+    color: #ed1c24 !important;
+}
+
+.tt-padding-radio {
+    margin: 0px 2px 2px !important;
+}
+
+.editbreadcrum {
+    background-color: #307ecc;
+    color: #ffffff;
+}
+
+    .editbreadcrum a {
+        color: #ffffff;
+    }
+
+.breadcrumb > .active {
+    color: white;
+}
+
+.table > thead > tr {
+    color: #707070;
+    font-weight: 400;
+    /* background: #F2F2F2; */
+    /* background-image: -webkit-linear-gradient(top,#f8f8f8 0,#ececec 100%); */
+    background-image: -o-linear-gradient(top,#f8f8f8 0,#ececec 100%);
+    background-image: linear-gradient(to bottom,#f8f8f8 0,#ececec 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8', endColorstr='#ffececec', GradientType=0);
+}
+
+    .table > thead > tr > th {
+        border-color: #ddd;
+        font-weight: 700;
+    }
+
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-search--inline {
+    display: none;
+    border-radius: 0;
+}
+
+.select2-selection--multiple, .select2-selection--single {
+    border-radius: 0 !important;
+}

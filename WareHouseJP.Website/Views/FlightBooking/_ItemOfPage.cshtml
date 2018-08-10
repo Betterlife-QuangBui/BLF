@@ -1,0 +1,36 @@
+﻿@model PagedList.IPagedList<FlightBooking>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@foreach (var item in Model)
+{
+    <div class="box-item" data-id="@item.Id" id="@item.Id" data-href="/FlightGoods/Index/@item.Id">
+        <div class="tracking">@item.Code</div>
+        <div class="kg-size">@PageUtils.Size(item.Size) - @(item.AutomaticWeigh+item.EnterManuallyWeigh) kg</div>
+
+        <div class="status">
+            @if (item.StatusId == null)
+            { <span class="label label-danger">Đang tạo</span>}
+            else
+            {
+                <span class="label label-info">@PageUtils.PackageStatus(item.StatusId.Value)</span>
+            }
+        </div>
+        <div class="info-tracking">
+            <span>Số kiện: @(item.AutomaticTrackingCount+item.EnterManuallyTrackingCount)</span>
+            <span class="info-date">@(item.BookingDate != null ? item.BookingDate.Value.ToString("yyyy-MM-dd") : "") @item.BookingHour</span>
+        </div>
+        
+    </div>
+    <div style="clear:both;"></div>
+}
+<div class="pagging">
+    @Html.PagedListPager(Model, page => Url.Action("FlightBooking", "Ajax", new { page = page, key = ViewBag.key }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>
+
+<script>
+    function paging(number) {
+        $(".item-of-page").html("");
+        $(".item-of-page").load('/Ajax/FlightBooking?page=' + number + '&key=@(ViewBag.key)');
+    }
+</script>

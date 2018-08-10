@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<ShippingHAWBDetail>
+@using PagedList.Mvc;
+@using PagedList;
+@{ 
+    var PageUtils = new PageUtils();
+    UserPage user = new UserPage();
+    var listHAWB = Model.Select(n => n.ShippingHAWB).Distinct();
+}
+@foreach (var item in listHAWB)
+{
+    <tr class="parent">
+        <td class="center">
+            <label class="pos-rel">
+                <input id="@item.Id" data-id="@item.Id" data-parent="true" type="checkbox" class="ace chk-parent" />
+                <span class="lbl"></span>
+            </label>
+        </td>
+        <td colspan="3">@item.HAWB.Name</td>
+    </tr>
+    foreach (var tracking in Model.Where(n=>n.ShippingHAWBId==item.Id))
+    {
+        <tr class="item">
+            <td class="center">
+                <label class="pos-rel">
+                    <input id="@tracking.Id" data-parent="false" data-pre="@item.Id" data-id="@tracking.Id" type="checkbox" class="ace" />
+                    <span class="lbl"></span>
+                </label>
+            </td>
+            <td>@tracking.ExportGood.ShippingMarkVN</td>
+            <td style="position:relative;">
+                <div class="center">
+                    <div class="task-menu-button-control">
+                        <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                        @*<div class="task-menu-button-crud">
+                            <a href="#" class="package_item-delete-new" data-url="/Shipping/DeleteShippingHAWB/@tracking.Id" data-id="tr_@tracking.Id">
+                                Xóa
+                            </a>
+                            <a href="#" class="package_item-delete-new" data-url="/Shipping/SplitHAWB/@tracking.Id" data-id="tr_@tracking.Id">
+                                Tách
+                            </a>
+                        </div>*@
+                    </div>
+                </div>
+            </td>
+            <td>
+                @*@Html.DropDownList("HAWB", null, htmlAttributes: new { disabled= "disabled", @class = "form-control CategoryId-" + (tracking.Id) })
+                <script>
+                $(".CategoryId-@(tracking.Id)").val('@(tracking.ShippingHAWB.HAWBId)');
+                </script>*@
+                @tracking.ShippingHAWB.HAWB.Name
+            </td>
+        </tr>
+    }
+}
+
+<tr class="action-table">
+    <td class="center">
+        <label class="pos-rel">
+            <input data-parent="true" type="checkbox" class="ace checkall" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td colspan="3">
+        <select class="form-control select-action-table" disabled="disabled">
+            <option value="-1">Chọn thao tác</option>
+            @*<option value="1">Xóa</option>*@
+            <option value="2">Tách HAWB</option>
+        </select>
+        @Html.DropDownList("HAWB", (IEnumerable<SelectListItem>)ViewBag.HAWB, "", htmlAttributes: new { @class = "form-control select-hawb", disabled = "disabled" })
+        <button disabled="disabled" class="btn btn-sm btn-success btn-action-table"><i class="fa fa-refresh" aria-hidden="true"></i> Thực hiện</button>
+        <button disabled="disabled" class="btn btn-sm btn-danger btn-action-cancel"><i class="fa fa-times" aria-hidden="true"></i> Hủy</button>
+    </td>
+</tr>
+<tr>
+    <td colspan="4">
+        <div class="pagging storejp-pagging">
+            @Html.PagedListPager(Model, page => Url.Action("ShippingHAWB", "Ajax", new { page = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </td>
+</tr>

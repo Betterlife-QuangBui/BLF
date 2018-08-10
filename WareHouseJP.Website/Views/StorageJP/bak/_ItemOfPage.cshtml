@@ -1,0 +1,30 @@
+﻿@model PagedList.IPagedList<StorageJP>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@foreach (var item in Model)
+{
+    <div class="box-item" data-id="@item.Id" id="@item.Id" data-href="/StorageJP/WareHouse/@item.Id">
+        <div class="tracking">@item.TrackingCode</div>
+        <div class="kg-size">@item.Weigh kg - @item.SizeTable.Name</div>
+
+        <div class="status">
+            <span class="label label-danger" id="span-@item.Id">@PageUtils.PackageStatus(item.StatusId.Value, 2)</span>
+        </div>
+        <div class="info-tracking">
+            <span>Số kiện: @item.TrackingDetails.Count - Số kg: @item.TrackingDetails.Sum(n => n.Weigh)</span>
+            <span class="info-date">@(item.ReceivedDate != null ? item.ReceivedDate.Value.ToString("yyyy-MM-dd") : "") @item.ReceivedHour</span>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+}
+<div class="pagging">
+    @Html.PagedListPager(Model, page => Url.Action("StoreJP", "Ajax", new { page = page, key = ViewBag.key}), PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>
+
+<script>
+    function paging(number) {
+        $(".item-of-page").html("");
+        $(".item-of-page").load('/Ajax/StoreJP?page=' + number + '&key=@(ViewBag.key)');
+    }
+</script>

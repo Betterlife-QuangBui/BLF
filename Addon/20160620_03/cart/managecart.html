@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Quản lý giỏ hàng</title>
+	<link href="css/cart.css" rel="stylesheet" type="text/css">
+	<link href="../css/font-awesome.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="wrapper">
+		<center><h1 class="cart_title">THÔNG TIN SẢN PHẨM VỪA ĐẶT</h1></center>
+		<p class="ex_rate">Tỷ giá: <b>219.24</b></p>
+		<table id="cart_info" class="cart_info">
+			<tr>
+				<th>STT</th>
+				<th>Jan code</th>
+				<th>Tên sản phẩm</th>
+				<th> Web Link</th>
+				<th>Loại Hàng</th>
+				<th>Size, Màu</th>
+				<th>Mô tả</th>
+				<th>Số lượng</th>
+				<th>Đơn giá (Gồm thuế)</th>
+				<th>Phí ship nội địa Jp</th>
+				<th>Thành tiền (Yen)</th>
+				<th>Thành tiền (VNĐ)</th>
+				<th>Trọng lượng</th>
+				<th>Xóa</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>4997035682720</td>
+				<td>RSR045GR01BL RSタイチ DRYMASTER レインスーツ カモフラージュ BLサイズ</td>
+				<td>http://store.shopping.yahoo.co.jp/hirochi/4997035682720.html</td>
+				<td>CLOTHING</td>
+				<td></td>
+				<td>Taichi RSR045GR01BL</td>
+				<td><input type="number" min="0" value="1"/></td>
+				<td>  13,973 </td>
+				<td>  - </td>
+				<td>  13,973 </td>
+				<td>  3,074,060 </td>
+				<td></td>
+				<td><a href=""><i class="fa fa-trash"></i></a></td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>4997035682720</td>
+				<td>RSR045GR01BL RSタイチ DRYMASTER レインスーツ カモフラージュ BLサイズ</td>
+				<td>http://store.shopping.yahoo.co.jp/hirochi/4997035682720.html</td>
+				<td>CLOTHING</td>
+				<td></td>
+				<td>Taichi RSR045GR01BL</td>
+				<td><input type="number" min="0" value="1"/></td>
+				<td>  13,973 </td>
+				<td>  - </td>
+				<td>  13,973 </td>
+				<td>  3,074,060 </td>
+				<td></td>
+				<td><a href=""><i class="fa fa-trash"></i></a></td>
+			</tr>
+			<tr id="cart_sum" class="cart_sum">
+				<td colspan="8">Tổng cộng:</td>
+				<td>  65,044 </td>
+				<td>  630 </td>
+				<td>  181,113 </td>
+				<td>  39,844,860 </td>
+				<td colspan="2"></td>
+
+			</tr>
+		</table>
+
+		<table id="cart_charges" class="cart_charges">
+			<tr>
+				<th>Phí vận chuyển:</th>
+				<td colspan="2">
+					<select class="partner">
+						<option>Chọn đối tác</option>
+						<option>Ohayoo</option>
+						<option>Hello</option>
+						<option>Anyong</option>
+					</select>
+				</td>
+				<td>219.24</td>
+			</tr>
+			<tr class="hidden">
+				<th>Thành tiền:</th>
+				<td>  65,044 </td>
+				<td>  181,113 </td>
+				<td>  39,844,860 </td>
+			</tr>
+		</table>
+		<div class="cart_button">
+			<button id="clearall" class="clearall"><i class="fa fa-trash"></i> Clear all</button>
+			<button id="checkout" class="checkout"><i class="fa fa-shopping-cart"></i> Check out</button>
+		</div>
+		<!-- The Modal -->
+            <!-- HTML -->
+            <div id="myModal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <span class="close">×</span>
+                  <h2>THÔNG TIN CÁ NHÂN</h2>
+                </div>
+                <div class="modal-body">
+                <center>
+                	<form>
+	                  <table>
+	                  	<tr>
+	                  		<td><label for="cus_name">Họ & tên:</label></td>
+	                  		<td><input type="text" class="cus_name" id="cus_name"/></td>
+	                  	</tr>
+	                  	<tr>
+	                  		<td><label for="cus_email">Email:</label></td>
+	                  		<td><input type="text" class="cus_email" id="cus_email"/></td>
+	                  	</tr>
+	                  	<tr>
+	                  		<td><label for="cus_phone">Phone:</label></td>
+	                  		<td><input type="text" class="cus_phone" id="cus_phone"/></td>
+	                  	</tr>
+	                  	<tr>
+	                  		<td><label for="cus_note">Ghi chú:</label></td>
+	                  		<td><textarea class="cus_note" id="cus_note" rows="5"></textarea></td>
+	                  	</tr>
+	                  </table>
+                  	</form>
+              	</center>
+                </div>
+                <div class="modal-footer">
+                  	<button id="send" class="checkout"><i class="fa fa-shopping-cart"></i> Gửi</button>
+                </div>
+              </div>
+
+            </div>
+
+        <!-- END The Modal -->
+	</div>
+    <script src="/js/script.js"></script>
+	<script src="js/cart.js" type="text/javascript"></script>
+</body>
+</html>

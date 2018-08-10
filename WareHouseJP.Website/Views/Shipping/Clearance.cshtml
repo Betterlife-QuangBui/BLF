@@ -1,0 +1,169 @@
+﻿@model Shipping
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Thông quan chuyến bay " + Model.ShippingCode;
+}
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/Shipping">Chuyến bay</a>
+        </li>
+        <li class="active">Chuyến bay @Model.ShippingCode</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-5 storejp-name change-color-red">Chuyến bay @Model.ShippingCode</div>
+        <div class="col-md-7 storejp-margin">
+            <div class="detail-action">
+                <a href="/Shipping/ShippingPackage/@Model.Id"><i class="fa fa-cubes fa-2x" aria-hidden="true"></i> <span> &nbsp;&nbsp;Kiện hàng</span></a>
+                <a href="/Shipping/Booking/@Model.Id"><i class="fa fa-plane fa-2x" aria-hidden="true"></i> <span>Booking</span></a>
+                <a class="active-detail" href="/Shipping/Clearance/@Model.Id"><i class="fa fa-anchor fa-2x" aria-hidden="true"></i> <span> &nbsp;&nbsp;Thông quan</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="storejp-margin">
+            <div class="col-md-7">
+                <div class="row shipping-margin">
+                    <div class="col-md-12 shipping-color-red shipping-status">
+                        <div><b>TRẠNG THÁI</b></div>
+                        @if (Model.StatusId != 14)
+                        {
+                            <div>@Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })</div>
+                        }
+                        else
+                        {
+                            <div>@Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control", @disabled= "disabled" })</div>
+                        }
+                        <div>
+                            @if (ViewBag.CountItem > 0 && Model.StatusId != 14)
+                            {
+                                <button class="btn btn-sm btn-default btn-save-status" data-id="@Model.Id"><i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                @if (Model.StatusId != 14)
+                {
+                    <div class="row shipping-margin">
+                        @using (Html.BeginForm("Clearance", "Shipping", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="col-md-5">
+                                <table id="infomation" class="table-shipping">
+                                    <thead>
+                                        <tr>
+                                            <th>KẾT QUẢ PRE-AD</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <textarea name="PreAD_Note" id="PreAD_Note" class="form-control" rows="11"></textarea>
+                                                <input type="hidden" value="@Model.Id" name="ShippingId" id="ShippingId" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                            <div class="col-md-6">
+                                <table id="infomation" class="table-shipping table-header-yellow">
+                                    <thead>
+                                        <tr>
+                                            <th>FILE PRE-AD</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="position:relative;">
+                                                <div>
+                                                    <label class="ace-file-input">
+                                                        <span class="ace-file-container" data-title="Chọn hình/file">
+                                                            <span class="ace-file-name" data-title="">
+                                                                <i class="ace-icon fa fa-upload"></i>
+                                                            </span>
+                                                        </span>
+                                                        <a class="remove" href="#"><i class="ace-icon fa fa-times"></i></a>
+                                                    </label>
+                                                    <input style="display:none" onchange="loadFile(event)" id="id-input-file-2" type="file" name="upImage">
+                                                    <div class="picture-option">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                        <a id="upload-computer" href="#"><i class="fa fa-share" aria-hidden="true"></i> Tải từ máy tính</a>&nbsp;
+                                                        <a href="#"><i class="fa fa-camera" aria-hidden="true"></i> Chụp hình từ webcam</a>
+                                                    </div>
+                                                </div>
+                                                <div class="img-review" id="img-review">
+                                                    <img src="~/Uploads/no_image.jpg" id="img-review-output" />
+                                                </div>
+                                                <input type="hidden" id="PreADFile" value="" name="PreADFile" />
+                                                <input type="hidden" id="PreADBase64" value="" name="PreADBase64" />
+                                                <input type="hidden" value="@Model.StatusId" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    @if (Model.StatusId == 13)
+                                    {
+                                        <tfoot>
+                                            <tr>
+                                                <td class="conform-booking" colspan="2" style="position:relative;">
+                                                    <input type="checkbox" id="conform-booking" /> <span><label for="conform-booking"> Xác nhận lưu kết quả Pre-Ad</label></span>
+                                                    <button type="submit" id="shipping_booking" class="btn btn-sm btn-success" disabled data-id="@Model.Id"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Book</button>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    }
+                                </table>
+                            </div>
+                            <div class="col-md-1"></div>
+                        }
+                    </div>
+                }
+                <div class="row shipping-margin">
+                    <div class="col-md-12">
+                        <div class="shipping-color-red-text"><b>Lịch sử thông quan</b></div>
+                        <table id="history-booking" class="table-shipping table-header-green">
+                            <thead>
+                                <tr>
+                                    <th>MÃ CHUYẾN HÀNG</th>
+                                    <th>NGÀY</th>
+                                    <th>GIỜ</th>
+                                    <th>SỐ KIỆN</th>
+                                    <th>SỐ KG</th>
+                                    <th>NGÀY BAY</th>
+                                    <th>FROM</th>
+                                    <th>TO</th>
+                                    <th>USER</th>
+                                    <th>PRE-AD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @Html.Partial("_ItemOfClearance")
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<link href="~/Content/shipping-clearance.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Scripts/shipping_clearance.js"></script>
+}

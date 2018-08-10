@@ -1,0 +1,69 @@
+﻿@model StorageItemJP
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    var storejp = ViewBag.StoreJP;
+    ViewBag.Title = "Chi tiết kiện " + storejp.TrackingCode;
+}
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/StorageJP">Lưu kho</a>
+        </li>
+        <li class="active">Chi tiết kiện @storejp.TrackingCode</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+        <div class="storejp-name"><p>Kiện</p>@storejp.TrackingCode</div>
+    </div>
+    <div class="row">
+        <div class="storejp-margin">
+            <div class="col-md-12">
+                <div class="storejp-margin">
+                    <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i> Lưu</button>
+                    <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-undo fa-2x" aria-hidden="true"></i> Hủy</button>
+                </div>
+                <div class="clear-both"></div>
+                <div class="storejp-margin table-heigh">
+                    <table id="storejp-table" class="col-md-12">
+                        <thead>
+                            <tr class="tr-th">
+                                <th class="th-namejp">Tên hàng JP</th>
+                                <th class="th-nameen">Tên hàng EN</th>
+                                <th class="th-category">Loại</th>
+                                <th class="th-image">Hình</th>
+                                <th class="th-price">Giá</th>
+                                <th class="th-jancode">Jan code</th>
+                                <th class="th-product-code">Mã sp</th>
+                                <th class="th-origin">Xuất xứ</th>
+                                <th class="th-material">Chất liệu</th>
+                                <th class="th-Component">Thành phần</th>
+                                <th class="th-ComponentImage">Hình(thành phần)</th>
+                                <th class="th-tracking center" style="width:100px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<link href="~/Content/storejp-detail.css" rel="stylesheet" />
+@section scripts{
+    
+}

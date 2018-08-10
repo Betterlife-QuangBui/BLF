@@ -1,0 +1,332 @@
+﻿@model PagedList.IPagedList<AgencyPackage>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@{ int i = 1; int page1 = ViewBag.PagePackage;
+    var shipment = ViewBag.Shipment as Shipment;
+}
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/Shipment">Lô hàng</a>
+        </li>
+        <li class="active">Danh sách kiện hàng [lô @shipment.ShipmentName]</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+
+    </div>
+    <div class="row">
+        <div class="package package-items col-xs-12">
+            <div class="package_header">
+                <div class="shipment-name" style="position:absolute;left:0px;top:-18px;width:250px;">
+                    <a href="/Shipment/Edit/@shipment.Id?actionlink=Package" class="shipment_item-edit-child">
+                        @shipment.ShipmentName
+                    </a>
+                </div>
+                <div class="shipment_edit_body"></div>
+                <div class="status_notes">
+                    @*<div class="status_note bg-red">Trên đường</div>
+                        <div class="status_note bg-orange">Đến kho</div>*@
+                    @*<div class="status_note bg-blue">Đã nhận</div>*@
+                </div>
+                <a href="/Import/Shipment/@shipment.Id" class="import-item-btn shipment_item-ixport" title="Import">
+                    <i class="fa fa-arrow-down"></i>
+                </a>
+                <a href="/Export/Shipment/@shipment.Id" class="export-item-btn shipment_item-export" title="Export">
+                    <i class="fa fa-arrow-up"></i>
+                </a>
+                <a class="package_add add-item-btn" href="/AgencyPackage/Add/@ViewBag.ShipmentId">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <!-- Split button -->
+                <div class="display-column">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-primary">Thông tin hiển thị</button>
+                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu hiden-column">
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-Tracking" type="checkbox" checked class="ace" data-index="1" />
+                                        <span class="lbl"> Mã tracking</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-delivery" checked type="checkbox" class="ace" data-index="3" />
+                                        <span class="lbl"> Giao nhận</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-weigh" type="checkbox" checked class="ace" data-index="4" />
+                                        <span class="lbl"> Khối lượng</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-status" type="checkbox" checked class="ace" data-index="5" />
+                                        <span class="lbl"> Trạng thái</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-notes" checked type="checkbox" class="ace" data-index="6" />
+                                        <span class="lbl"> Ghi chú</span>
+                                    </label>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-senddate" checked type="checkbox" class="ace" data-index="7" />
+                                        <span class="lbl"> Ngày gửi</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-sendhour" type="checkbox" class="ace" data-index="8" />
+                                        <span class="lbl"> Giờ gửi</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-reciveddate" type="checkbox" checked class="ace" data-index="9" />
+                                        <span class="lbl"> Ngày nhận</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-recivedhour" type="checkbox" class="ace" data-index="10" />
+                                        <span class="lbl"> Giờ nhận</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-notes" checked type="checkbox" class="ace" data-index="11" />
+                                        <span class="lbl"> Số mã hàng</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-notes" checked type="checkbox" class="ace" data-index="12" />
+                                        <span class="lbl"> Số món</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-notes" checked type="checkbox" class="ace" data-index="13" />
+                                        <span class="lbl"> Đã nhận</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" class="default-column">Default view</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="package_add_body"></div>
+            </div>
+            <div class="package_content">
+                <table id="storejp-table">
+                    <thead>
+                        <tr class="sort-row">
+                            <th style="width:50px;"></th>
+                            <th class="sort-column" data-sort="tracking-asc">
+                                MÃ TRACKING &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error">(*)</div>
+                            </th>
+                            <th style="width:50px;"></th>
+                            <th class="dev-column" data-sort="delivery-asc">
+                                GIAO NHẬN &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error">(*)</div>
+                            </th>
+                            <th data-sort="weigh-asc">
+                                KL (KG) &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error">(*)</div>
+                            </th>
+                            <th style="width:155px;" data-sort="status-asc">
+                                TRẠNG THÁI &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error">(*)</div>
+                            </th>
+                            
+                            <th data-sort="notes-asc">
+                                GHI CHÚ &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                            </th>
+                            <th data-sort="senddate-asc">
+                                NGÀY GỬI &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                            </th>
+                            <th data-sort="sendhour-asc">
+                                GIỜ GỬI &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                            </th>
+                            <th data-sort="recivedate-asc">
+                                NGÀY NHẬN &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                            </th>
+                            <th data-sort="recivehour-asc">
+                                GIỜ NHẬN &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                            </th>
+                            <th>
+                                SỐ MÃ HÀNG
+                            </th>
+                            <th>
+                                SỐ MÓN
+                            </th>
+                            <th>
+                                ĐÃ NHẬN
+                            </th>
+                        </tr>
+                        <tr class="filter-jp">
+                            <th></th>
+                            <th><input class="form-control" /></th>
+                            <th></th>
+                            <th>
+                                @{var DeliveryId = ViewBag.DeliveryId; }
+                                @Html.DropDownList("DeliveryId", (IEnumerable<SelectListItem>)DeliveryId, "Tất cả", htmlAttributes: new { @class = "form-control" })
+                            </th>
+                            <th><input class="form-control" /></th>
+                            <th>
+                                <select class="form-control">
+                                    <option value="0">Tất cả</option>
+                                    <option value="2">Trên đường</option>
+                                    <option value="3">Đến kho</option>
+                                    @*<option value="4">Đã nhận</option>*@
+                                </select>
+                            </th>
+                           
+                            <th><input class="form-control" /></th>
+                            <th class="datepicker" style="position:relative;"><input class="form-control" /></th>
+                            <th><input class="form-control" /></th>
+                            <th class="datepicker" style="position:relative;"><input class="form-control" /></th>
+                            <th><input class="form-control" /></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        @using (Html.BeginForm("Add", "AgencyPackage", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <tr class="add-item">
+                                <th></th>
+                                <th>
+                                    <input class="form-control display-error-form" id="TrackingCode" name="TrackingCode" type="text">
+                                </th>
+                                <th></th>
+                                <th>
+                                    @Html.DropDownList("DeliveryId", (IEnumerable<SelectListItem>)DeliveryId,"", htmlAttributes: new { @class = "display-error-form form-control" })
+                                </th>
+                                <th><input id="Weigh" step="any" type="number" name="Weigh" class="form-control display-error-form" /></th>
+                                <th>
+                                    <select name="StatusId" id="StatusId" class="form-control display-error-form">
+                                        <option value="" selected></option>
+                                        <option value="2">Trên đường</option>
+                                        <option value="3">Đến kho</option>
+                                        @*<option value="4">Đã nhận</option>*@
+                                    </select>
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th><input type="text" name="Notes" class="form-control" /></th>
+                                <th class="datepicker" style="position:relative;"><input readonly name="SentDate" value="@ViewBag.CurrentDate" class="form-control" /></th>
+                                <th>@Html.DropDownList("SendHour", null, htmlAttributes: new { @class = "form-control" })</th>
+                                <th class="datepicker" style="position:relative;"><input readonly name="ReceivedDate" value="@ViewBag.CurrentDate" class="form-control" /></th>
+                                <th>@Html.DropDownList("ReceivedHour", null, htmlAttributes: new { @class = "form-control" })</th>
+                                
+                                <th></th>
+                            </tr>
+                            <tr class="filter-jp-action">
+                                <td colspan="14" class="center">
+                                    <div>
+                                        <input type="hidden" name="ShipmentId" value="@ViewBag.ShipmentId" />
+                                        <button type="submit" disabled id="btn-save-add" class="btn btn-success btn-sm">Lưu</button>
+                                        <button type="button" class="cancel-add-item btn btn-danger btn-sm">Hủy</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </thead>
+                    <tbody class="tbody">
+                        @{Html.RenderPartial("Package-Ajax", Model); }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="package-detail col-xs-6">
+            <div class="package-detail_header"></div>
+            <div class="package-detail_content">
+                <div class="col-xs-12 wasehouse-info"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" value="created-desc" id="sort-jp" />
+<input type="hidden" value="" id="StoreJPId" />
+<input type="hidden" value="@ViewBag.ShipmentId" id="ShipmentId" />
+<style>
+    .filter-jp img.ui-datepicker-trigger {
+        position: absolute;
+        right: 8px !important;
+        top: 11px !important;
+    }
+</style>
+@section scripts{
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet">
+    <link href="~/Content/shipment.css" rel="stylesheet" />
+    <link href="~/Content/package-index.css" rel="stylesheet" />
+    <!--Update script từ đây-->
+    <!--Selectpicker-->
+    <link href="~/HTML/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/HTML/bootstrap-select.js"></script>
+    <!--Scroll-->
+    <script src="~/HTML/jquery.slimscroll.js"></script>
+    <script src="~/Scripts/shipment.js"></script>
+    <script src="~/Scripts/package-index.js"></script>
+    <!--Kết thúc-->
+}

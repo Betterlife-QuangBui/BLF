@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<PackageReturn>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@{ int i = 1; int page1 = ViewBag.page;}
+@foreach (var item in Model)
+{
+    <tr class="item">
+        <td class="center">
+            <label class="pos-rel">
+                <input id="@item.Id" data-id="@item.Id" type="checkbox" class="ace" />
+                <span class="lbl"></span>
+            </label>
+        </td>
+        <td><a href="/PackageReturn/Detail/@item.Id">@item.ReturnCode</a></td>
+        <td style="position:relative;">
+            <div class="center">
+                <div class="task-menu-button-control">
+                    <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                    <div class="task-menu-button-crud">
+                        <a href="/PackageReturn/Edit/@item.Id" data-id="@item.Id" class="shipment_item-edit">
+                            Sửa
+                        </a>
+                        <a href="#" class="delete-packagereturn-one" data-url="/PackageReturn/Delete/@item.Id" data-id="tr_@item.Id">
+                            Xóa
+                        </a>
+                        <a href="/PackageReturn/Detail/@item.Id">
+                            Chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="shipment_edit_body"></div>
+        </td>
+        <td>@item.ReciveName </td>
+        
+        <td>
+            @*<span class="@(item.StatusId.Value==15?"text-undone":"text-done")">
+                @PageUtils.PackageStatus(item.StatusId.Value, 6)
+            </span>*@
+            @PageUtils.PackageStatus(item.StatusId.Value, 6)
+        </td>
+        <td>@item.Notes</td>
+        <td>@(item.ReturnDate!=null? item.ReturnDate.Value.ToString("dd-MM-yyyy"):"")</td>
+        <td>@item.ReturnHour</td>
+    </tr>
+}
+<tr class="action-table">
+    <td class="center">
+        <label class="pos-rel">
+            <input data-parent="true" type="checkbox" class="ace checkall" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td colspan="7" class="right">
+        <select class="form-control select-action-table" disabled="disabled">
+            <option value="-1">Chọn thao tác</option>
+            <option value="1">Xóa</option>
+        </select>
+        <button disabled="disabled" class="btn btn-sm btn-success btn-action-table"><i class="fa fa-refresh" aria-hidden="true"></i> Thực hiện</button>
+    </td>
+</tr>
+<tr class="pagging-table">
+    <td colspan="8" class="right">
+        <div class="pagging storejp-pagging-index">
+            @Html.PagedListPager(Model, page => Url.Action("PackageReturn", "Ajax", new { page = page}), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </td>
+</tr>
+<script>
+    $(function () {
+        $(".hiden-column input[type=checkbox]").each(function (i, e) {
+            var index = parseInt($(e).attr("data-index")) + 1;
+            if (e.checked) {
+                $('#storejp-table tr > *:nth-child(' + index + ')').show();
+            }
+            else {
+                $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+            }
+        });
+        $(".hiden-column input[type=checkbox]").click(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index")) + 1;
+                if (e.checked) {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+        });
+    });
+</script>

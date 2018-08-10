@@ -1,0 +1,357 @@
+﻿@model IEnumerable<FlightGood>
+
+@{
+    Layout = null;
+    var FlightBooking = ViewBag.FlightBooking as FlightBooking;
+    UserPage user = new UserPage();
+}
+<div class="">
+
+    <div class="tabbable">
+
+        <ul class="nav nav-tabs" id="myTab1s">
+
+            <li class="active">
+                <a data-toggle="tab" href="#home" aria-expanded="true">
+                    <i class="green ace-icon fa fa-home bigger-120"></i>
+                    Tìm và lưu kiện
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#tab-booking">
+                    <i class="green ace-icon fa fa-book bigger-120"></i>
+                    Booking
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#tab-clearance">
+                    <i class="green ace-icon fa fa-tachometer bigger-120"></i>
+                 Thông quan
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade active in">
+                <div class="col-md-6">
+                    <div class="search-tracking">
+                        <div class="col-md-4"><b class="label-search">Tìm: </b></div>
+                        <div class="col-md-8"><input type="text" placeholder="Nhập mã kiện hàng VN..." class="form-control research-text" /></div>
+                    </div>
+                    <div class="result">
+                        <div class="col-md-12"><span class="blue style">Danh sách kiện hàng VN</span></div>
+                        <div class="col-md-12 row-result" id="item_container"></div>
+                    </div>
+                </div>
+                <div class="col-md-6" id="cart_container">
+                    <div class="" id="cart_toolbar">
+                        <div class="col-md-12">
+                            <span class="blue style" style="float:left;">Danh sách kiện hàng chuyến bay</span>
+                            <div class="right" style="float: right;margin-right: 4px;">
+                                Số kiện: <span class="num-package">@FlightBooking.FlightGoods.Sum(n => n.ExportGood.ExportGoodDetails.Count)</span> - Số kg: <span class="num-kg">@FlightBooking.FlightGoods.Sum(n => n.ExportGood.Weigh)</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="cart_items">
+                            @foreach (var item in Model)
+                            {
+                                <div class="item" id="toi@(item.Id)">
+                                    <div class="divrm">
+                                        <a data-new="@item.Id" data-title="@item.ExportGood.ShippingMarkVN" data-export="@(item.Id)" data-ids="@item.FlightBookingId" data-id="@(item.Id)" class="red delete-to remove  i@(item.Id)"><i class="fa fa-trash"></i></a><div></div>
+                                        <label class="title">@item.ExportGood.ShippingMarkVN</label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div id="tab-booking" class="tab-pane fade"></div>
+            <div id="tab-clearance" class="tab-pane fade"></div>
+        </div>
+    </div>
+</div>
+<input value="@FlightBooking.Id" id="FlightBookingId" type="hidden" />
+<script src="~/better-life/assets/js/jquery.2.1.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/better-life/assets/css/ace.min.tab.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<style>
+    .style {
+        text-decoration: underline;
+        background-color: red;
+        padding: 4px 8px;
+        border-radius: 6px;
+        color: white !important;
+    }
+
+    .form {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+        .form table td {
+            padding: 5px;
+        }
+
+    .result {
+        margin-top: 60px;
+    }
+
+    .label-search {
+        padding-top: 8px;
+        display: inline-block;
+    }
+
+
+    #cart_items {
+        background: #fee188;
+        height: 390px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 96%;
+        margin-left: 15px;
+        margin-top: 10px;
+        position: relative;
+    }
+
+    .mess-thongbao {
+        position: absolute;
+        color: #ff0000;
+        top: 130px;
+        right: 279px;
+    }
+
+
+    #item_container {
+        margin: 0 auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-height: 300px;
+    }
+
+    .item {
+        background: #fff;
+        float: left;
+        padding: 14px 10px 10px 10px;
+        margin: 5px;
+        cursor: move;
+        -webkit-box-shadow: 1px 2px 2px rgba(0,0,0,.5);
+        -moz-box-shadow: 1px 2px 2px rgba(0,0,0,.5);
+        box-shadow: 1px 2px 2px rgba(0,0,0,.5);
+        -webkit-border-radius: .5em;
+        -moz-border-radius: .5em;
+        border-radius: .5em;
+        z-index: 5;
+        width: 46.5%;
+    }
+
+    .title, .price {
+        display: block;
+        text-align: center;
+        font-size: 14px;
+        letter-spacing: -1px;
+        font-weight: bold;
+        cursor: move;
+    }
+
+    .title {
+        color: #333;
+    }
+
+    .divrm {
+        text-align: right;
+    }
+
+    .remove {
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 20px;
+        position: relative;
+        top: -7px;
+    }
+
+        .remove:hover {
+            color: #999;
+        }
+
+    .clear {
+        clear: both;
+    }
+
+    #cart_container {
+        margin: 0 auto;
+    }
+
+    #cart_title span {
+        border-bottom-width: 0;
+        background: #333;
+        display: block;
+        float: left;
+        color: #fff;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 5px 10px;
+        -webkit-border-radius: .5em .5em 0 0;
+        -moz-border-radius: .5em .5em 0 0;
+        border-radius: .5em .5em 0 0;
+    }
+
+    #cart_toolbar {
+        overflow: hidden;
+        z-index: -2;
+        -webkit-border-radius: 0 .5em 0 0;
+        -moz-border-radius: 0 .5em 0 0;
+        border-radius: 0 .5em 0 0;
+        background: #ffffff;
+    }
+
+    #cart_items {
+        position: relative;
+        padding: 0 0 0 2px;
+        z-index: 0;
+        border-width: 0 2px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .back {
+        background: #e9e9e9;
+    }
+
+
+    .sptext {
+        background: #ffffff;
+        padding: 4px 8px;
+        margin-left: 8px;
+        -webkit-border-radius: .5em;
+        -moz-border-radius: .5em;
+        border-radius: .5em;
+        color: #666;
+    }
+
+
+    .drop-active {
+        background: #ffff99;
+    }
+
+    .drop-hover {
+        background: #ffff66;
+    }
+</style>
+<script>
+    $(function () { loadJP(); loadBooking(); loadClearance();})
+    //research-text
+    $(document).on("keyup", ".research-text", function () {
+        loadJP();
+    });
+</script>
+<script>
+    function loadJP() {
+        $.ajax({
+            url: '/FlightGoods/_Search',
+            data: { key: $(".research-text").val() },
+            method: 'POST',
+            async: false,
+            success: function (result) {
+                $("#item_container").html(result);
+            }
+        });
+    }
+    function loadBooking() {
+        $.ajax({
+            url: '/Clearance/_Booking',
+            data: { id: $("#FlightBookingId").val() },
+            method: 'POST',
+            async: false,
+            success: function (result) {
+                $("#tab-booking").html("");
+                $("#tab-booking").html(result);
+            }
+        });
+    }
+    function loadClearance() {
+        $.ajax({
+            url: '/Clearance/_Clearance',
+            data: { id: $("#FlightBookingId").val() },
+            method: 'POST',
+            async: false,
+            success: function (result) {
+                $("#tab-clearance").html("");
+                $("#tab-clearance").html(result);
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+
+    $(document).on("mouseover", "body", function () {
+        $("#item_container .item").draggable({
+            revert: true
+        });
+        $("#cart_items").droppable({
+            accept: ".item",
+            activeClass: "drop-active",
+            hoverClass: "drop-hover",
+            drop: function (event, ui) {
+                var item = ui.draggable.html();
+                var itemid = ui.draggable.attr("id");
+                var id = ui.draggable.attr("data-id");
+
+
+                //Save into database
+                var array = [];
+                array.push(id);
+                var FlightBookingId = '@(FlightBooking.Id)';
+                $.ajax({
+                    url: '/FlightGoods/Add2New',
+                    data: { array: array, FlightBookingId: FlightBookingId },
+                    method: 'POST',
+                    async: false,
+                    success: function (result) {
+                        if (result.status == true) {
+                            array = [];
+
+                            var html = '<div class="item" id="to' + itemid + '">';
+                            html = html + '<div class="divrm">';
+                            html = html + '<a data-new="' + result.message.idNew + '" data-export="@(FlightBooking.Id)" data-ids=' + id + ' data-id=' + itemid + ' class="red delete-to remove  ' + itemid + '"><i class="fa fa-trash"></i></a>';
+                            html = html + '<div/>' + item + '</div>';
+                            if ($("#cart_items").find('.item .divrm a[data-id=' + itemid + ']').length <= 0) {
+                                $("#cart_items").append(html);
+                            }
+                            $(".num-package").html(result.message.num);
+                            $(".num-kg").html(result.message.kg);
+                            $("#item_container #" + itemid).remove();
+                            if ($("#cart_items").find('.item').length > 0) {
+                                $(".mess-thongbao").hide();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).on("click", '.delete-to', function () {
+        var id = $(this).attr("data-id");
+        var ids = $(this).attr("data-ids");
+        var title = $(this).next().next().html();
+        var html = '<div class="item" data-id="' + ids + '" id="' + id + '"><label class="title">' + title + '</label></div>';
+        //$("#item_container").append(html);
+        $(this).parent().parent().remove();
+        id_new = $(this).attr("data-new");
+        $.ajax({
+            method: 'POST',
+            url: '/FlightGoods/DeleteFlightGoods', data: { id: id_new },
+            success: function (result) {
+                if (result.status == true) {
+                    $(".num-package").html(result.message.num);
+                    $(".num-kg").html(result.message.kg);
+                    loadJP();
+                }
+            }
+        });
+    });
+</script>

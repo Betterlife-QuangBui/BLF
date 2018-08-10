@@ -1,0 +1,244 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <link href="~/Content/css/select2.css" rel="stylesheet" />
+    <link href="~/Content/select2-bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/select2.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    
+    <script>
+        $(function () {
+            //$('body').perfectScrollbar();
+            //Ps.initialize(document.getElementsByTagName("body"));
+            $("textarea").attr("rows", "4");
+            $(".table_insert select").select2({
+                theme: "bootstrap"
+            });
+        });
+    </script>
+    <script>
+        var OhayooVN =
+        {
+            BindDataToSelect: function (obj, data, text, value) {
+                $("#" + obj).empty();
+                $("div#s2id_" + obj + " .select2-chosen").html(text);
+                if (text != null)
+                    $("#" + obj).append(new Option(text, "0", true, true));
+                if (data == null) {
+                    $("#" + obj).empty();
+                }
+                else {
+                    $.each(data, function (index, item) {
+                        $("#" + obj).append(new Option(item.Text, item.Value));
+                    });
+                }
+                if (value == null) {
+                    $("#" + obj).select2("val", "0");
+                }
+                else {
+                    $("#" + obj).select2("val", value);
+                }
+            },
+            Refresh: function (obj) {
+                $("#" + obj).selectpicker('refresh');
+            }
+        }
+    </script>
+    <script src="~/better-life/assets/colorbox/jquery.colorbox.js"></script>
+    <style>
+        .tt-title-form {
+            max-width: 160px;
+            font-size: 14px;
+            vertical-align:top;
+        }
+        .form-control,.input-group-addon,.breadcrumb,.btn {
+    border-radius: 0 !important;
+}
+        .select2-container{
+            width:100% !important;
+        }
+        .table_insert tr td {
+            padding: 7px;vertical-align:top;
+        }
+
+        .tt-padding-radio {
+            margin: 0px 2px 2px !important;
+        }
+
+        .editbreadcrum {
+            background-color: #307ecc;
+            color: #ffffff;
+        }
+
+            .editbreadcrum a {
+                color: #ffffff;
+            }
+
+        .breadcrumb > .active {
+            color: white;
+        }
+
+        .table > thead > tr {
+            color: #707070;
+            font-weight: 400;
+            /* background: #F2F2F2; */
+            /* background-image: -webkit-linear-gradient(top,#f8f8f8 0,#ececec 100%); */
+            background-image: -o-linear-gradient(top,#f8f8f8 0,#ececec 100%);
+            background-image: linear-gradient(to bottom,#f8f8f8 0,#ececec 100%);
+            background-repeat: repeat-x;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8', endColorstr='#ffececec', GradientType=0);
+        }
+
+            .table > thead > tr > th {
+                border-color: #ddd;
+                font-weight: 700;
+            }
+            .select2-search--inline{
+                display:none;
+                border-radius:0;
+            }
+            .select2-selection--multiple,.select2-selection--single{
+                border-radius:0 !important;
+            }
+    </style>
+    <link rel="stylesheet" href="~/better-life/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <script>
+        function CancelEvent() {
+            parent.jQuery.colorbox.close();
+        }
+        function AddEvent() {
+            window.parent.location.reload();
+            parent.jQuery.colorbox.close();
+        }
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: "YYYY-MM-DD"
+            });
+            $('#datetimepicker2').datetimepicker({
+                format: "YYYY-MM-DD"
+            });
+            $('#datetimepicker_hour_1').datetimepicker({
+                format: 'LT'
+            });
+            $('#datetimepicker_hour_2').datetimepicker({
+                format: 'LT'
+            });
+
+            jQuery(function ($) {
+                //table checkboxes
+                //$('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
+
+                //select/deselect all rows according to table header checkbox
+                $('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function () {
+                    var th_checked = this.checked;//checkbox inside "TH" table header
+
+                    $(this).closest('table').find('tbody > tr').each(function () {
+                        var row = this;
+                        if (th_checked) tableTools_obj.fnSelect(row);
+                        else tableTools_obj.fnDeselect(row);
+                    });
+                });
+
+                //select/deselect a row when the checkbox is checked/unchecked
+                $('#dynamic-table').on('click', 'td input[type=checkbox]', function () {
+                    var row = $(this).closest('tr').get(0);
+                    if (!this.checked) tableTools_obj.fnSelect(row);
+                    else tableTools_obj.fnDeselect($(this).closest('tr').get(0));
+                });
+
+                $(document).on('click', '#dynamic-table .dropdown-toggle', function (e) {
+                    e.stopImmediatePropagation();
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+
+
+                //And for the first simple table, which doesn't have TableTools or dataTables
+                //select/deselect all rows according to table header checkbox
+                var active_class = 'active';
+                $('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function () {
+                    var th_checked = this.checked;//checkbox inside "TH" table header
+
+                    $(this).closest('table').find('tbody > tr').each(function () {
+                        var row = this;
+                        if (th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+                        else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+                    });
+                });
+
+                //select/deselect a row when the checkbox is checked/unchecked
+                $('#simple-table').on('click', 'td input[type=radio]', function () {
+                    $("input[name='IdItem']").val("");
+                    if (this.checked) {
+                        $("input[name='IdItem']").val($(this).attr("data-id"));
+                    }
+                    var $row = $(this).closest('tr');
+                    if (this.checked) $row.addClass(active_class);
+                    else $row.removeClass(active_class);
+                });
+
+
+
+                /********************************/
+                //add tooltip for small view action buttons in dropdown menu
+                $('[data-rel="tooltip"]').tooltip({ placement: tooltip_placement });
+
+                //tooltip placement on right or left
+                function tooltip_placement(context, source) {
+                    var $source = $(source);
+                    var $parent = $source.closest('table')
+                    var off1 = $parent.offset();
+                    var w1 = $parent.width();
+
+                    var off2 = $source.offset();
+                    //var w2 = $source.width();
+
+                    if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+                    return 'left';
+                }
+
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: "Roboto Condensed",sans-serif,Arial,Helvetica !important;
+            position: relative;
+            font-size: 15px;
+        }
+
+        .tt-title-form {
+            width: 150px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="">
+        @RenderBody()
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

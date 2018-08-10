@@ -1,0 +1,253 @@
+﻿@model IEnumerable<TrackingDetail>
+<div class="hiden-column">
+    <ul>
+        <li>
+            <label for="col-Tracking">
+                <input id="col-Tracking" checked disabled type="checkbox" data-index="0" />Tracking
+            </label>
+        </li>
+        <li>
+            <label for="col-MaSP">
+                <input id="col-MaSP" checked type="checkbox" data-index="1" />Mã SP
+            </label>
+        </li>
+        <li>
+            <label for="col-JanCode">
+                <input id="col-JanCode" checked type="checkbox" data-index="2" />Jan code
+            </label>
+        </li>
+        <li>
+            <label for="col-TenhangJP">
+                <input id="col-TenhangJP" type="checkbox" data-index="3" />Tên hàng JP
+            </label>
+        </li>
+        <li>
+            <label for="col-TenhangEN">
+                <input id="col-TenhangEN" type="checkbox" data-index="4" />Tên hàng EN
+            </label>
+        </li>
+        <li>
+            <label for="col-Loai">
+                <input id="col-Loai" type="checkbox" data-index="5" />Loại
+            </label>
+        </li>
+        <li>
+            <label for="col-LoaiWeb">
+                <input id="col-LoaiWeb" type="checkbox" data-index="6" />Loại Web
+            </label>
+        </li>
+        <li>
+            <label for="col-Hinh">
+                <input id="col-Hinh" checked type="checkbox" data-index="7" />Hình
+            </label>
+        </li>
+        <li>
+            <label for="col-Quantity">
+                <input id="col-Quantity" checked type="checkbox" data-index="8" />Số lượng
+            </label>
+        </li>
+        <li>
+            <label for="col-Price">
+                <input id="col-Price" checked type="checkbox" data-index="9" />Giá
+            </label>
+        </li>
+        <li>
+            <label for="col-Amount">
+                <input id="col-Amount" checked type="checkbox" data-index="10" />Thành tiền
+            </label>
+        </li>
+        <li>
+            <label for="col-Marital">
+                <input id="col-Marital" type="checkbox" data-index="11" />Chất liệu
+            </label>
+        </li>
+        <li>
+            <label for="col-MadeIn">
+                <input id="col-MadeIn" type="checkbox" data-index="12" />Xuất xứ
+            </label>
+        </li>
+    </ul>
+</div>
+<div class="height-spit">
+    <table id="simple-table" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th style="width:300px;">Tracking</th>
+                <th style="width:300px;">Mã sp</th>
+                <th style="width:300px;">Jan code</th>
+                <th style="width:300px;">Tên hàng JP</th>
+                <th style="width:300px;">Tên hàng EN</th>
+                <th style="width:200px;">Loại</th>
+                <th style="width:200px;">Loại web</th>
+                <th style="width:70px;">Hình</th>
+                <th style="width:100px;">Số lượng</th>
+                <th style="width:100px;">Giá</th>
+                <th style="width:150px;">Thành tiền</th>
+                <th style="width:200px;">Chất liệu</th>
+                <th style="width:200px;">Xuất xứ</th>
+                <th style="width:100px;"></th>
+            </tr>
+        </thead>
+
+        <tbody class="tbody">
+            @foreach (var tracking in Model)
+            {
+                foreach (var item in tracking.StorageItemJPs)
+                {
+                    <tr class="product-item" data-id="@item.Id" id="@item.Id">
+                        <td>
+                            @Html.DropDownList("TrackingCode", null, htmlAttributes: new { @class = "form-control TrackingCode-" + item.Id })
+                            <script>
+                                $(function () {
+                                    $(".TrackingCode-@item.Id option[value='@item.TrackingDetail.TrackingSubCode']").attr("selected", "selected");
+                                })
+                            </script>
+                        </td>
+
+
+                        <td><input type="text" class="form-control" value="@Html.Raw(item.ProductCode)" readonly /></td>
+                        <td><input type="text" class="form-control" value="@Html.Raw(item.JanCode)" readonly /></td>
+                        <td>
+                            <input type="text" class="form-control" value="@Html.Raw(item.NameJP)" readonly />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" value="@Html.Raw(item.NameEN)" readonly />
+                        </td>
+                        <td style="line-height:25px;">
+                            @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control CategoryId-" + item.Id, @style = "width:150px;" })
+
+                            <script>
+                                $(function () {
+                                    $(".CategoryId-@item.Id option[value='@item.CategoryId']").attr("selected", "selected");
+                                })
+                            </script>
+                            <span style="color:#d15b47;display:block;font-weight:bold;">
+                                @item.CategoryName
+                            </span>
+                        </td>
+                        <td style="line-height:25px;">
+                            <span style="color:#d15b47;display:block;font-weight:bold;">
+                                @item.CategoryName
+                            </span>
+                        </td>
+                        <td>
+                            <a href="@item.LinkWeb" target="_blank">
+                                <img src="@item.Image" style="width:70px;height:70px;" />
+                            </a>
+                        </td>
+                        <td><input type="text" class="form-control" value="@item.Quantity" /></td>
+                        <td>
+                            @item.PriceTax
+                        </td>
+
+                        <td>@item.Amount</td>
+
+
+
+                        <td>
+                            <textarea class="form-control">@item.Material</textarea>
+                        </td>
+                        <td>
+                            @Html.DropDownList("MadeIn", null, htmlAttributes: new { @class = "form-control MadeIn-" + item.Id })
+                            <script>
+                                $(function () {
+                                    $(".MadeIn-@item.Id option[value='@item.MadeIn']").attr("selected", "selected");
+                                })
+                            </script>
+                        </td>
+                        <td></td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .hiden-column {
+        padding: 1px 20px;
+        background: #307ecc;
+        text-align: right;
+        color: #fff;
+    }
+
+        .hiden-column li {
+            list-style: none;
+            display: inline-block;
+            margin-top:3px;
+        }
+        .hiden-column label {
+            margin:0px;
+        }
+        .hiden-column input[type=checkbox] {
+            margin:5px;
+        }
+    .box-ok .table-header {
+        position: relative;
+    }
+
+    .height-spit {
+        overflow: scroll;
+        max-height: 808px;
+    }
+
+    .box-wasehouse {
+        background-color: #f5eeee;
+        padding: 5px;
+        border-bottom: 1px solid #ffffff;
+        width: 100%;
+        cursor: move;
+    }
+
+    .name-jp {
+        line-height: 25px;
+        font-size: 12px;
+    }
+
+    .title-box {
+        height: 40px;
+    }
+
+    .jancode {
+        float: left;
+        color: #d15b47;
+        font-weight: bold;
+    }
+
+    .price {
+        float: right;
+        color: #0094ff;
+    }
+</style>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.nicescroll.js"></script>
+<script>
+    $(function () {
+        $(".hiden-column input[type=checkbox]").each(function (i, e) {
+            var index = parseInt($(e).attr("data-index")) + 1;
+            if (e.checked) {
+                //$("#simple-table thead th:eq(" + index + ")").show();
+                $('#simple-table tr > *:nth-child(' + index + ')').show();
+            }
+            else {
+                //$("#simple-table thead th:eq(" + index + ")").hide();
+                $('#simple-table tr > *:nth-child(' + index + ')').hide();
+            }
+        });
+        $(".hiden-column input[type=checkbox]").click(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index")) + 1;
+                if (e.checked) {
+                    //$("#simple-table thead th:eq(" + index + ")").show();
+                    $('#simple-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    //$("#simple-table thead th:eq(" + index + ")").hide();
+                    $('#simple-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+        });
+        // $(".height-spit").niceScroll({ touchbehavior: true, cursorcolor: "#808080", cursoropacitymax: 0.7, cursorwidth: 7, cursorborder: "1px solid #808080", cursorborderradius: "8px", background: "#ccc", autohidemode: "scroll" }).cursor.css({ "background-image": "url(img/mac6scroll.png)" }); // MAC like scrollbar
+    })
+</script>

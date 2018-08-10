@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Ohayoo website</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top navbar-inverse-ohayoo">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Ohayoo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                @if (ViewContext.RouteData.DataTokens["area"] == null)
+                {
+                    Session["area"] = "";
+                }
+                else
+                {
+                    Session["area"] = ViewContext.RouteData.DataTokens["area"];
+                }
+                <ul class="nav navbar-nav">
+                    <li class='@(Session["area"]+""=="yahooauction"?"active-menu-yahooauction":"")'>
+                        <a href="/yahooauction/">オークション</a>
+                    </li>
+                    <li class='@(Session["area"]+""=="yahooshopping"?"active-menu-yahooshopping":"")'>
+                        <a href="/yahooshopping/">Y!ショッピング</a>
+                    </li>
+                    <li class='@(Session["area"]+""=="rakuten"?"active-menu":"")'>
+                        <a href="/rakuten/">楽天</a>
+                    </li>
+                    <li class='@(Session["area"]+""=="zozo"?"active-menu-zozo":"")'><a href="/zozo/">ZOZO</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="row" style="height:20px;"></div>
+        <div class="row">
+            <div class="col-md-3">
+                
+                @*@Html.Action("Index", "Menu", new { area = "" })*@
+            </div>
+            <div class="col-md-9">@RenderBody()</div>
+        </div>
+        
+    </div>
+    <div class="ohayoo-footer">
+        <div class="container body-content">
+            <div class="row clearfix">
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - Ohayoo website</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

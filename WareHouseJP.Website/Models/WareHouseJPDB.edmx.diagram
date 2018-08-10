@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eb6917d6f1fc4226b5ee022a1c350b8c" Name="Diagram1" ZoomLevel="63">
+        <EntityTypeShape EntityType="WareHouseJP.Models.Agency" Width="1.5" PointX="0.75" PointY="62.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.AgencyAccount" Width="1.5" PointX="3" PointY="57.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.AgencyPackage" Width="1.5" PointX="5.25" PointY="99.125" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.AgencyPackageItem" Width="1.5" PointX="10.5" PointY="99.875" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.AirInfo" Width="1.5" PointX="3.75" PointY="76.625" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.Booking" Width="1.5" PointX="6" PointY="79.25" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ClearanceAir" Width="1.5" PointX="11.25" PointY="61" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ClearanceHAWB" Width="1.5" PointX="8.25" PointY="100.25" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ClearanceMAWB" Width="1.5" PointX="8.25" PointY="81.125" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.Country" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.CustomsClearance" Width="1.5" PointX="6" PointY="56.25" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.DeliveryAddress" Width="1.5" PointX="3" PointY="125.875" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.DeliveryCom" Width="1.5" PointX="6" PointY="51.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.EmailHistory" Width="1.5" PointX="3" PointY="129.375" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.EmailSend" Width="1.5" PointX="3" PointY="115.375" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ExportGood" Width="1.5" PointX="3" PointY="63.125" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ExportGoodDetail" Width="1.5" PointX="13.5" PointY="70.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ExportInvoice" Width="1.5" PointX="8.25" PointY="57.25" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.FlightBooking" Width="1.5" PointX="6" PointY="69.375" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.FlightBookingHAWB" Width="1.5" PointX="8.25" PointY="105.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.FlightBookingMAWB" Width="1.5" PointX="11.25" PointY="81.375" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.FlightGood" Width="1.5" PointX="8.25" PointY="72" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.FlightRoute" Width="1.5" PointX="3.75" PointY="90.25" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.FromAir" Width="1.5" PointX="3" PointY="86.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.HAWB" Width="1.5" PointX="3" PointY="142.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.HAWBDetail" Width="1.5" PointX="13.5" PointY="101.125" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.Invoice" Width="1.5" PointX="14.25" PointY="64.625" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.MAWB" Width="1.5" PointX="3" PointY="104.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.MAWBDetail" Width="1.5" PointX="13.5" PointY="82.125" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.PackageReturn" Width="1.5" PointX="11.25" PointY="92.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ProductType" Width="1.5" PointX="11.25" PointY="105.875" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ReturnAddress" Width="1.5" PointX="11.25" PointY="66.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ReturnDetail" Width="1.5" PointX="13.5" PointY="75" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ReturnHAWB" Width="1.5" PointX="5.25" PointY="142.625" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ReturnItem" Width="1.5" PointX="6" PointY="64.375" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ReturnTracking" Width="1.5" PointX="16.5" PointY="68.125" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.Role" Width="1.5" PointX="0.75" PointY="58.625" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.Shipment" Width="1.5" PointX="3" PointY="137.875" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.Shipping" Width="1.5" PointX="5.25" PointY="83.125" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ShippingBooking" Width="1.5" PointX="7.5" PointY="92.125" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ShippingHAWB" Width="1.5" PointX="7.5" PointY="113.875" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ShippingHAWBDetail" Width="1.5" PointX="9.75" PointY="88.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ShippingHistory" Width="1.5" PointX="7.5" PointY="86.5" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.SizeTable" Width="1.5" PointX="0.75" PointY="72" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.Staff" Width="1.5" PointX="3.75" PointY="71.375" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.StatusWareHouse" Width="1.5" PointX="14.25" PointY="85.75" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.StorageJP" Width="1.5" PointX="9" PointY="62.75" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.ToAir" Width="1.5" PointX="3" PointY="83.375" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.TrackingDetail" Width="1.5" PointX="11.25" PointY="71.875" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.WareHouseCategory" Width="1.5" PointX="8.25" PointY="97" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.WareHouseInfo" Width="1.5" PointX="6.75" PointY="46.75" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_AgencyAccount_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_AgencyPackage_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceAir_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceHAWB_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceMAWB_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_CustomsClearance_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_DeliveryAddress_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_EmailHistory_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_EmailSend_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ExportGood_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ExportInvoice_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBooking_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBookingHAWB_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBookingMAWB_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_HAWB_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Invoice_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_MAWB_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnAddress_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnItem_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnTracking_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Shipment_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Shipping_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_StorageJP_Agency" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_AgencyAccount_Roles" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_AgencyPackage_DeliveryCom" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_AgencyPackage_Shipment" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_AgencyPackageItem_AgencyPackage" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_AgencyPackageItem_WareHouseCategory" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Booking_AirInfo" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ExportGood_AirInfo" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBooking_AirInfo" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceAir_CustomsClearance" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceAir_FlightBooking" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceHAWB_CustomsClearance" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceHAWB_FlightBooking" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceHAWB_HAWB" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceMAWB_CustomsClearance" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceMAWB_FlightBooking" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceMAWB_MAWB" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ClearanceMAWB_MAWB1" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_CustomsClearance_FlightBooking" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_CustomsClearance_Staff" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Invoice_CustomsClearance" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ExportInvoice_DeliveryCom" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_StorageJP_DeliveryCom" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ExportGood_SizeTable" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ExportGood_Staff" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ExportGoodDetail_ExportGood" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ExportInvoice_ExportGood" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightGoods_ExportGood" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ShippingHAWBDetails_ExportGood" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ExportGoodDetail_TrackingDetail" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_HAWBDetails_ExportInvoice" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_MAWBDetails_ExportInvoice" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBooking_FlightRoutes" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBooking_Staff" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBookingHAWB_FlightBooking" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBookingMAWB_FlightBooking" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightGoods_FlightBooking" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Invoice_FlightBooking" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBookingHAWB_HAWB" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBookingMAWB_MAWB" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_FlightBookingMAWB_MAWB1" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Shipping_FromAir" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_HAWBDetails_HAWB" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnHAWB_HAWB" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ShippingHAWB_HAWB" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_MAWBDetails_MAWB" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Shipping_MAWB" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnDetail_PackageReturn" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnHAWB_PackageReturn" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnAddress_ReturnItem" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnDetail_TrackingDetail" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnItem_SizeTable" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnTracking_ReturnItem" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnTracking_TrackingDetail" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ReturnTracking_TrackingDetail1" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Staff_Roles" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Shipping_ToAir" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_Shipping_WareHouseInfo" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ShippingBooking_Shipping" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ShippingHAWB_Shipping" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ShippingHistory_Shipping" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_ShippingHAWBDetails_ShippingHAWB" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_StorageJP_SizeTable" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_StorageJP_Staff" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_StorageJP_WareHouseInfo" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_TrackingDetail_StorageJP" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.WareHouseItem" Width="1.5" PointX="16.5" PointY="98.5" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_WareHouseItem_ProductType" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_WareHouseItem_WareHouseCategory" />
+        <EntityTypeShape EntityType="WareHouseJP.Models.StorageItemJP" Width="1.5" PointX="16.5" PointY="72.5" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_StorageItemJP_StatusWareHouse" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_StorageItemJP_StorageJP" />
+        <AssociationConnector Association="WareHouseJP.Models.FK_StorageItemJP_TrackingDetail" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

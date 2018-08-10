@@ -1,0 +1,17 @@
+﻿@model IEnumerable<ExportGood>
+@{
+    Layout = null;
+}
+@foreach (var item in Model)
+{
+    <div class="item" id="i@(item.Id)" data-id="@(item.Id)">
+        <label class="title">@item.ShippingMarkVN</label>
+    </div>
+}
+@if (Model.Count() == 0)
+{
+    <div style="text-align:center;color:red;">Không tìm thấy kết quả</div>
+}
+
+
+

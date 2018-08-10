@@ -1,0 +1,71 @@
+﻿.form {
+    margin-bottom: 10px;
+}
+
+    .form table td {
+        padding: 5px;
+    }
+
+.ckh-search-check {
+    width: 400px;
+}
+/* Paste this css to your style sheet file or under head tag */
+/* This only works with JavaScript,
+    if it's not present, don't show loader */
+.no-js #loader {
+    display: none;
+}
+
+.js #loader {
+    display: block;
+    position: absolute;
+    left: 100px;
+    top: 0;
+}
+
+.se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(/images/loader-64x/Preloader_2.gif) center no-repeat rgba(255,255,255,.3);
+}
+
+.attribute-jp div {
+    margin-bottom: 8px;
+}
+
+.div-info-subtracking {
+    margin-bottom: 15px !important;
+}
+
+.height {
+    height: 100px;
+}
+
+.attribute-jp {
+    padding: 5px;
+    background: #FFFF99;
+    overflow: auto;
+    color: #808080;
+}
+
+.display-result {
+    height: 500px;
+    overflow: auto;
+}
+
+.div-info-subtracking table {
+    width: 100%;
+    margin: 0 auto;
+    background-color: lightgoldenrodyellow;
+}
+
+    .div-info-subtracking table tr td {
+        padding: 5px;
+    }
+#home{
+    width:99%;
+}

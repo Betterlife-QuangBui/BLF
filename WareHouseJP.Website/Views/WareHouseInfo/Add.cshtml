@@ -1,0 +1,92 @@
+﻿@model WareHouseInfo
+
+@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+}
+<div class="body">
+    <div class="head">
+        <div class="head-center title">
+            Thông tin shipper
+            <div class="notify">Điền đầy đủ thông tin các mục (*)</div>
+        </div>
+        <span class="close-package">x</span>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm("Add", "WareHouseInfo", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tr>
+                    <td class="tt-title-form"><b>Trạng thái <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.DropDownList("IsActive", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Tên Shipper <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Địa chỉ <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Số điện thoại <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr class="tr-hidden">
+                    <td class="tt-title-form"><b>Email </b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr class="tr-hidden">
+                    <td class="tt-title-form"><b>Hotline</b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Hotline, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Hotline, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr class="tr-hidden">
+                    <td class="tt-title-form"><b>Fax</b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Fax, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Fax, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td style="position:relative;">
+                        <input type="hidden" value="false" name="IsDeleted" />
+                        <button type="submit" class="btncreate btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                        <button type="reset" class="btn btn-sm btn-danger tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+                        <div class="option-detail-crud">
+                            <a href="#" data-index="1">Chi tiết</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        }
+    </div>
+</div>
+

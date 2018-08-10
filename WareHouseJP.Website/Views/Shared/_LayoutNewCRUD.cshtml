@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+
+@*<script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>*@
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/modernizr-2.6.2.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<link href="~/Content/css/select2.css" rel="stylesheet" />
+<link href="~/Content/select2-bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/select2.js"></script>
+<link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/AddNew.css" rel="stylesheet" />
+<script>
+    function today() {
+        var now = new Date();
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var today = (month) + "/" + (day) + "/" + now.getFullYear();
+        return today;
+    }
+    function day(datetime) {
+        var days = new Array("Chủ nhật", "Thứ hai", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7");
+        var now = new Date(datetime)
+        return "("+days[now.getDay()]+")";
+    }
+    $(function () {
+
+        $("td.datepicker input,td.edit-datepicker input").datepicker({
+            inline: true,
+            showOn: 'both', buttonImageOnly: true, buttonImage: '/images/ui-icon-calendar.png',
+            dateFormat: "mm/dd/yy",
+            defaultDate: today()
+        });
+       
+       // $("td.SentDate input").val($("td.SentDate input").val().split(' ')[0]);
+        //$("td.datepicker input").val(today());
+        $("textarea").attr("rows", "1");
+        $(".table_insert select").select2({
+            theme: "bootstrap"
+        });
+        
+        
+    });
+</script>
+@RenderBody()
+@RenderSection("scripts", required: false)

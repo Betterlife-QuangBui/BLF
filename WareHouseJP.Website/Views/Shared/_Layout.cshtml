@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @*<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />*@
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Better Life</title>
+    <link href="~/better-life/favicon.ico" rel="shortcut icon">
+    <meta name="description" content="@ViewBag.Title - WareHouseJP Better Life" />
+    @*<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />*@
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="~/better-life/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/better-life/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+
+    <!-- page specific plugin styles -->
+    <!-- text fonts -->
+    <link rel="stylesheet" href="~/better-life/assets/fonts/fonts.googleapis.com.css" />
+    <!-- page specific plugin styles -->
+    @*<link rel="stylesheet" href="~/better-life/assets/css/jquery-ui.min.css" />*@
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/better-life/assets/colorbox/example1/colorbox.css" rel="stylesheet" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="~/better-life/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="~/better-life/assets/css/betterlife.css" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <!--notifyjs-master-->
+    <link href="~/notifyjs-master/dist/styles/metro/notify-metro.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <!--/notifyjs-master-->
+    <!--[if lte IE 9]>
+            <link rel="stylesheet" href="~/better-life/assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
+        <![endif]-->
+    <!--[if lte IE 9]>
+          <link rel="stylesheet" href="~/better-life/assets/css/ace-ie.min.css" />
+        <![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    <script src="~/better-life/assets/js/ace-extra.min.js"></script>
+
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+    <!--[if lte IE 8]>
+        <script src="~/better-life/assets/js/html5shiv.min.js"></script>
+        <script src="~/better-life/assets/js/respond.min.js"></script>
+        <![endif]-->
+    <script src="~/better-life/assets/js/jquery.2.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+</head>
+
+<body class="no-skin">
+    <div class="se-pre-con"></div>
+    @if (TempData["Message"] != null)
+    {
+        <div class="message-alert">
+            <div class="message-close">
+                <i class="fa fa-times-circle-o fa-lg"></i>
+            </div>
+            <div class="message-body">@TempData["Message"]</div>
+        </div>
+        TempData["Message"] = null;
+    }
+    else
+    {
+        <div class="message-alert message-hidden"></div>
+    }
+    @Html.Partial("_header")
+
+    <div class="main-container" id="main-container">
+        @Html.Partial("_menu")
+
+        <div class="main-content">
+            <div class="main-content-inner">
+                @RenderBody()
+            </div>
+            <!-- /.main-content -->
+        </div>
+        <div class="footer">
+            <div class="footer-inner">
+                <div class="footer-content">
+                    <span class="bigger-120">
+                        Copyright &copy; @DateTime.Now.Year. Customs Clearance
+                    </span>
+
+                    &nbsp; &nbsp;
+                    <span class="action-buttons">
+                        Version 1.0.0
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- /.main-container -->
+        <!-- basic scripts -->
+    </div>
+
+
+    <!--dialog-confirm-->
+    <div id="dialog-confirm" class="hide">
+        <div class="alert alert-info bigger-110">
+            Các mục này sẽ bị xóa vĩnh viễn và không thể phục hồi.
+        </div>
+
+        <div class="space-6"></div>
+
+        <p class="bigger-110 bolder center grey">
+            <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+            Bạn có chắc muốn xóa không?
+        </p>
+    </div>
+    <!--/dialog-confirm-->
+    <!--[if !IE]> -->
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script src="~/better-life/assets/js/jquery.1.11.1.min.js"></script>
+    <![endif]-->
+    <!--[if !IE]> -->
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='~/better-life/assets/js/jquery.min.js'>" + "<" + "/script>");
+    </script>
+
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script type="text/javascript">
+     window.jQuery || document.write("<script src='~/better-life/assets/js/jquery1x.min.js'>"+"<"+"/script>");
+    </script>
+    <![endif]-->
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='~/better-life/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+
+    
+
+    <script src="~/better-life/assets/js/bootstrap.min.js"></script>
+
+    <!-- page specific plugin scripts -->
+    @*<script src="~/better-life/assets/js/jquery-ui.min.js"></script>*@
+    <script src="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/better-life/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <!-- ace scripts -->
+    <script src="~/better-life/assets/js/ace-elements.min.js"></script>
+    <script src="~/better-life/assets/js/ace.min.js"></script>
+
+
+
+    <script src="~/better-life/assets/colorbox/jquery.colorbox.js"></script>
+    <script src="~/better-life/assets/js/shortcut.js"></script>
+    <!--notifyjs-master-->
+    <script src="~/notifyjs-master/dist/notify.js"></script>
+    <script src="~/notifyjs-master/dist/styles/metro/notify-metro.js"></script>
+    <link href="~/Content/css/select2.css" rel="stylesheet" />
+    <link href="~/Content/select2-bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/select2.js"></script>
+
+    <!--/notifyjs-master-->
+    <script src="~/better-life/assets/js/betterlife.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+
+
+    <div class="se-pre-con-crud-index">
+        <button type="button" class="btn btn-success btn-sm conform-acion-index">Xác nhận</button>
+        <button type="button" class="btn btn-danger btn-sm conform-close-index">Hủy</button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+﻿@model Staff
+
+@{
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+<ol class="breadcrumb editbreadcrum">
+    <li><a href="/" target="_parent"><i class="glyphicon glyphicon-home"></i> Trang chủ</a></li>
+    <li class="active">Cập nhật tài khoản</li>
+</ol>
+<div class="">
+    @using (Html.BeginForm("UpdateInfo", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <table class="table_insert col-md-12" align="center" style="width:100%;">
+            <tr>
+                <td class="tt-title-form"><b>Tên đăng nhập</b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tt-title-form"><b>Mật khẩu</b></td>
+                <td>:</td>
+                <td>
+                    <input class="form-control text-box single-line" id="ReNewPassword" name="ReNewPassword" type="text" value="">
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Họ & tên</b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Email</b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Phone</b></td>
+                <td>:</td>
+                <td>
+                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Giới tính</b></td>
+                <td>:</td>
+                <td>
+                    <input class="radio-inline tt-padding-radio" type="radio" name="Gender" value="true" checked="checked" @(Model.Gender.Value ? "checked='checked'" : "") /> Nam
+                    <input class="radio-inline tt-padding-radio" type="radio" name="Gender" value="false" @(Model.Gender.Value == false ? "checked='checked'" : "") /> Nữ
+                </td>
+            </tr>
+            <tr>
+                <td class="tt-title-form"><b>Hình đại diện</b></td>
+                <td>:</td>
+                <td>
+                    <label class="ace-file-input">
+                        <input type="file" name="upImage" id="id-input-file-2">
+                        <span class="ace-file-container" data-title="Chọn hình">
+                            <span class="ace-file-name" data-title="@Model.Avatar">
+                                <i class="ace-icon fa fa-upload"></i>
+                            </span>
+                        </span>
+                        <a class="remove" href="#"><i class="ace-icon fa fa-times"></i></a>
+                    </label>
+                    <script></script>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <input type="hidden" value="@Model.Avatar" name="Avatar" />
+                    <input type="hidden" value="@Model.RoleId" name="RoleId"/>
+                    @*<input type="hidden" value="@Model.IsActive" name="IsActive" />*@
+                    <input type="hidden" value="false" name="IsDeleted" />
+                    <input type="hidden" value="@Model.Password" name="Password" />
+                    <input type="hidden" value="@Model.CreatedAt" name="CreatedAt" />
+                    <button type="submit" class="btncreate btn btn-large btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                    <button type="reset" class="btn btn-large btn-info tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Xóa</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    @Html.ValidationSummary(false)
+                </td>
+            </tr>
+        </table>
+
+    }
+</div>
+
+
+<link href="~/better-life/assets/css/ace.min.tab.css" rel="stylesheet" />
+<script type="text/javascript">
+    jQuery(function ($) {
+        $('#id-input-file-2').change(function () {
+            $(".ace-file-name").attr("data-title", $(this).val().split('\\').pop());
+            $(".ace-file-input .remove").show();
+            $(".ace-file-input .remove").css("right", "66px");
+        });
+        $(".ace-file-input .remove").click(function () {
+            $('#id-input-file-2').val("");
+            $(".ace-file-input .remove").hide();
+            $(".ace-file-name").attr("data-title","Chưa có hình");
+        });
+    });
+</script>

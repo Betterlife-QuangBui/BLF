@@ -1,0 +1,150 @@
+﻿@model WareHouseItem
+@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+}
+
+<div class="body">
+    <div class="head head-package">
+        <div class="head-center title">
+            Thông tin database kiện hàng lưu kho
+            <div class="notify">Điền đầy đủ thông tin các mục (*)</div>
+        </div>
+        <span class="close-shipment">x</span>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm("Add", "Database", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <input name="StorageId" type="hidden" value="@ViewBag.Id" />
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td class="tt-title-form"><b>Tên hàng Japan</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.NameJP, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NameJP, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Tên hàng English</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.NameEN, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NameEN, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Mã sản phẩm</b></td>
+                        <td>:</td>
+                        <td class="Weigh">
+                            @Html.EditorFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductCode, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>JanCode</b></td>
+                        <td>:</td>
+                        <td class="Weigh">
+                            @Html.EditorFor(model => model.JanCode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.JanCode, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Loại</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Link Web</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.LinkWeb, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LinkWeb, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Hình</b></td>
+                        <td>:</td>
+                        <td style="position:relative;">
+                            <div>
+                                <label class="ace-file-input">
+                                    <span class="ace-file-container" data-title="Chọn hình">
+                                        <span class="ace-file-name" data-title="Chưa có hình">
+                                            <i class="ace-icon fa fa-upload"></i>
+                                        </span>
+                                    </span>
+                                    <a class="remove" href="#"><i class="ace-icon fa fa-times"></i></a>
+                                </label>
+                                <input style="display:none" type="file" name="upImage" id="id-input-file-2">
+                                <div class="picture-option">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                    <a id="upload-computer" href="#"><i class="fa fa-share" aria-hidden="true"></i> Tải từ máy tính</a>&nbsp;
+                                    <a href="#"><i class="fa fa-camera" aria-hidden="true"></i> Chụp hình từ webcam</a>
+                                </div>
+                            </div>
+                            <div class="img-review" id="img-review">
+                                <img src="~/Uploads/no_image.jpg" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Chất liệu</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.Material, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Material, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Thành phần</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.Component, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Component, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Số lượng</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Giá</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.EditorFor(model => model.PriceTax, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                            @Html.ValidationMessageFor(model => model.PriceTax, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tt-title-form"><b>Xuất xứ</b></td>
+                        <td>:</td>
+                        <td>
+                            @Html.DropDownList("MadeIn", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MadeIn, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <input type="hidden" id="ImageBase64" value="" name="ImageBase64" />
+                            <input type="hidden" value="false" name="IsAgencyConfirm" />
+                            <input type="hidden" value="false" name="IsStaffConfirm" />
+                            <button type="submit" class="btncreate btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                            <button type="reset" class="btn btn-sm btn-info tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

@@ -1,0 +1,146 @@
+﻿@model PagedList.IPagedList<ExportGood>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/ExportGoods">Xuất kho</a>
+        </li>
+        <li class="active">Danh sách kiện hàng Việt Nam</li>
+    </ul>
+    <!-- /.breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search" method="post" action="/ExportGoods">
+            <span class="input-icon">
+                <input type="text" name="key" value="@ViewBag.key" placeholder="tìm kiếm ..." class="nav-search-input" autocomplete="off" />
+                <i class="ace-icon fa fa-search nav-search-icon"></i>
+            </span>
+            <a href="/ExportGoods/Add" class="iframe_exportgood_add">
+                <span class="btn btn-sm btn-success no-border config-item">
+                    <i class="fa fa-plus-circle success"></i>
+                    <span class="bigger-110">Thêm</span>
+                </span>
+            </a>
+            <span class="btn btn-sm btn-danger no-border config-item delete-all-item">
+                <i class="fa fa-trash-o danger"></i>
+                <span class="bigger-110">Xóa tất cả</span>
+            </span>
+        </form>
+
+    </div>
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="">
+        <div class="table-header">
+            @ViewBag.Title
+        </div>
+    </div>
+    <!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th>
+                                <th>Hình</th>
+                                <th>Mã xuất kho</th>
+                                <th>Mã chuyến bay</th>
+                                <th>Khối lượng</th>
+                                <th>Kích thước</th>
+                                <th style="width:100px;">Ngày xuất</th>
+                                <th style="width:85px;">Giờ xuất</th>
+                                <th>Trạng thái</th>
+                                <th class="action-item"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="tr_@item.Id">
+                                    <td class="center">
+                                        <label class="pos-rel">
+                                            <input type="checkbox" value="@item.Id" class="ace" />
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </td>
+                                    <td><img src="~/images/ExportGoods/@item.Image" style="width:70px;height:70px;" /></td>
+                                    <td>@item.ShippingMarkVN</td>
+                                    <td>@item.AirInfo.Id</td>
+                                    <td>@item.Weigh</td>
+                                    <td>@item.Size</td>
+                                    <td>@item.ExportDate.Value.ToString("yyyy-MM-dd")</td>
+                                    <td>@item.ExportHour</td>
+
+                                    <td>
+                                        @if (item.StatusId == null)
+                                        { <span class="label label-danger">Chưa xử lý</span>}
+                                        else
+                                        {
+                                            <span class="label label-warning">@PageUtils.PackageStatus(item.StatusId.Value)</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="/ExportGoodDetails/Index/@item.Id" class="iframe_exportgooddetails_add">
+                                            <span class="btn btn-xs btn-success edit-item">
+                                                <i class="ace-icon fa fa-cubes bigger-120 "></i>
+                                            </span>
+                                        </a>
+                                        <a href="/ExportGoods/Edit/@item.Id" class="iframe_exportgood_add">
+                                            <span class="btn btn-xs btn-info edit-item">
+                                                <i class="ace-icon fa fa-pencil bigger-120 "></i>
+                                            </span>
+                                        </a>
+                                        <a href="javascript:;" class="delete-item" data-url="/ExportGoods/Delete/@item.Id" data-id="tr_@item.Id">
+                                            <span class="btn btn-xs btn-danger delete-item" data-url="/ExportGoods/Delete/@item.Id" data-id="tr_@item.Id">
+                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                            </span>
+                                        </a>
+                                        <a href="/ExportInvoice/Index/@item.Id" class="iframe_exportinvoice_add">
+                                            <span class="btn btn-xs btn-default edit-item" style="margin-top:5px;width:104px;">
+                                                <i class="ace-icon fa fa-file-text bigger-120 "></i>
+                                                Tạo Invoice
+                                            </span>
+                                        </a>
+                                        <a style="display:block;margin-top:5px;width:104px;" class="export1" data-href="/Export/Invoice/@item.Id" href="/Export/Invoice/@item.Id">
+                                            <span class="btn btn-xs btn-warning">
+                                                Xuất thông tin
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    <div class="pagging">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, key = ViewBag.key }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                    </div>
+                </div>
+                <!-- /.span -->
+            </div>
+            <!-- /.row -->
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.page-content -->
+</div>

@@ -1,0 +1,246 @@
+<div class="addon-wrapper _addon-wrapper">
+
+    <div class="addon-alert _alert-shop-credible ">
+        <strong>QUÝ KHÁCH VUI LÒNG KHÔNG SỬ DỤNG GOOGLE TRANSLATE KHI CLICK VÀO NÚT ĐẶT HÀNG</strong>
+        <p class="_addon-message box-warning-ao hidden">
+            <span></span>
+            <span class="close-warning-ao _close-warning-ao"></span>
+        </p>
+    </div>
+
+    <div class="addon-content">
+        <div class="addon-block">
+            <ul class="addon-list-inline">
+
+                <li class="">
+                    <a id="_add-to-favorite" href="javascript:void(0)" class="save-product-ao"> Lưu sản phẩm </a>
+                </li>
+
+                <li>
+                    <label>
+                        <input type="checkbox" name="is_translate" class="_is_translate"> <span></span>
+                        Dịch tự động
+                    </label>
+                </li>
+
+                <li>
+                    <ul>
+                        <li class="pos-relative">
+                            <div class="opt-select-ao">
+                                <span class="arr-ao"></span>
+                                <select class="form-control _select_category">
+                                    <option>Chọn danh mục</option>
+                                </select>
+                            </div>
+
+                            <div class="category-other _category-other hidden">
+                                <div class="addon_arrow_box">
+                                    <label class="addon-category-label">Danh mục khác: </label>
+                                    <input type="text" class="form-control _input_category addon-input-category" placeholder="Nhập danh mục">
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <input class="form-control _brand_item" value="" placeholder="Nhập thương hiệu">
+                        </li>
+                    </ul>
+                </li>
+                <li>
+
+                    <a href="javascript:void(0)" class="btn btn-danger _addToCart btn-ohayoo">
+                        <i class="pull-left addon-icon-ohayoo"></i> Đặt hàng
+                    </a>
+
+                    <a href="javascript:void(0)" class="btn btn-danger _processaddToCart btn-ohayoo hidden">
+                        <i class="pull-left addon-icon-ohayoo"></i> Đang xử lý...
+                    </a>
+
+                    <a href="javascript:void(0)" target="_blank" id="myCart" class="addon-link _link-detail-cart">
+                        <i class="addon-icon-shopping-cart"></i> Vào giỏ hàng
+                    </a>
+
+                    &nbsp;&nbsp;&nbsp;
+
+                    <a href="javascript:void(0)" class="_close_tool open-more hidden">
+                        Mở rộng
+                    </a>
+
+                </li>
+
+                <li class="hidden">
+                    <h3 class="addon-title">CÔNG CỤ ĐẶT HÀNG</h3>
+                    <p class="addon-version _addon-version">---</p>
+                </li>
+
+                <li class="hidden">
+                    <h6 class="addon-exchange-label">TỶ GIÁ</h6>
+                    <p class="addon-exchange-text _addon-exchange-text">---</p>
+                </li>
+            </ul>
+
+
+
+        </div>
+    </div>
+
+</div>
+<!-- The Modal -->
+<!-- HTML -->
+<div id="myCartInfo" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">×</span>
+            <h2>THÔNG TIN SẢN PHẨM VỪA ĐẶT</h2>
+        </div>
+        <div class="modal-body">
+
+            <div class="wrapper">
+                <!--addon_shop-->
+
+                <!--/addon_shop-->
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <p class="ex_rate">Tỷ giá: <b class="ex_rate_money"></b></p>
+            <div class="cart_button">
+                <button id="export" class="export_excel btn btn-primary btn-sm"><i class="fa fa-file-excel-o"></i> Xuất file excel</button>
+                <button id="clearall" class="clearall btn btn-danger btn-sm"><i class="fa fa-trash"></i> Xóa tất cả</button>
+                <button id="checkout" class="checkout btn btn-success btn-sm"><i class="fa fa-shopping-cart"></i> Đặt hàng</button>
+            </div>
+            <p class="footer_sum">Tổng cộng: <b class="footer_sum_money_yen"></b> | <b class="footer_sum_money_vnd"></b></p>
+        </div>
+    </div>
+</div>
+
+
+<script id="tutorial-template" type="text/template">
+    <div class="addon_shop">
+        <div class="addon_shop_title">
+            <a class="addon_shop_url" href="{{shop_url}}" data-key="{{key}}" target="_blank" title="{{shop_code}}">
+                <h3 class="addon_shop_name">{{shop_name}}</h3>
+            </a>
+        </div>
+        <div class="addon_shop_content">
+            <table class="cart_info">
+                <tr class="cart_title">
+                    <th style="width:5%;"><input type="checkbox" class="cart_info_checkall" {{checkall}}/></th>
+                    <th style="width:7%;">Jan code</th>
+                    <th style="width:18%;">Tên sản phẩm</th>
+                    <th style="width:10%;">Loại Hàng</th>
+                    <th style="width:20%;">Size, Màu, Mô tả</th>
+                    <th style="width:7%;">Số lượng</th>
+                    <th style="width:10%;">Đơn giá<br> (Gồm thuế)</th>
+                    <th style="width: 8%;">Thành tiền<br> (Yen)</th>
+                    <th style="width: 8%;">Thành tiền<br> (VNĐ)</th>
+                    <th style="width: 5%;"><p class="shop_delete"><i class="fa fa-trash"></i> <b>Xóa</b></p></th>
+                </tr>
+                <tbody class="tbody">
+                    {{#value}}
+                    <tr class="cart_line" data-key="{{key}}" data-jancode="{{jan_code}}">
+                        <td class="addon_checkbox"><input type="checkbox" class="cart_info_checkone" {{checked}}/></td>
+                        <td class="addon_jancode">{{jan_code}}</td>
+                        <td class="addon_pro_title"><a href="{{link_origin}}" target="_blank" class="addon_pro_link" title="{{title_origin}}"><img src="{{img_src}}" class="addon_pro_img"/><div class="addon_wrap_pro_title">{{mini_title}} ...</div></a></td>
+                        <td class="addon_pro_cat">{{category_name}}</td>
+                        <td class="addon_pro_prop">Size:<br><input type="text" class="size form-control" value="{{size}}"><br>Màu:<br>
+                            <input
+                                type="text" class="color form-control" value="{{color}}"><br>Mô tả:<br><input type="text" class="desc form-control" value="{{desc}}"></td>
+                        <td class="addon_pro_quan"><input class="quantity" type="number" min="0" value="{{quantity}}"></td>
+                        <td class="addon_pro_money">{{price_promotion}}</td>
+                        <td class="addon_pro_money yen">{{yen}}</td>
+                        <td class="addon_pro_money vnd">{{vnd}}</td>
+                        <td class="addon_por_delete"><a href="javascript:void(0)" class="item_delete" title="Xóa sản phẩm này?"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                    {{/value}}
+                </tbody>
+
+                <tr class="cart_ship">
+                    <td colspan="5"><a href="http://ohayoo.vn/phi-van-chuyen-noi-dia-nhat-21.html" target="_blank" title="Bảng giá phí vận chuyển nội địa Nhật" class="shipping_temp">Phí vận chuyển (tạm tính)</a></td>
+                    <td class=""></td>
+                    <td></td>
+                    <td class="shipping_fee_yen">{{shippingJ_fee_yen}}</td>
+                    <td class="shipping_fee_vnd">{{shippingJ_fee_vnd}}</td>
+                    <td></td>
+
+                </tr>
+
+                <tr class="cart_sum">
+                    <td colspan="5">Tổng cộng</td>
+                    <td class="sum_quantity">{{sum_quantity}}</td>
+                    <td></td>
+                    <td class="sum_yen">{{sum_yen}}</td>
+                    <td class="sum_vnd">{{sum_vnd}}</td>
+                    <td></td>
+
+                </tr>
+
+                <tr class="cart_button_shop">
+                    <td colspan="10">
+                        <button class="cart_button_shop_delete btn btn-danger btn-sm"><i class="fa fa-trash"></i> Xóa cửa hàng</button>
+                        <button class="cart_button_shop_checkout btn btn-success btn-sm"><i class="fa fa-shopping-cart"></i> Đặt hàng</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</script>
+
+<div id="export_template">
+
+</div>
+
+<script id="ex_template" type="text/template">
+    <table>
+        <tr>
+            <td colspan="9" style="background-color:#C40000;color: #FFFFFF;vertical-align:middle;text-align:center">
+                <a href="{{shop_url}}" data-key="{{key}}" target="_blank" title="{{shop_code}}" style="color: #FFFFFF">
+                    <h3 style="color: #FFFFFF">{{shop_name}}</h3>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:auto; background-color: #F9921F; color: #FFFFFF">Jan code</th>
+            <th style="width:150px; background-color: #F9921F; color: #FFFFFF">Hình ảnh</th>
+            <th style="width:auto; background-color: #F9921F; color: #FFFFFF">Tên sản phẩm</th>
+            <th style="width:auto; background-color: #F9921F; color: #FFFFFF">Loại Hàng</th>
+            <th style="width:auto; background-color: #F9921F; color: #FFFFFF">Size, Màu, Mô tả</th>
+            <th style="width:auto; background-color: #F9921F; color: #FFFFFF">Số lượng</th>
+            <th style="width:auto; background-color: #F9921F; color: #FFFFFF">Đơn giá<br> (Gồm thuế)</th>
+            <th style="width:auto; background-color: #F9921F; color: #FFFFFF">Thành tiền<br> (Yen)</th>
+            <th style="width:auto; background-color: #F9921F; color: #FFFFFF">Thành tiền<br> (VNĐ)</th>
+        </tr>
+        <tbody class="tbody">
+            {{#value}}
+                <td style="vertical-align:middle;text-align:center">{{jan_code}}</td>
+                <td style="height:150px;padding:10px;position:relative;"> <img style="padding:10px;height:112px;width:112px;position: absolute;top:10px;left:10px;" vspace="50" hspace="50" src="{{img_src}}"/> </td>
+                <td style="vertical-align:top;text-align:left"><a style="color:white !important;" href="{{link_origin}}" target="_blank" class="addon_pro_link" title="{{title_origin}}"><span style="color:red">{{title_origin}}</span></a></td>
+                <td style="vertical-align:middle;text-align:center">{{category_name}}</td>
+                <td style="vertical-align:middle;text-align:left">Size: {{size}}<br>Màu: {{color}}<br>Mô tả: {{desc}}</td>
+                <td style="vertical-align:middle;text-align:right">{{quantity}}</td>
+                <td style="vertical-align:middle;text-align:right">{{price_origin}}</td>
+                <td style="vertical-align:middle;text-align:right">{{yen}}</td>
+                <td style="vertical-align:middle;text-align:right">{{vnd}}</td>
+            </tr>
+            {{/value}}
+        </tbody>
+
+        <tr>
+            <td colspan="5" style="vertical-align:middle;text-align:right"><a href="http://ohayoo.vn/phi-van-chuyen-noi-dia-nhat-21.html" target="_blank" title="Bảng giá phí vận chuyển nội địa Nhật">Phí vận chuyển (tạm tính)</a></td>
+            <td></td>
+            <td></td>
+            <td style="vertical-align:middle;text-align:right">{{shippingJ_fee_yen}}</td>
+            <td style="vertical-align:middle;text-align:right">{{shippingJ_fee_vnd}}</td>
+
+        </tr>
+
+        <tr>
+            <td colspan="5" style="vertical-align:middle;text-align:right">Tổng cộng</td>
+            <td style="vertical-align:middle;text-align:right">{{sum_quantity}}</td>
+            <td></td>
+            <td style="vertical-align:middle;text-align:right">{{sum_yen}}</td>
+            <td style="vertical-align:middle;text-align:right">{{sum_vnd}}</td>
+        </tr>
+    </table>
+</script>

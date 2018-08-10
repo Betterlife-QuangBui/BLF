@@ -1,0 +1,158 @@
+﻿@model Shipping
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Booking chuyến bay " + Model.ShippingCode;
+}
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/Shipping">Chuyến bay</a>
+        </li>
+        <li class="active">Chuyến bay @Model.ShippingCode</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-5 storejp-name change-color-red">@Model.ShippingCode</div>
+        <div class="col-md-7 storejp-margin">
+            <div class="detail-action">
+                <a href="/Shipping/ShippingPackage/@Model.Id"><i class="fa fa-cubes fa-2x" aria-hidden="true"></i> <span> &nbsp;&nbsp;Kiện hàng</span></a>
+                <a class="active-detail" href="/Shipping/Booking/@Model.Id"><i class="fa fa-plane fa-2x" aria-hidden="true"></i> <span>Booking</span></a>
+                <a href="/Shipping/Clearance/@Model.Id"><i class="fa fa-anchor fa-2x" aria-hidden="true"></i> <span> &nbsp;&nbsp;Thông quan</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="storejp-margin">
+            <div class="col-md-10">
+                <div class="row shipping-margin">
+                    <div class="col-md-6 shipping-color-red shipping-status">
+                        <div><b>XÁC NHẬN BOOKING</b></div>
+                        <div class="StatusId" style="width:200px;">
+                            <input type="hidden" value="@Model.Id" id="ModelId" />
+                            @if (Model.StatusId != 14)
+                            {
+                                @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                            }
+                            else
+                            {@Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control", @disabled= "disabled" })}
+                        </div>
+                        <div>
+                            @if (ViewBag.Count > 0 && Model.StatusId != 14)
+                            {
+                                <button class="btn btn-sm btn-default btn-update-status"><i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row shipping-margin">
+                    <div class="col-md-6">
+                        <div class="shipping-color-red-text"><b>Thông tin booking</b></div>
+                        <table id="infomation" class="table-shipping">
+                            <thead>
+                                <tr>
+                                    <th>SỐ KIỆN</th>
+                                    <th>SỐ KG</th>
+                                    <th>GHI CHÚ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="number" min="1" id="trackingCount" class="form-control" value="@ViewBag.TrackingCount" /></td>
+                                    <td><input type="number" min="0" id="weigh" class="form-control" value="@ViewBag.Weigh" /></td>
+                                    <td>
+                                        <input type="text" class="form-control" id="notes">
+                                    </td>
+                                </tr>
+                                @if (ViewBag.Status != 12 && Model.StatusId!=14)
+                                {
+                                    <tr>
+                                        <td class="conform-booking" colspan="3" style="position:relative;">
+                                            <input type="checkbox" id="conform-booking" /> <span> <label for="conform-booking">Xác nhận chắc chắn booking</label> </span>
+                                            <button id="shipping_booking" class="btn btn-sm btn-success" disabled data-id="@Model.Id"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Book</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            @*@if (ViewBag.Status != 12)
+                                {
+                                    <tfoot>
+                                        <tr>
+                                            <td class="conform-booking" colspan="3" style="position:relative;">
+                                                <input type="checkbox" id="conform-booking" /> <span>Xác nhận chắc chắn booking</span>
+                                                <button id="shipping_booking" class="btn btn-sm btn-success" disabled data-id="@Model.Id"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Book</button>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                }*@
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="shipping-color-red-text"><b>Thông tin tham khảo</b></div>
+                        <table id="infomation" class="table-shipping table-header-yellow">
+                            <thead>
+                                <tr>
+                                    <th>SỐ KIỆN</th>
+                                    <th>SỐ KG</th>
+                                    <th>GIẢI THÍCH</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (BookingInformation item in ViewBag.Information)
+                                {
+                                    <tr>
+                                        <td>@item.TrackingCount</td>
+                                        <td>@item.Weigh</td>
+                                        <td>@item.Notes</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row shipping-margin">
+                    <div class="col-md-12">
+                        <div class="shipping-color-red-text"><b>Thời gian chốt booking đến hết 13h45</b></div>
+                        <table id="history-booking" class="table-shipping table-header-green">
+                            <thead>
+                                <tr>
+                                    @*<th>MÃ CHUYẾN HÀNG</th>*@
+                                    <th>NGÀY</th>
+                                    <th>GIỜ</th>
+                                    <th>SỐ KIỆN</th>
+                                    <th>SỐ KG</th>
+                                    <th>NGÀY BAY</th>
+                                    <th>FROM</th>
+                                    <th>TO</th>
+                                    <th>USER</th>
+                                    <th>GHI CHÚ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @Html.Partial("_ItemOfBooking")
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" value="@Model.StatusId" id="statusModel" />
+<input type="hidden" value="@Model.Id" id="ShippingId" />
+<link href="~/Content/shipping-detail.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Scripts/shipping_booking.js"></script>
+}

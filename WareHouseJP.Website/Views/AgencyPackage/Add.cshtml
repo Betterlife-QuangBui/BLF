@@ -1,0 +1,145 @@
+﻿@model AgencyPackage
+
+@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+}
+<div class="body">
+    <div class="head">
+        <div class="head-center title">
+            Thông tin kiện hàng
+            <div class="notify">Điền đầy đủ thông tin các mục (*)</div>
+        </div>
+        <span class="close-package">x</span>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm("Add", "AgencyPackage", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tr>
+                    <td class="tt-title-form"><b>Trạng thái <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TrackingStatusId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Mã Tracking <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.TrackingCode, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TrackingCode, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Công ty giao nhận <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.DropDownList("DeliveryId", null, htmlAttributes: new { @class = "form-control ddlDelivery" })
+                        @Html.ValidationMessageFor(model => model.DeliveryId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Số kg <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Weigh, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Weigh, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt-title-form"><b>Ghi chú</b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.TextAreaFor(model => model.Notes, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr class="tr-hidden">
+                    <td class="tt-title-form"><b>Ngày gửi <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td class="datepicker SentDate">
+                        @Html.EditorFor(model => model.SentDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SentDate, "", new { @class = "text-danger" })
+                        <span class="display-day"></span>
+                    </td>
+                </tr>
+                <tr class="tr-hidden">
+                    <td class="tt-title-form"><b>Giờ gửi <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.DropDownList("SendHour", null, htmlAttributes: new { @class = "form-control SendHour" })
+                        @Html.ValidationMessageFor(model => model.SendHour, "", new { @class = "text-danger" })
+                        @*@Html.EditorFor(model => model.SendHour, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SendHour, "", new { @class = "text-danger" })*@
+                    </td>
+                </tr>
+                <tr class="tr-hidden">
+                    <td class="tt-title-form"><b>Ngày nhận <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td class="datepicker ReceivedDate">
+                        @Html.EditorFor(model => model.ReceivedDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ReceivedDate, "", new { @class = "text-danger" })
+                        <span class="display-day"></span>
+                    </td>
+                </tr>
+                <tr class="tr-hidden">
+                    <td class="tt-title-form"><b>Giờ nhận <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.DropDownList("ReceivedHour", null, htmlAttributes: new { @class = "form-control ReceivedHour" })
+                        @Html.ValidationMessageFor(model => model.ReceivedHour, "", new { @class = "text-danger" })
+                        @*@Html.EditorFor(model => model.ReceivedHour, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ReceivedHour, "", new { @class = "text-danger" })*@
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td style="position:relative;">
+                        <input type="hidden" name="DeliveryName" value="@Model.DeliveryName" />
+                        <input type="hidden" name="ShipmentId" value="@Model.ShipmentId" />
+                        <input type="hidden" value="false" name="IsDeclare" />
+                        <button type="submit" class="btncreate btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                        <button type="reset" class="btn btn-sm btn-danger tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+                        <div class="option-detail-crud">
+                            <a href="#" data-index="1">Chi tiết</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        }
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $(".ddlDelivery").change(function () {
+                $("#DeliveryName").val($(this).find('option:selected').text());
+            });
+        });
+        $("td.SentDate input,td.ReceivedDate input").val(today());
+        $(document).on("change", "td.SentDate input", function () {
+            var date = today();
+            if ($(this).val() != "") {
+                date = $(this).val();
+            }
+            $("td.SentDate input").val(date);
+            $(".SentDate .display-day").html(day(date))
+        })
+        
+        $(document).on("change", "td.ReceivedDate input", function () {
+            var date = today();
+            if ($(this).val() != "") {
+                date = $(this).val();
+            }
+            $("td.ReceivedDate input").val(date);
+            $(".ReceivedDate .display-day").html(day(date))
+        })
+        $(".SentDate .display-day").html(day($("td.SentDate input").val()))
+        $(".ReceivedDate .display-day").html(day($("td.ReceivedDate input").val()))
+    </script>
+}
+

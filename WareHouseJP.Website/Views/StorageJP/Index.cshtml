@@ -1,0 +1,345 @@
+﻿@model PagedList.IPagedList<StorageJP>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/StorageJP">Lưu kho JP</a>
+        </li>
+        <li class="active">Danh sách lưu kho</li>
+    </ul>
+</div>
+
+<div class="page-content">
+    <div class="row">
+
+        <div class="package warehouse col-md-12">
+            <div class="package_header warehouse_header">
+                <div class="status_notes">
+                    @*<div class="status_note bg-red">Đã nhận</div>
+                        <div class="status_note bg-orange">Đang kiểm</div>
+                        <div class="status_note bg-blue">Đã kiểm</div>*@
+                </div>
+                <a href="/Import/StorageJPFull" class="import-item-btn shipment_item-ixport" title="Import">
+                    <i class="fa fa-arrow-down"></i>
+                </a>
+                <a href="#" data-href="/Export/StorageJPFull" class="export-item-btn shipment_item-export" title="Export" style="display:none;">
+                    <i class="fa fa-arrow-up"></i>
+                </a>
+                <a href="/StorageJP/Add" class="storejp_add add-item-btn">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <div class="display-column display-column-choose">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-primary">Thông tin hiển thị</button>
+                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu hiden-column">
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-shipping" type="checkbox" checked class="ace" data-index="1" />
+                                        <span class="lbl"> Mã tracking</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-shipper" checked type="checkbox" class="ace" data-index="3" />
+                                        <span class="lbl"> Công ty giao nhận</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-mawb" type="checkbox" checked class="ace" data-index="4" />
+                                        <span class="lbl"> Địa chỉ nhận hàng</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-date" type="checkbox" checked class="ace" data-index="5" />
+                                        <span class="lbl"> Trạng thái</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-from" type="checkbox" checked class="ace" data-index="6" />
+                                        <span class="lbl"> Ghi chú</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-status" type="checkbox" checked class="ace" data-index="7" />
+                                        <span class="lbl"> KL(KG)</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-note" type="checkbox" checked class="ace" data-index="8" />
+                                        <span class="lbl"> Kích thước</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-note" type="checkbox" checked class="ace" data-index="9" />
+                                        <span class="lbl"> Hình ảnh</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-note" type="checkbox" class="ace" data-index="10" />
+                                        <span class="lbl"> Ngày nhận</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-note" type="checkbox" class="ace" data-index="11" />
+                                        <span class="lbl"> Giờ nhận</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-note" type="checkbox" checked class="ace" data-index="12" />
+                                        <span class="lbl"> Kiện con</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-note" type="checkbox" checked class="ace" data-index="13" />
+                                        <span class="lbl"> Xuất</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-note" type="checkbox" checked class="ace" data-index="14" />
+                                        <span class="lbl"> Trả</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-note" type="checkbox" checked class="ace" data-index="15" />
+                                        <span class="lbl"> Lỗi nội dung</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" class="default-column">Default view</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="storejp_add_body"></div>
+            </div>
+            @*<div class="package_content">
+                    <div class="package_item-wrap storejp-content">
+                        @{Html.RenderPartial("_ItemOfPage", Model); }
+                    </div>
+                </div>*@
+            <div class="package_content">
+                <div class="package_item-wrap storejp-content">
+                    <table id="storejp-table">
+                        <thead>
+                            <tr class="sort-row">
+                                <th style="width:45px;"></th>
+                                <th class="sort-column" data-sort="tracking-asc">
+                                    MÃ TRACKING &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                    <div class="error">(*)</div>
+                                </th>
+                                <th style="width:45px;"></th>
+                                <th style="width:145px;" class="sort-column" data-sort="delivery-asc">
+                                    CTY GIAO NHẬN &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                    <div class="error">(*)</div>
+                                </th>
+                                <th style="width:145px;" class="sort-column" data-sort="address-asc">
+                                    ĐỊA CHỈ NHẬN @*&nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>*@
+                                    <div class="error">(*)</div>
+                                </th>
+                                <th style="width:155px;" data-sort="status-asc">
+                                    TRẠNG THÁI &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                    <div class="error">(*)</div>
+                                </th>
+                                <th data-sort="notes-asc">
+                                    GHI CHÚ &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th data-sort="weigh-asc">
+                                    KL (KG) &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                    <div class="error-yellow">(*)</div>
+                                </th>
+                                <th style="width:115px;" data-sort="size-asc">
+                                    KÍCH THƯỚC &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                    <div class="error-yellow">(*)</div>
+                                </th>
+                                <th style="width:100px;">
+                                    HÌNH ẢNH
+                                    <div class="error-yellow">(*)</div>
+                                </th>
+                                <th data-sort="date-asc">
+                                    NGÀY NHẬN &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th data-sort="hour-asc">
+                                    GIỜ NHẬN &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th style="width:100px;" class="trackingsub-column" data-sort="trackingsub-asc">
+                                    KIỆN CON &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                                <th style="width:50px;">
+                                    XUẤT
+                                </th>
+                                <th style="width:50px;">
+                                    TRẢ
+                                </th>
+                                <th style="width:100px;" data-sort="errorcontent-asc">
+                                    LỖI ND &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                    <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                </th>
+                            </tr>
+                            <tr class="filter-jp">
+                                <th></th>
+                                <th><input class="form-control" /></th>
+                                <th></th>
+                                <th>
+                                    @{var DeliveryId = ViewBag.DeliveryId; }
+                                    @Html.DropDownList("DeliveryId", (IEnumerable<SelectListItem>)DeliveryId, "Tất cả", htmlAttributes: new { @class = "form-control" })
+                                </th>
+                                <th>
+                                    @{var DeliveryAddress = ViewBag.DeliveryAddress; }
+                                    @Html.DropDownList("DeliveryAddress", (IEnumerable<SelectListItem>)DeliveryAddress, "Tất cả", htmlAttributes: new { @class = "form-control" })
+                                </th>
+                                <th>
+                                    <select class="form-control">
+                                        <option value="0" selected="selected">Tất cả</option>
+                                        <option value="6">Đã nhận</option>
+                                        <option value="7">Đang kiểm</option>
+                                        <option value="8">Đã kiểm</option>
+                                    </select>
+                                </th>
+                                <th><input class="form-control" /></th>
+                                <th><input class="form-control" /></th>
+                                <th><input class="form-control" /></th>
+                                <th></th>
+                                <th class="datepicker" style="position:relative;"><input class="form-control" /></th>
+                                <th><input class="form-control" /></th>
+                                <th><input class="form-control" /></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            @using (Html.BeginForm("Add", "StorageJP", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <tr class="add-item">
+                                    <th></th>
+                                    <th><input name="TrackingCode" id="TrackingCode" class="form-control display-error-form" /></th>
+                                    <th></th>
+                                    <th>
+                                        @Html.DropDownList("DeliveryId", (IEnumerable<SelectListItem>)DeliveryId,"", htmlAttributes: new { @class = "form-control display-error-form" })
+                                    </th>
+                                    <th>
+                                        @Html.DropDownList("DeliveryAddress", (IEnumerable<SelectListItem>)DeliveryAddress, "", htmlAttributes: new { @class = "form-control display-error-form" })
+                                    </th>
+                                    <th>
+                                        <select name="StatusId" id="StatusId" class="form-control display-error-form">
+                                            <option value=""></option>
+                                            <option value="6">Đã nhận</option>
+                                            <option value="7" disabled>Đang kiểm</option>
+                                            <option value="8" disabled>Đã kiểm</option>
+                                        </select>
+                                    </th>
+                                    <th><input class="form-control" name="notes" /></th>
+                                    <th><input class="form-control" type="number" name="Weigh" /></th>
+                                    <th>
+                                        @{var Size = ViewBag.Size; }
+                                        @Html.DropDownList("Size", (IEnumerable<SelectListItem>)Size, "", htmlAttributes: new { @class = "form-control" })
+                                    </th>
+                                    <th></th>
+                                    <th class="datepicker" style="position:relative;"><input value="@ViewBag.ReceivedDate" name="ReceivedDate" class="form-control" /></th>
+                                    <th><input class="form-control" value="@ViewBag.ReceivedHour" name="ReceivedHour" /></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr class="filter-jp-action">
+                                    <td colspan="16" class="center">
+                                        <div>
+                                            <button type="submit" id="btn-save-add" class="btn btn-success btn-sm">Lưu</button>
+                                            <button type="button" class="cancel-add-item btn btn-danger btn-sm">Hủy</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                             }
+                        </thead>
+                        <tbody class="tbody">
+                            @{Html.RenderPartial("_ItemOfPage", Model); }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="col-xs-12 wasehouse-info"></div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="created-desc" id="sort-jp" />
+<input type="hidden" value="" id="StoreJPId" />
+<input type="hidden" value="@Request["id"]" id="RequestId" />
+@section scripts{
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet">
+    <link href="~/Content/storejp.css" rel="stylesheet" />
+    <link href="~/Content/storejp-index.css" rel="stylesheet" />
+    <!--Update script từ đây-->
+    <!--Selectpicker-->
+    <link href="~/HTML/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/HTML/bootstrap-select.js"></script>
+    <!--Scroll-->
+    <script src="~/HTML/jquery.slimscroll.js"></script>
+    <script src="~/HTML/jquery.nicescroll.js"></script>
+    <!--Pagination-->
+    <script src="~/Scripts/storejp.js"></script>
+    <script src="~/Scripts/storejp-index.js"></script>
+}

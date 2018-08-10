@@ -1,0 +1,129 @@
+﻿@model PagedList.IPagedList<AgencyPackage>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@{ int i = 0;}
+@foreach (var item in Model)
+{
+    <tr class="item" data-id="@item.Id">
+        <td class="center">
+            <label class="pos-rel">
+                <input id="@item.Id" data-id="@item.Id" type="checkbox" class="ace" />
+                <span class="lbl"></span>
+            </label>
+        </td>
+        <td class="@(item.StatusId.Value==6?"border-undone":"")@(item.StatusId.Value==7?"border-unchecked":"")@(item.StatusId.Value==8?"border-done":"")"><a data-id="@item.Id" class="detail-package-item" href="/AgencyPackageItem/Index/@item.Id">@item.TrackingCode</a></td>
+        <td style="position:relative;">
+            <div class="center">
+                <div class="task-menu-button-control">
+                    <a href="#" class="task-menu-button" title="Menu"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                    <div class="task-menu-button-crud">
+                        @*<a href="/StorageJP/EditItem/@item.Id">Edit</a>*@
+
+                        <a href="/AgencyPackage/Edit/@item.Id" class="package_item-edit">
+                            Sửa
+                        </a>
+                        <a href="#" class="package_item-delete-new" data-url="/AgencyPackage/Delete/@item.Id" data-id="tr_@item.Id">
+                            Xóa
+                        </a>
+                        <a data-id="@item.Id" href="/AgencyPackageItem/Index/@item.Id">
+                            Chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="package_edit_body"></div>
+        </td>
+        <td>@item.DeliveryCom.Name</td>
+        <td>@item.Weigh</td>
+        <td>
+            @*<span class="@(item.StatusId.Value==3?"text-unchecked":(item.StatusId.Value==4?"text-done":"text-undone"))">
+                @PageUtils.PackageStatus(item.StatusId.Value, 1)
+            </span>*@
+            @PageUtils.PackageStatus(item.StatusId.Value, 1)
+        </td>
+        
+        <td>@item.Notes</td>
+        <td>@item.SentDate.Value.ToString("yyyy-MM-dd")</td>
+        <td>@item.SendHour</td>
+        <td>@item.ReceivedDate.Value.ToString("yyyy-MM-dd")</td>
+        <td>@item.ReceivedHour</td>
+        <td>@item.AgencyPackageItems.Count</td>
+        <td>@item.AgencyPackageItems.Sum(n => n.ItemQuantity)</td>
+        <td>
+            @if (item.IsDeclare == null || item.IsDeclare == false) {
+                    <span>Chưa nhận</span>
+            }
+            else
+            {
+                i++;
+                <a target="_blank" href="/StorageJP/Detail/@item.Image">Đã nhận</a>
+            }
+        </td>
+    </tr>
+}
+<tr class="counter-footer">
+    <td></td>
+    <td>@ViewBag.TotalCount</td>
+    <td></td>
+    <td></td>
+    <td>@ViewBag.TotalWeigh</td><td></td>
+    
+   
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>@ViewBag.TotalItems</td>
+    <td>@ViewBag.TotalItemQuantitys</td>
+    <td>@i/@ViewBag.TotalCount</td>
+</tr>
+<tr class="action-table">
+    <td class="center">
+        <label class="pos-rel">
+            <input data-parent="true" type="checkbox" class="ace checkall" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td colspan="13" class="right">
+        <select class="form-control select-action-table" disabled="disabled">
+            <option value="-1">Chọn thao tác</option>
+            <option value="1">Xóa</option>
+        </select>
+        <button disabled="disabled" class="btn btn-sm btn-success btn-action-table"><i class="fa fa-refresh" aria-hidden="true"></i> Thực hiện</button>
+    </td>
+</tr>
+<tr class="pagging-table">
+    <td colspan="14" class="right">
+        <div class="pagging storejp-pagging-index">
+            @Html.PagedListPager(Model, page => Url.Action("Package", "Ajax", new { page = page, Id = ViewBag.ShipmentId, sort = ViewBag.sort }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </td>
+</tr>
+
+
+<script>
+    $(function () {
+        $(".hiden-column input[type=checkbox]").each(function (i, e) {
+            var index = parseInt($(e).attr("data-index")) + 1;
+            if (e.checked) {
+                $('#storejp-table tr > *:nth-child(' + index + ')').show();
+            }
+            else {
+                $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+            }
+        });
+        $(".hiden-column input[type=checkbox]").click(function () {
+            $(".hiden-column input[type=checkbox]").each(function (i, e) {
+                var index = parseInt($(e).attr("data-index")) + 1;
+                if (e.checked) {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').show();
+                }
+                else {
+                    $('#storejp-table tr > *:nth-child(' + index + ')').hide();
+                }
+            });
+        });
+    });
+</script>

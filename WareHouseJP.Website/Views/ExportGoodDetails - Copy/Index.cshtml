@@ -1,0 +1,395 @@
+﻿@model IEnumerable<ExportGoodDetail>
+
+@{
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+    var export = ViewBag.ExportGood as ExportGood;
+    UserPage user = new UserPage();
+}
+<ol class="breadcrumb editbreadcrum">
+    <li><a href="/" target="_parent"><i class="glyphicon glyphicon-home"></i> Trang chủ</a></li>
+    <li><a href="/ExportGoods/" target="_parent">Xuất kho VN</a></li>
+    <li class="active">Quản lý nội dung kiện VN</li>
+</ol>
+<div class="">
+
+    <div class="tabbable">
+
+        <ul class="nav nav-tabs" id="myTab1s">
+            @if (user.Staff.RoleId <= 2)
+            {
+                <li class="active">
+                    <a data-toggle="tab" href="#home" aria-expanded="true">
+                        <i class="green ace-icon fa fa-home bigger-120"></i>
+                        Tìm và lưu kiện
+                    </a>
+                </li>}
+
+        </ul>
+
+        <div class="tab-content">
+            @if (user.Staff.RoleId <= 2)
+            {
+                <div id="home" class="tab-pane fade active in">
+                    <div class="col-md-6">
+                        <div class="search-tracking">
+                            <div class="col-md-4"><b class="label-search">Tìm kiện hàng JP: </b></div>
+                            <div class="col-md-8"><input type="text" placeholder="Nhập mã tracking..." class="form-control research-text" /></div>
+                        </div>
+                        <div class="result">
+                            <div class="col-md-12"><span class="blue style">Danh sách kiện hàng JP</span></div>
+                            <div class="col-md-12 row-result" id="item_container">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" id="cart_container">
+
+                        <div class="" id="cart_toolbar">
+                            <div class="col-md-12">
+                                <span class="blue style" style="float:left;">Danh sách kiện hàng VN</span>
+                                <a href="javascript:;" class="btn btn-sm btn-success right btn_save_vn" style="float: right;margin-right: 4px;"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</a>
+                            </div>
+                            <div class="col-md-12" id="cart_items">
+                                <div class="mess-thongbao">Kéo kết quả tìm kiếm vào đây để lưu</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<input type="hidden" id="role_permission" value="@user.Staff.RoleId" />
+<input value="@export.Id" id="exportId" type="hidden" />
+<link href="~/better-life/assets/css/ace.min.tab.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+@foreach (var item in Model)
+{
+    <script>
+        $(function () {
+            loadTabs('@(item.Id)', '@(item.TrackingCode)');
+        });
+    </script>
+}
+<style>
+    .style {
+        text-decoration: underline;
+        background-color: red;
+        padding: 4px 8px;
+        border-radius: 6px;
+        color: white !important;
+    }
+
+    .form {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+        .form table td {
+            padding: 5px;
+        }
+
+    .result {
+        margin-top: 60px;
+    }
+
+    .label-search {
+        padding-top: 8px;
+        display: inline-block;
+    }
+
+
+    #cart_items {
+        background: #fee188;
+        height: 390px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 96%;
+        margin-left: 15px;
+        margin-top: 10px;
+        position: relative;
+    }
+
+    .mess-thongbao {
+        position: absolute;
+        color: #ff0000;
+        top: 130px;
+        right: 279px;
+    }
+
+
+    #item_container {
+        margin: 0 auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-height: 300px;
+    }
+
+    .item {
+        background: #fff;
+        float: left;
+        padding: 14px 10px 10px 10px;
+        margin: 5px;
+        cursor: move;
+        -webkit-box-shadow: 1px 2px 2px rgba(0,0,0,.5);
+        -moz-box-shadow: 1px 2px 2px rgba(0,0,0,.5);
+        box-shadow: 1px 2px 2px rgba(0,0,0,.5);
+        -webkit-border-radius: .5em;
+        -moz-border-radius: .5em;
+        border-radius: .5em;
+        z-index: 5;
+    }
+
+    .title, .price {
+        display: block;
+        text-align: center;
+        font-size: 14px;
+        letter-spacing: -1px;
+        font-weight: bold;
+        cursor: move;
+    }
+
+    .title {
+        color: #333;
+    }
+
+    .divrm {
+        text-align: right;
+    }
+
+    .remove {
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 20px;
+        position: relative;
+        top: -7px;
+    }
+
+        .remove:hover {
+            color: #999;
+        }
+
+    .clear {
+        clear: both;
+    }
+
+    #cart_container {
+        margin: 0 auto;
+    }
+
+    #cart_title span {
+        border-bottom-width: 0;
+        background: #333;
+        display: block;
+        float: left;
+        color: #fff;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 5px 10px;
+        -webkit-border-radius: .5em .5em 0 0;
+        -moz-border-radius: .5em .5em 0 0;
+        border-radius: .5em .5em 0 0;
+    }
+
+    #cart_toolbar {
+        overflow: hidden;
+        z-index: -2;
+        -webkit-border-radius: 0 .5em 0 0;
+        -moz-border-radius: 0 .5em 0 0;
+        border-radius: 0 .5em 0 0;
+        background: #ffffff;
+    }
+
+    #cart_items {
+        height: 300px;
+        position: relative;
+        padding: 0 0 0 2px;
+        z-index: 0;
+        border-width: 0 2px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .back {
+        background: #e9e9e9;
+    }
+
+
+    .sptext {
+        background: #ffffff;
+        padding: 4px 8px;
+        margin-left: 8px;
+        -webkit-border-radius: .5em;
+        -moz-border-radius: .5em;
+        border-radius: .5em;
+        color: #666;
+    }
+
+
+    .drop-active {
+        background: #ffff99;
+    }
+
+    .drop-hover {
+        background: #ffff66;
+    }
+</style>
+<script>
+    $(document).on('mouseover', 'body', function () {
+        $('#myTab1s a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            //console.log(e.target.getAttribute("href"));
+        })
+
+    });
+    //research-text
+    $(document).on("keyup", ".research-text", function () {
+        key = $(this).val();
+        if (key.toString().trim().length == 0) {
+            $("#item_container").html("");
+        }
+        else {
+            $.ajax({
+                url: '/ExportGoodDetails/_Search',
+                data: { key: key },
+                method: 'POST',
+                async: false,
+                success: function (result) {
+                    $("#item_container").html(result);
+                }
+            });
+        }
+    });
+</script>
+<script type="text/javascript">
+    function loadTabs(Id, TrackingCode) {
+        html = '<li class="" style="position:relative;" id="li' + Id + '">';
+        html += '<a data-toggle="tab" href="#detail' + Id + '" aria-expanded="false">';
+        html += '<i class="grey ace-icon fa fa-gavel"></i> ' + TrackingCode + '</a>';
+        if (parseInt($("#role_permission").val()) <= 2) {
+            html += '<a class="removeTrackingMain" style="position: absolute;right: -11px;top: -11px;padding:2px;border: none;z-index:9;background: none;box-shadow:none;cursor:pointer;" href="javascript:;" data-id="' + Id + '">';
+            html += '<i class="red ace-icon fa fa-trash"></i> </a>';
+        }
+        html += '</li>';
+        $("#myTab1s").append(html);
+        $.ajax({
+            url: '/ExportGoodDetails/DisplayData',
+            data: { id: Id },
+            method: 'POST',
+            async: false,
+            success: function (result) {
+                content = '<div id="detail' + Id + '" class="tab-pane fade">';
+                content += result;
+                content += '</div>';
+                $('.tab-content').append(content);
+            }
+        });
+    }
+    $(document).on("mouseover", "body", function () {
+        $("#item_container .item").draggable({
+            revert: true
+        });
+        $("#cart_items").droppable({
+            accept: ".item",
+            activeClass: "drop-active",
+            hoverClass: "drop-hover",
+            drop: function (event, ui) {
+                var item = ui.draggable.html();
+                var itemid = ui.draggable.attr("id");
+                var id = ui.draggable.attr("data-id");
+                var html = '<div class="item" id="to' + itemid + '">';
+                html = html + '<div class="divrm">';
+                html = html + '<a onclick="remove(this)" data-export="@(export.Id)" data-ids=' + id + ' data-id=' + itemid + ' class="red delete-to remove  ' + itemid + '"><i class="fa fa-trash"></i></a>';
+                html = html + '<div/>' + item + '</div>';
+                if ($("#cart_items").find('.item .divrm a[data-id=' + itemid + ']').length <= 0) {
+                    $("#cart_items").append(html);
+                }
+                $("#item_container #" + itemid).remove();
+                if ($("#cart_items").find('.item').length > 0) {
+                    $(".mess-thongbao").hide();
+                }
+
+            }
+        });
+    });
+
+    $(document).on("click", '.delete-to', function () {
+        id = $(this).attr("data-id"); ids = $(this).attr("data-ids");
+        title = $("#to" + id).find('.title').html();
+        $("#to" + id).remove();
+        html = '<div class="item" data-id="' + ids + '" id="i' + id + '"><label class="title">' + title + '</label></div>';
+        $("#item_container").append(html);
+        if ($("#cart_items").find('.item').length <= 0) {
+            $(".mess-thongbao").show();
+        }
+    });
+
+
+    $(document).on("click", ".removeTrackingMain", function () {
+        if (confirm('Bạn có chắc muốn xóa dữ liệu này?')) {
+            id = $(this).attr("data-id");
+            $.ajax({
+                method: 'POST',
+                url: '/ExportGoodDetails/DeleteExportGoodDetail', data: { id: id },
+                success: function (result) {
+                    if (result.status == true) {
+                        $("#li" + id).remove();
+                        $("#detail" + id).remove();
+                        $('#myTab1s a:first').tab('show')
+                    }
+                }
+            });
+        }
+    });
+
+    $(document).on("click", ".btn_save_vn", function () {
+        var array = [];
+        $("#cart_items .item").each(function (index) {
+            array.push($(this).find('.divrm a').attr('data-ids'));
+        });
+        if (array.length == 0) {
+            alert('Vui lòng chon kiện hàng JP');
+        }
+        else {
+            exportId = $("#exportId").val();
+            $.ajax({
+                url: '/ExportGoodDetails/AddNew',
+                data: { array: array, exportId: exportId },
+                method: 'POST',
+                async: false,
+                success: function (result) {
+                    if (result.status == true) {
+                        array = [];
+                        $("#cart_items").html("");
+                        $.each(result.message, function (index, item) {
+                            html = '<li class="" style="position:relative;" id="li' + item.Id + '">';
+                            html += '<a data-toggle="tab" href="#detail' + item.Id + '" aria-expanded="false">';
+                            html += '<i class="grey ace-icon fa fa-gavel"></i> ' + item.TrackingCode + '</a>';
+                            html += '<a class="removeTrackingMain" style="position: absolute;right: -11px;top: -11px;padding:2px;border: none;z-index:9;background: none;box-shadow:none;cursor:pointer;" href="javascript:;" data-id="' + item.Id + '">';
+                            html += '<i class="red ace-icon fa fa-trash"></i> </a>';
+                            html += '</li>';
+                            $("#myTab1s").append(html);
+                            $.ajax({
+                                url: '/ExportGoodDetails/DisplayData',
+                                data: { id: item.Id },
+                                method: 'POST',
+                                async: false,
+                                success: function (result) {
+                                    content = '<div id="detail' + item.Id + '" class="tab-pane fade">';
+                                    content += result;
+                                    content += '</div>';
+                                    $('.tab-content').append(content);
+                                }
+                            });
+
+                        });
+                    }
+                }
+            });
+        }
+    });
+</script>

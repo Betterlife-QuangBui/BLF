@@ -1,0 +1,56 @@
+﻿@model PagedList.IPagedList<FlightBooking>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+@foreach (var item in Model)
+{
+    <div class="control" data-id="@item.Id">
+       
+        @*<a href="/FlightBooking/Edit/@item.Id" class="iframe_flightbooking_edit cboxElement">
+            <span class="btn btn-xs btn-info edit-item">
+                <i class="ace-icon fa fa-pencil bigger-120 "></i>
+            </span>
+        </a>*@
+        <a href="#" class="delete-item" data-url="/FlightBooking/Delete/@item.Id" data-id="tr_@item.Id">
+            <span class="btn btn-xs btn-danger delete-item"  data-url="/FlightBooking/Delete/@item.Id" data-id="tr_@item.Id">
+                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+            </span>
+        </a>
+
+        @if (item.FlightGoods.Count > 0 )
+        {
+            <a class="export1" data-href="/Export/FlightGood/@item.Id" href="/Export/FlightGood/@item.Id">
+                <span class="btn btn-xs btn-success">
+                    Xuất thông tin
+                </span>
+            </a>
+        }
+
+    </div>
+}
+<script src="~/better-life/assets/js/jquery.2.1.1.min.js"></script>
+<script src="~/better-life/assets/colorbox/jquery.colorbox.js"></script>
+<style>
+    #cboxClose {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        text-indent: -9999px;
+        z-index: 99999;
+        top: 12px !important;
+        right: 12px !important;
+    }
+</style>
+<script>
+    $(function () {
+        $(".iframe_flightbooking_edit").colorbox({ iframe: true, innerWidth: 600, innerHeight: 640, overlayClose: false });
+        $(".iframe_flightbooking_add").colorbox({ iframe: true, innerWidth: 600, innerHeight: 440, overlayClose: false });
+    })
+
+    function paging(number) {
+        $(".item-of-page").html("");
+        $(".item-of-page").load('/Ajax/FlightBooking?page=' + number + '&key=@(ViewBag.key)');
+        $(".action-crud").html("");
+        $(".action-crud").load('/Ajax/FlightBookingControl?page=' + number + '&key=@(ViewBag.key)');
+    }
+</script>

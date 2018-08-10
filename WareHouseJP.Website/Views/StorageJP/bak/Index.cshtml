@@ -1,0 +1,71 @@
+﻿@model PagedList.IPagedList<StorageJP>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/StorageJP">Lưu kho JP</a>
+        </li>
+        <li class="active">Danh sách lưu kho</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <div class="action-main">
+        <a href="/StorageJP/Add" class="iframe_storagejp_add">
+            <span class="btn btn-xs btn-warning no-border">
+                <i class="fa fa-plus-circle success"></i>
+                <span class="bigger-110">Thêm</span>
+            </span>
+        </a>
+        <div class="action-crud">
+            @{Html.RenderPartial("_ControlItemOfPage", Model); }
+        </div>
+    </div>
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="col-xs-3">
+        <div class="">
+            <div class="table-header">
+                @*@ViewBag.Title*@
+                &nbsp;
+                <div style="float:right;margin-top:5px; font-weight:normal;">
+                    <div class="nav-search" id="nav-search">
+                        <span class="input-icon">
+                            <input type="text" onkeyup="inputSearch(this)" name="key" value="@ViewBag.key" placeholder="tìm kiếm ..." class="nav-search-input" autocomplete="off" />
+                            <i class="ace-icon fa fa-search nav-search-icon"></i>
+                        </span>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+        <!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12 item-of-page">
+                @*@Html.Partial("_ItemOfPage", Model)*@
+                @{Html.RenderPartial("_ItemOfPage", Model); }
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.page-content -->
+    </div>
+    <div class="col-xs-9">
+        <div class="col-xs-12 wasehouse-info">
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <link href="~/Content/storejp.css" rel="stylesheet" />
+    <link href="~/better-life/assets/colorbox/example1/colorbox.css" rel="stylesheet" />
+    <script src="~/better-life/assets/colorbox/jquery.colorbox.js"></script>
+    <script src="~/Scripts/storejp.js"></script>
+}

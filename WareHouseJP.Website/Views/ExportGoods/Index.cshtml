@@ -1,0 +1,189 @@
+﻿@model PagedList.IPagedList<ExportGood>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/ExportGoods">Xuất kho</a>
+        </li>
+        <li class="active">Danh sách kiện xuất kho</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="shipment col-sm-11">
+            <div class="shipment_header" style="position:relative;">
+                <div class="status_notes">
+                    @*<div class="status_note bg-red">Đang đóng gói</div>
+                    <div class="status_note bg-blue">Đã đóng gói</div>*@
+                </div>
+                <a href="/ExportGoods/Add" class="shipment_add add-item-btn">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <div class="display-column display-column-choose">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-primary">Thông tin hiển thị</button>
+                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu hiden-column">
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-shipping" type="checkbox" checked class="ace" data-index="1" />
+                                        <span class="lbl"> Shipping Mark</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-shipper" checked type="checkbox" class="ace" data-index="3" />
+                                        <span class="lbl"> Khối lượng</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-mawb" type="checkbox" checked class="ace" data-index="4" />
+                                        <span class="lbl"> Kích thước</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-date" type="checkbox" checked class="ace" data-index="5" />
+                                        <span class="lbl"> Ngày đóng gói</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-from" type="checkbox" checked class="ace" data-index="6" />
+                                        <span class="lbl"> Giờ đóng gói</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-status" type="checkbox" checked class="ace" data-index="10" />
+                                        <span class="lbl"> Trạng thái</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-note" type="checkbox" checked class="ace" data-index="8" />
+                                        <span class="lbl"> Ghi chú</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" class="default-column">Default view</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="shipment_add_body"></div>
+            </div>
+            <div class="shipment_content">
+                <table id="storejp-table">
+                    <thead>
+                        <tr class="sort-row">
+                            <th style="width:50px;"></th>
+                            <th class="sort-column" data-sort="tracking-asc">
+                                SHIPPING MARK &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error">(*)</div>
+                            </th>
+                            <th style="width:50px;"></th>
+                            <th data-sort="weigh-asc">
+                                KL(KG) &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error-yellow">(*)</div>
+                            </th>
+                            <th data-sort="size-asc">
+                                KÍCH THƯỚC &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error-yellow">(*)</div>
+                            </th>
+                            <th data-sort="date-asc">
+                                NGÀY ĐÓNG GÓI &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error-yellow">(*)</div>
+                            </th>
+                            <th class="trackingsub-column" data-sort="hour-asc">
+                                GIỜ ĐÓNG GÓI &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error-yellow">(*)</div>
+                            </th>
+                            <th style="width:155px;" data-sort="status-asc">
+                                TRẠNG THÁI &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error-yellow">(*)</div>
+                            </th>
+                            <th data-sort="notes-asc">
+                                GHI CHÚ &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                                <div class="error-yellow">(*)</div>
+                            </th>
+                        </tr>
+                        <tr class="filter-jp">
+                            <th></th>
+                            <th><input class="form-control" /></th>
+                            <th></th>
+                            <th><input class="form-control" /></th>
+                            <th><input class="form-control" /></th>
+                            <th class="datepicker" style="position:relative;"><input class="form-control" /></th>
+                            <th><input class="form-control" /></th>
+                            <th>
+                                <select class="form-control" data-live-search="true">
+                                    <option selected value="0">Tất cả</option>
+                                    <option value="9">Đang đóng gói</option>
+                                    <option value="10">Đã đóng gói</option>
+                                </select>
+                            </th>
+                            <th><input class="form-control" /></th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                        @{Html.RenderPartial("_ItemOfPage", Model); }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="package package-items col-sm-1">
+
+        </div>
+    </div>
+</div>
+<input type="hidden" value="created-desc" id="sort-export" />
+<input type="hidden" value="" id="ExportId" />
+<input type="hidden" value="@Request["id"]" id="RequestId" />
+@section scripts{
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet">
+    <link href="~/Content/Exportgoods_Index.css" rel="stylesheet" />
+    <!--Update script từ đây-->
+    <!--Selectpicker-->
+    <link href="~/HTML/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/HTML/bootstrap-select.js"></script>
+    <!--Scroll-->
+    <script src="~/HTML/jquery.slimscroll.js"></script>
+    <script src="~/Scripts/Exportgoods_Index.js"></script>
+    <!--Kết thúc-->
+}

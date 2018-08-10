@@ -1,0 +1,142 @@
+﻿@model PagedList.IPagedList<DeliveryAddress>
+@using PagedList.Mvc;
+@using PagedList;
+@{ var PageUtils = new PageUtils(); UserPage user = new UserPage();}
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/">Trang chủ</a>
+        </li>
+
+        <li>
+            <a href="/DeliveryAddresses">Địa chỉ nhận hàng</a>
+        </li>
+        <li class="active">Danh sách địa chỉ nhận hàng</li>
+    </ul>
+    <!-- /.breadcrumb -->
+    <!-- /.nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-bottom:15px;">
+
+    </div>
+    <div class="row">
+        <div class="package package-items col-md-8">
+            <div class="package_header">
+                <div class="status_notes">
+                </div>
+                <a class="package_add add-item-btn" href="/DeliveryAddresses/Add">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <!-- Split button -->
+                <div class="display-column">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-primary">Thông tin hiển thị</button>
+                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu hiden-column">
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-Tracking" type="checkbox" checked class="ace" data-index="1" />
+                                        <span class="lbl"> Mã đại lý</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-Tracking" type="checkbox" checked class="ace" data-index="3" />
+                                        <span class="lbl"> Mã địa chỉ</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <label class="pos-rel">
+                                        <input id="col-delivery" type="checkbox" checked class="ace" data-index="4" />
+                                        <span class="lbl"> Địa chỉ</span>
+                                    </label>
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" class="default-column">Default view</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="package_add_body"></div>
+            </div>
+            <div class="package_content">
+                <table id="storejp-table">
+                    <thead>
+                        <tr class="sort-row">
+                            <th style="width:50px;"></th>
+                            <th class="sort-column" data-sort="agency-asc">
+                                MÃ ĐẠI LÝ &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                            </th>
+                            <th style="width:50px;"></th>
+                            <th class="sort-column" data-sort="code-asc">
+                                MÃ ĐỊA CHỈ &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                            </th>
+                            <th class="dev-column" data-sort="address-asc">
+                                ĐỊA CHỈ &nbsp;<span class="sort sort-asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+                                <span class="sort sort-desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></span>
+                            </th>
+                        </tr>
+                        <tr class="filter-jp">
+                            <th></th>
+                            <th>
+                                @{var AgencyId = ViewBag.AgencyId; }
+                                @Html.DropDownList("AgencyId", (IEnumerable<SelectListItem>)AgencyId, "Tất cả", htmlAttributes: new { @class = "form-control" })
+                            </th>
+                            <th></th>
+                            <th><input class="form-control" /></th>
+                            <th><input class="form-control" /></th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                        @{Html.RenderPartial("_ItemOfPage", Model); }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="package-detail col-xs-4">
+            <div class="package-detail_header"></div>
+            <div class="package-detail_content">
+                <div class="col-xs-12 wasehouse-info"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" value="created-desc" id="sort-setting" />
+<input type="hidden" value="" id="DeliveryAddressesId" />
+<style>
+    .filter-jp img.ui-datepicker-trigger {
+        position: absolute;
+        right: 8px !important;
+        top: 11px !important;
+    }
+</style>
+@section scripts{
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet">
+    <link href="~/Content/DeliveryAddresses.css" rel="stylesheet" />
+    <!--Update script từ đây-->
+    <!--Selectpicker-->
+    <link href="~/HTML/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/HTML/bootstrap-select.js"></script>
+    <!--Scroll-->
+    <script src="~/HTML/jquery.slimscroll.js"></script>
+    <script src="~/Scripts/DeliveryAddresses.js"></script>
+    <!--Kết thúc-->
+}

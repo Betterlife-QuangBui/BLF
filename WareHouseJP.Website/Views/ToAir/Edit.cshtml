@@ -1,0 +1,42 @@
+﻿@model ToAir
+
+@{
+    Layout = "~/Views/Shared/_LayoutNewCRUD.cshtml";
+}
+<div class="body">
+    <div class="head">
+        <div class="head-center title">
+            Thông tin nơi đến
+            <div class="notify">Điền đầy đủ thông tin các mục (*)</div>
+        </div>
+        <span class="close-package">x</span>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm("Edit", "ToAir", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <table class="table_insert col-md-12" align="center" style="width:100%;">
+                <tr>
+                    <td class="tt-title-form"><b>Tên nơi đến <span class="error">(*)</span></b></td>
+                    <td>:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td style="position:relative;">
+                        <input type="hidden" value="@Model.CreatedAt" name="CreatedAt" />
+                        <input type="hidden" value="@Model.UpdatedAt" name="UpdatedAt" />
+                        <button type="submit" class="btncreate btn btn-sm btn-success tt-margin-right tt-width-button"><i class="glyphicon glyphicon-floppy-disk"></i> Lưu</button>
+                        <button type="reset" class="btn btn-sm btn-danger tt-width-button"><i class="glyphicon glyphicon-refresh"></i> Hủy</button>
+                    </td>
+                </tr>
+            </table>
+
+        }
+    </div>
+</div>
+
